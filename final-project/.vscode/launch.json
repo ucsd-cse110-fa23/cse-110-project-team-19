@@ -21,7 +21,23 @@
       "type": "java",
       "name": "Contact",
       "request": "launch",
-      "mainClass": "Main",
+      "mainClass": "Contact.Main",
+      "projectName": "final-project_f37d7425",
+      "vmArgs": "--module-path '/Users/reesewhitlock/Fall23/110/javafx-sdk-21/lib' --add-modules javafx.controls,javafx.fxml"
+    },
+    {
+      "type": "java",
+      "name": "Client",
+      "request": "launch",
+      "mainClass": "client.App",
+      "projectName": "final-project_f37d7425",
+      "vmArgs": "--module-path '/Users/reesewhitlock/Fall23/110/javafx-sdk-21/lib' --add-modules javafx.controls,javafx.fxml"
+    },
+    {
+      "type": "java",
+      "name": "PantryPal",
+      "request": "launch",
+      "mainClass": "client.pantryPal.Main",
       "projectName": "final-project_f37d7425",
       "vmArgs": "--module-path '/Users/reesewhitlock/Fall23/110/javafx-sdk-21/lib' --add-modules javafx.controls,javafx.fxml"
     },
