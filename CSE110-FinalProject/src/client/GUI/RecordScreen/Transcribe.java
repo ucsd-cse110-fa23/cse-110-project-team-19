@@ -64,7 +64,7 @@ public class Transcribe {
   }
 
   // Helper method to handle a successful response
-  private static void handleSuccessResponse(HttpURLConnection connection)
+  private static String handleSuccessResponse(HttpURLConnection connection)
     throws IOException, JSONException {
     BufferedReader in = new BufferedReader(
       new InputStreamReader(connection.getInputStream())
@@ -81,7 +81,7 @@ public class Transcribe {
     String generatedText = responseJson.getString("text");
 
     // Print the transcription result
-    System.out.println("Transcription Result: " + generatedText);
+    return generatedText;
   }
 
   // Helper method to handle an error response
@@ -100,8 +100,7 @@ public class Transcribe {
     System.out.println("Error Result: " + errorResult);
   }
 
-  public static void main(String[] args)
-    throws IOException, URISyntaxException {
+  public static String transcribe() throws IOException, URISyntaxException {
     // Create file object from file path
     File file = new File(FILE_PATH);
 
@@ -137,15 +136,17 @@ public class Transcribe {
 
     // Get response code
     int responseCode = connection.getResponseCode();
+    String rString = "Error";
 
     // Check response code and handle response accordingly
     if (responseCode == HttpURLConnection.HTTP_OK) {
-      handleSuccessResponse(connection);
+      rString = handleSuccessResponse(connection);
     } else {
       handleErrorResponse(connection);
     }
 
     // Disconnect connection
     connection.disconnect();
+    return rString;
   }
 }

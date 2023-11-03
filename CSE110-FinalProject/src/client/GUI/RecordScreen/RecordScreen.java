@@ -28,7 +28,11 @@ public class RecordScreen extends BorderPane {
 
     createButton = footer.getCreateButton();
     createButton.setOnAction(e -> {
-      ((RecipeScreen) view.getRoot("recipe")).generateRecipe("", "");
+      String ingredients = "error";
+      try {
+        ingredients = Transcribe.transcribe();
+        ((RecipeScreen) view.getRoot("recipe")).generateRecipe("", ingredients);
+      } catch (Exception exception) {}
       view.setRoot("recipe");
     });
   }
