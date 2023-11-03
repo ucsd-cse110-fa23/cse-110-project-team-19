@@ -37,7 +37,7 @@ public class RecipeScreen extends BorderPane {
   public void generateRecipe(String mealType, String ingredients)
     throws IOException, InterruptedException, URISyntaxException {
     try {
-      recipeDetails.newRecipe(ingredients);
+      recipeDetails.newRecipe(mealType, ingredients);
     } catch (Exception e) {}
   }
 }

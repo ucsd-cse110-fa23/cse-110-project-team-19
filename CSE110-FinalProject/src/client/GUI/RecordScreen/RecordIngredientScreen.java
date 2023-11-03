@@ -6,17 +6,17 @@ import client.View;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
-public class RecordScreen extends BorderPane {
+public class RecordIngredientScreen extends BorderPane {
 
   private Header header;
   private Footer footer;
-  private RecordPrompt recordPrompt;
+  private RecordIngredientPrompt recordPrompt;
 
   private Button createButton;
 
-  public RecordScreen(View view) {
+  public RecordIngredientScreen(View view, String meal) {
     header = new Header();
-    recordPrompt = new RecordPrompt();
+    recordPrompt = new RecordIngredientPrompt();
     footer = new Footer();
 
     // Add header to the top of the BorderPane
@@ -31,7 +31,7 @@ public class RecordScreen extends BorderPane {
       String ingredients = "error";
       try {
         ingredients = Transcribe.transcribe();
-        ((RecipeScreen) view.getRoot("recipe")).generateRecipe("", ingredients);
+        ((RecipeScreen) view.getRoot("recipe")).generateRecipe(meal, ingredients);
       } catch (Exception exception) {}
       view.setRoot("recipe");
     });
