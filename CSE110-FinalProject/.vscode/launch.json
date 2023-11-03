@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Transcribe",
+      "request": "launch",
+      "mainClass": "client.GUI.RecordScreen.Transcribe",
+      "projectName": "CSE110-FinalProject_93c74578"
+    },
+    {
+      "type": "java",
       "name": "GUI",
       "request": "launch",
       "mainClass": "client.App",

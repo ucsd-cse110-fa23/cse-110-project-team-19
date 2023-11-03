@@ -44,9 +44,6 @@ class RecordPrompt extends VBox {
     recordingLabel.setVisible(false);
     this.setAlignment(Pos.TOP_CENTER);
 
-    // Get the audio format
-    audioFormat = getAudioFormat();
-
     // Add the listeners to the buttons
     addListeners();
   }
@@ -63,38 +60,21 @@ class RecordPrompt extends VBox {
     });
   }
 
-  private AudioFormat getAudioFormat() {
-    // the number of samples of audio per second.
-    // 44100 represents the typical sample rate for CD-quality audio.
-    float sampleRate = 44100;
-
-    // the number of bits in each sample of a sound that has been digitized.
-    int sampleSizeInBits = 16;
-
-    // the number of audio channels in this format (1 for mono, 2 for stereo).
-    int channels = 2;
-
-    // whether the data is signed or unsigned.
-    boolean signed = true;
-
-    // whether the audio data is stored in big-endian or little-endian order.
-    boolean bigEndian = false;
-
-    return new AudioFormat(
-      sampleRate,
-      sampleSizeInBits,
-      channels,
-      signed,
-      bigEndian
-    );
-  }
-
   private void startRecording() {
     Thread t = new Thread(
       new Runnable() {
         @Override
         public void run() {
           try {
+            // Get the audio format
+            AudioFormat audioFormat = new AudioFormat(
+              44100,
+              16,
+              1,
+              true,
+              false
+            );
+
             // the format of the TargetDataLine
             DataLine.Info dataLineInfo = new DataLine.Info(
               TargetDataLine.class,
@@ -112,7 +92,9 @@ class RecordPrompt extends VBox {
             );
 
             // the file that will contain the audio data
-            File audioFile = new File("recording.wav");
+            File audioFile = new File("ingredients.wav");
+            audioFile.delete();
+
             AudioSystem.write(
               audioInputStream,
               AudioFileFormat.Type.WAVE,
