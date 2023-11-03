@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "GUI",
+            "request": "launch",
+            "mainClass": "client.App",
+            "vmArgs": "--module-path 'C:/Users/kevin/Downloads/openjfx-21_windows-x64_bin-sdk/javafx-sdk-21/lib' --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "MyServer",
+            "request": "launch",
+            "mainClass": "server.MyServer",
+            "vmArgs": "--module-path 'C:/Users/kevin/Downloads/openjfx-21_windows-x64_bin-sdk/javafx-sdk-21/lib' --add-modules javafx.controls,javafx.fxml"
+        }          
+    ]
+}
