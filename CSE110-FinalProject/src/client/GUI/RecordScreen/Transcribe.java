@@ -100,6 +100,20 @@ public class Transcribe {
     System.out.println("Error Result: " + errorResult);
   }
 
+  public static String checkMealType(String input){
+    input = input.replaceAll("\\p{Punct}", "");
+    if(input.toLowerCase().equals("breakfast")){
+      return "breakfast";
+    }
+    else if(input.toLowerCase().equals("lunch")){
+      return "lunch";
+    }
+    else if(input.toLowerCase().equals("dinner")){
+      return "dinner";
+    }
+    return null;
+  }
+
   public static String transcribe() throws IOException, URISyntaxException {
     // Create file object from file path
     File file = new File(FILE_PATH);

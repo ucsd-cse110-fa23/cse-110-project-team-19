@@ -47,10 +47,10 @@ class RecipeDetails extends VBox {
     this.getChildren().add(text); // add text to recipe details
   }
 
-  public void newRecipe(String ingredients)
+  public void newRecipe(String mealType, String ingredients)
     throws IOException, InterruptedException, URISyntaxException {
     String prompt =
-      "Can you create me a recipe with these ingredients " + ingredients;
+      "Can you create me a recipe for " + mealType + " with these ingredients " + ingredients;
     int maxTokens = 100;
     // Create a request body which you will pass into request object
     JSONObject requestBody = new JSONObject();

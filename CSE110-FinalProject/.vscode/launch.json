@@ -16,14 +16,14 @@
       "name": "GUI",
       "request": "launch",
       "mainClass": "client.App",
-      "vmArgs": "--module-path '/Users/reesewhitlock/Fall23/110/projects/cse-110-project-team-19/CSE110-FinalProject/lib' --add-modules javafx.controls,javafx.fxml"
+      "vmArgs": "--module-path '/Users/krutidharanipathi/Desktop/CSE/CSE110/Project/cse-110-project-team-19/CSE110-FinalProject/lib' --add-modules javafx.controls,javafx.fxml"
     },
     {
       "type": "java",
       "name": "MyServer",
       "request": "launch",
       "mainClass": "server.MyServer",
-      "vmArgs": "--module-path '/Users/reesewhitlock/Fall23/110/projects/cse-110-project-team-19/CSE110-FinalProject/lib' --add-modules javafx.controls,javafx.fxml"
+      "vmArgs": "--module-path '/Users/krutidharanipathi/Desktop/CSE/CSE110/Project/cse-110-project-team-19/CSE110-FinalProject/lib' --add-modules javafx.controls,javafx.fxml"
     }
   ]
 }

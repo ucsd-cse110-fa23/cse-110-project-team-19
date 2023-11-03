@@ -12,7 +12,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
 
-class RecordPrompt extends VBox {
+class RecordIngredientPrompt extends VBox {
 
   private Label prompt;
   private Button startButton;
@@ -21,7 +21,7 @@ class RecordPrompt extends VBox {
   private TargetDataLine targetDataLine;
   private Label recordingLabel;
 
-  RecordPrompt() {
+  RecordIngredientPrompt() {
     this.setSpacing(5); // sets spacing between tasks
     this.setPrefSize(500, 560);
     this.setStyle("-fx-background-color: #F0F8FF;");

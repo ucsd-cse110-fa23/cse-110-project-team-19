@@ -6,7 +6,8 @@ import client.GUI.DeleteConfirm;
 import client.GUI.EditRecipeScreen;
 
 import client.GUI.MainMenu.MainMenu;
-import client.GUI.RecordScreen.RecordScreen;
+import client.GUI.RecordScreen.RecordIngredientScreen;
+import client.GUI.RecordScreen.RecordMealScreen;
 import client.GUI.RecipeScreen.RecipeScreen;
 
 import javafx.scene.Scene;
@@ -20,8 +21,12 @@ public class View {
     public View(){
         scenes = new HashMap<>();
         scenes.put("main", new MainMenu(this));
-        scenes.put("record", new RecordScreen(this));
+        scenes.put("recordMeal", new RecordMealScreen(this, "Record the Meal Type for the recipe:"));
+        scenes.put("recordMealError", new RecordMealScreen(this, "Please repeat Meal Type:"));
         scenes.put("recipe",new RecipeScreen(this));
+        scenes.put("recordBF", new RecordIngredientScreen(this, "breakfast"));
+        scenes.put("recordLN", new RecordIngredientScreen(this, "lunch"));
+        scenes.put("recordDR", new RecordIngredientScreen(this, "dinner"));
         scenes.put("edit",new EditRecipeScreen());
         scenes.put("delete",new DeleteConfirm());
 

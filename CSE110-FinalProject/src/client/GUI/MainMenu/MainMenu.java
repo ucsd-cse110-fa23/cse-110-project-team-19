@@ -32,7 +32,7 @@ public class MainMenu extends BorderPane{
 
         createButton = footer.getCreateButton();
         createButton.setOnAction(e -> {
-            view.setRoot("record");
+            view.setRoot("recordMeal");
         });
     }
 
