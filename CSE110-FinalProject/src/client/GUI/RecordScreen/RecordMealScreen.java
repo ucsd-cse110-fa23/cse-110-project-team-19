@@ -13,6 +13,7 @@ public class RecordMealScreen extends BorderPane {
   private RecordMealPrompt recordPrompt;
 
   private Button createButton;
+  private Button backButton;
 
   public RecordMealScreen(View view, String str) {
     header = new Header();
@@ -25,6 +26,7 @@ public class RecordMealScreen extends BorderPane {
     this.setCenter(recordPrompt);
     // Add footer to the bottom of the BorderPane
     this.setBottom(footer);
+    backButton = header.getBackButton();
 
     createButton = footer.getCreateButton();
     createButton.setOnAction(e -> {
@@ -50,5 +52,7 @@ public class RecordMealScreen extends BorderPane {
       } catch (Exception exception) {}
       //view.setRoot("recordMealError");
     });
+
   }
+
 }

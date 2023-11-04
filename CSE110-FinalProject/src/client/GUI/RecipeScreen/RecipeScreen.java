@@ -5,6 +5,7 @@ import client.View;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 
 public class RecipeScreen extends BorderPane {
@@ -20,10 +21,14 @@ public class RecipeScreen extends BorderPane {
     recipeDetails = new RecipeDetails();
     footer = new Footer();
 
+    ScrollPane scrollPane = new ScrollPane(recipeDetails);
+    scrollPane.setFitToWidth(true);
+    scrollPane.setFitToHeight(false);
+
     // Add header to the top of the BorderPane
     this.setTop(header);
     // Add scroller to the centre of the BorderPane
-    this.setCenter(recipeDetails);
+    this.setCenter(scrollPane);
     // Add footer to the bottom of the BorderPane
     this.setBottom(footer);
 
@@ -31,13 +36,17 @@ public class RecipeScreen extends BorderPane {
     createButton.setOnAction(e -> {
       ((MainMenu) view.getRoot("main")).createRecipe(recipeDetails.toString());
       view.setRoot("main");
+
     });
+
   }
 
   public void generateRecipe(String mealType, String ingredients)
-    throws IOException, InterruptedException, URISyntaxException {
+      throws IOException, InterruptedException, URISyntaxException {
     try {
       recipeDetails.newRecipe(mealType, ingredients);
-    } catch (Exception e) {}
+    } catch (Exception e) {
+    }
   }
+
 }

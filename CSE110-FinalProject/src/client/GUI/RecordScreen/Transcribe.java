@@ -18,7 +18,7 @@ public class Transcribe {
   private static final String API_ENDPOINT =
     "https://api.openai.com/v1/audio/transcriptions";
   private static final String TOKEN =
-    "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";
+    "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";
   private static final String MODEL = "whisper-1";
   private static final String FILE_PATH = "ingredients.wav";
 

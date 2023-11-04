@@ -20,8 +20,14 @@ class RecipeList extends VBox {
         }
     }
 
+    public void removeRecipe() {
+        this.getChildren().removeIf(recipe -> recipe instanceof Recipe && ((Recipe) recipe).isMarkedDone());
+        this.updateTaskIndices();
+    }
+
     public void deleteRecipe(Recipe recipe) {
         this.getChildren().removeIf(curr -> curr.equals(recipe));
         this.updateTaskIndices();
     }
+
 }
