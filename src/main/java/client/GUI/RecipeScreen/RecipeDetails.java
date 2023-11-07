@@ -23,7 +23,7 @@ class RecipeDetails extends VBox {
   private static final String API_ENDPOINT =
     "https://api.openai.com/v1/completions";
   private static final String API_KEY =
-    "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";
+    "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";
   private static final String MODEL = "text-davinci-003";
 
   RecipeDetails() {
