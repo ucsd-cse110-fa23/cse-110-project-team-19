@@ -1,5 +1,7 @@
 package client.view.RecipeScreen;
 
+import client.model.RecipeDetails;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.event.ActionEvent;

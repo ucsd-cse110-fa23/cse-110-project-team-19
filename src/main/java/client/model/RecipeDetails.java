@@ -1,4 +1,4 @@
-package client.view.RecipeScreen;
+package client.model;
 
 import java.io.IOException;
 import java.net.URI;
@@ -95,3 +95,4 @@ public class RecipeDetails extends VBox {
     return str.substring(0, str.indexOf("\n"));
   }
 }
+
