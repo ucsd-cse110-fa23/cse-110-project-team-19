@@ -1,11 +1,11 @@
 package client;
 
-import client.GUI.DeleteConfirm;
-import client.GUI.EditRecipeScreen;
-import client.GUI.MainMenu.MainMenu;
-import client.GUI.RecipeScreen.RecipeScreen;
-import client.GUI.RecordScreen.RecordIngredientScreen;
-import client.GUI.RecordScreen.RecordMealScreen;
+import client.view.DeleteConfirm;
+import client.view.EditRecipeScreen;
+import client.view.MainMenu.MainMenu;
+import client.view.RecipeScreen.RecipeScreen;
+import client.view.RecordScreen.RecordIngredientScreen;
+import client.view.RecordScreen.RecordMealScreen;
 import java.util.HashMap;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -14,10 +14,12 @@ public class View {
 
   HashMap<String, BorderPane> scenes;
   Scene scene;
+  MainMenu mainMenu = new MainMenu();
 
   public View() {
     scenes = new HashMap<>();
-    scenes.put("main", new MainMenu(this));
+    scenes.put("main", mainMenu);
+
     scenes.put(
       "recordMeal",
       new RecordMealScreen(this, "Record the Meal Type for the recipe:")

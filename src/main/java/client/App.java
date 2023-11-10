@@ -1,5 +1,7 @@
 package client;
 
+import client.controller.MainMenuController;
+import client.view.MainMenu.MainMenu;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -12,6 +14,11 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) {
     View view = new View();
+    MainMenu mainMenu = view.mainMenu;
+    MainMenuController mainMenuController = new MainMenuController(
+      view,
+      mainMenu
+    );
     //Model model = new Model();
     //Controller controller = new Controller(view, model);
 
