@@ -3,7 +3,7 @@ package client.controller;
 import client.View;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
-import client.view.RecordScreen.Transcribe;
+import client.model.Transcribe;
 import javafx.event.ActionEvent;
 
 public class RecordIngredientScreenController {

@@ -1,7 +1,6 @@
 package client.view.RecordScreen;
 
-// import client.GUI.MainMenu.MainMenu;
-// import client.GUI.RecipeScreen.RecipeScreen;
+import client.model.Transcribe;
 import client.View;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
