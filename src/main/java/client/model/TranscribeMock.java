@@ -9,9 +9,10 @@ public class TranscribeMock extends ATranscribe {
 
   // should probably be updated to read in audio files this was just a quick last minute solution to test functionality with chatgpt mock
   public String transcribe() throws IOException, URISyntaxException {
-    if (meal) {
-      return "lunch";
-    }
-    return "potatoes, beans";
+      if (meal) {
+          return "lunch";
+      }
+      
+      return "potatoes, beans";
   }
 }
