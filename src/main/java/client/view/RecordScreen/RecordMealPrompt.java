@@ -1,6 +1,9 @@
 package client.view.RecordScreen;
 
 import java.io.File;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +15,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
 
-class RecordMealPrompt extends VBox {
+public class RecordMealPrompt extends VBox {
 
   private Label prompt;
   private Button startButton;
@@ -44,72 +47,26 @@ class RecordMealPrompt extends VBox {
     recordingLabel.setVisible(false);
     this.setAlignment(Pos.TOP_CENTER);
 
-    // Add the listeners to the buttons
-    addListeners();
   }
 
-  public void addListeners() {
-    // Start Button
-    startButton.setOnAction(e -> {
-      startRecording();
-    });
-
-    // Stop Button
-    stopButton.setOnAction(e -> {
-      stopRecording();
-    });
+ public Label getRecordingLabel() {
+    return this.recordingLabel;
   }
 
-  private void startRecording() {
-    Thread t = new Thread(
-      new Runnable() {
-        @Override
-        public void run() {
-          try {
-            // Get the audio format
-            AudioFormat audioFormat = new AudioFormat(
-              44100,
-              16,
-              1,
-              true,
-              false
-            );
-
-            // the format of the TargetDataLine
-            DataLine.Info dataLineInfo = new DataLine.Info(
-              TargetDataLine.class,
-              audioFormat
-            );
-            // the TargetDataLine used to capture audio data from the microphone
-            targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
-            targetDataLine.open(audioFormat);
-            targetDataLine.start();
-            recordingLabel.setVisible(true);
-
-            // the AudioInputStream that will be used to write the audio data to a file
-            AudioInputStream audioInputStream = new AudioInputStream(
-              targetDataLine
-            );
-
-            // the file that will contain the audio data
-            File audioFile = new File("ingredients.wav");
-            audioFile.delete();
-
-            AudioSystem.write(
-              audioInputStream,
-              AudioFileFormat.Type.WAVE,
-              audioFile
-            );
-            recordingLabel.setVisible(false);
-          } catch (Exception e1) {}
-        }
-      }
-    );
-    t.start();
+  public void setStartButtonAction(EventHandler<ActionEvent> eventHandler) {
+    startButton.setOnAction(eventHandler);
   }
 
-  private void stopRecording() {
-    targetDataLine.stop();
-    targetDataLine.close();
+  public void setStopButtonAction(EventHandler<ActionEvent> eventHandler) {
+    stopButton.setOnAction(eventHandler);
   }
+
+  public void setTargetDataLine(TargetDataLine targetDataLine) {
+    this.targetDataLine = targetDataLine;
+  }
+
+  public TargetDataLine getTargetDataLine() {
+    return this.targetDataLine;
+  }
+
 }
