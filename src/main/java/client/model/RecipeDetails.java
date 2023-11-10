@@ -95,4 +95,3 @@ public class RecipeDetails extends VBox {
     return str.substring(0, str.indexOf("\n"));
   }
 }
-

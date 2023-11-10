@@ -1,6 +1,7 @@
 package client.view.MainMenu;
 
 import client.View;
+import client.view.RecipeScreen.RecipeScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -11,13 +12,12 @@ public class MainMenu extends BorderPane {
 
   private Header header;
   private Footer footer;
-  private RecipeList recipeList;
+  private RecipeList recipeList = new RecipeList();
 
   private Button createButton;
 
   public MainMenu() {
     header = new Header();
-    recipeList = new RecipeList();
     footer = new Footer();
 
     ScrollPane scrollPane = new ScrollPane(recipeList);
@@ -42,9 +42,7 @@ public class MainMenu extends BorderPane {
     createButton.setOnAction(e);
   }
 
-  public void createRecipe(String str) {
-    Recipe recipe = new Recipe();
-    recipe.getRecipeName().setText(str);
-    recipeList.getChildren().add(recipe);
+  public RecipeList getRecipeList() {
+    return this.recipeList;
   }
 }

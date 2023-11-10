@@ -1,7 +1,6 @@
 package client.view.RecipeScreen;
 
 import client.model.RecipeDetails;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
@@ -42,12 +41,5 @@ public class RecipeScreen extends BorderPane {
 
   public void setSaveButtonAction(EventHandler<ActionEvent> eventHandler) {
     saveButton.setOnAction(eventHandler);
-  }
-
-  public void generateRecipe(String mealType, String ingredients)
-    throws IOException, InterruptedException, URISyntaxException {
-    try {
-      recipeDetails.newRecipe(mealType, ingredients);
-    } catch (Exception e) {}
   }
 }

@@ -2,7 +2,7 @@ package client.view.MainMenu;
 
 import javafx.scene.layout.*;
 
-class RecipeList extends VBox {
+public class RecipeList extends VBox {
 
   public RecipeList() {
     this.setSpacing(5); // sets spacing between tasks
