@@ -26,6 +26,10 @@ public class App extends Application {
     new RecordMealTypePromptController(
       view.recordMealScreen.getRecordMealPrompt()
     );
+    new RecordMealScreenController(view, view.recordMealScreenError);
+    new RecordMealTypePromptController(
+      view.recordMealScreenError.getRecordMealPrompt()
+    );
     new RecordIngredientScreenController(view, view.recordIngredientScreen);
     new RecordIngredientPromptController(
       view.recordIngredientScreen.getRecordIngredientPrompt()
