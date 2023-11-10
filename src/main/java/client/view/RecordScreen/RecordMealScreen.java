@@ -1,7 +1,6 @@
 package client.view.RecordScreen;
 
-// import client.GUI.MainMenu.MainMenu;
-// import client.GUI.RecipeScreen.RecipeScreen;
+import client.model.Transcribe;
 import client.View;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -34,12 +33,12 @@ public class RecordMealScreen extends BorderPane {
         String type = Transcribe.checkMealType(mealType);
         if (type == null) {
           view.setRoot("recordMealError");
-        } else if (type.equals("breakfast")) {
-          view.setRoot("recordBF");
-        } else if (type.equals("lunch")) {
-          view.setRoot("recordLN");
-        } else if (type.equals("dinner")) {
-          view.setRoot("recordDR");
+        } else if (
+          type.equals("breakfast") ||
+          type.equals("lunch") ||
+          type.equals("dinner")
+        ) {
+          view.setMealType(type);
         } else {
           view.setRoot("recordMealError");
         }
