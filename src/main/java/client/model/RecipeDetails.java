@@ -26,7 +26,7 @@ public class RecipeDetails extends VBox {
     "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";
   private static final String MODEL = "text-davinci-003";
 
-  RecipeDetails() {
+  public RecipeDetails() {
     testTitles = new String[5];
     testTitles[0] = "Fried Rice";
     testTitles[1] = "Braised Pork";
