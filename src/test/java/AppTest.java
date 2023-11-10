@@ -4,12 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import client.View;
+import client.model.RecipeDetailsMock;
+import client.model.TranscribeMock;
 import client.view.MainMenu.*;
 import client.view.RecipeScreen.*;
 import client.view.RecordScreen.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
