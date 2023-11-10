@@ -1,4 +1,4 @@
-package client.view.RecordScreen;
+package client.model;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 public class Transcribe {
 
-  private static final String API_ENDPOINT =
+    private static final String API_ENDPOINT =
     "https://api.openai.com/v1/audio/transcriptions";
   private static final String TOKEN =
     "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";
@@ -161,4 +161,5 @@ public class Transcribe {
     connection.disconnect();
     return rString;
   }
+    
 }
