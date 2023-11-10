@@ -1,4 +1,4 @@
-package client.view.RecipeScreen;
+package client.model;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
