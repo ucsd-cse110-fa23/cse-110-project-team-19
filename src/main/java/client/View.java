@@ -15,6 +15,9 @@ public class View {
   HashMap<String, BorderPane> scenes;
   Scene scene;
   MainMenu mainMenu = new MainMenu();
+  RecipeScreen recipeScreen = new RecipeScreen();
+  RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
+  String mealType;
 
   public View() {
     scenes = new HashMap<>();
@@ -28,10 +31,7 @@ public class View {
       "recordMealError",
       new RecordMealScreen(this, "Please repeat Meal Type:")
     );
-    scenes.put("recipe", new RecipeScreen(this));
-    scenes.put("recordBF", new RecordIngredientScreen(this, "breakfast"));
-    scenes.put("recordLN", new RecordIngredientScreen(this, "lunch"));
-    scenes.put("recordDR", new RecordIngredientScreen(this, "dinner"));
+    scenes.put("recipe", this.recipeScreen);
     scenes.put("edit", new EditRecipeScreen());
     scenes.put("delete", new DeleteConfirm());
 
@@ -48,5 +48,14 @@ public class View {
 
   public Scene getScene() {
     return scene;
+  }
+
+  public void setMealType(String type) {
+    this.mealType = type;
+    scene.setRoot(recordIngredientScreen);
+  }
+
+  public String getMealType() {
+    return this.mealType;
   }
 }

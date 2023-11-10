@@ -1,7 +1,5 @@
 package client.view.RecipeScreen;
 
-import client.View;
-import client.view.MainMenu.MainMenu;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
@@ -17,7 +15,7 @@ public class RecipeScreen extends BorderPane {
 
   private Button saveButton;
 
-  public RecipeScreen(View view) {
+  public RecipeScreen() {
     header = new Header();
     recipeDetails = new RecipeDetails();
     footer = new Footer();

@@ -1,9 +1,5 @@
 package client.controller;
 
-import client.View;
-import client.view.MainMenu.MainMenu;
-import client.view.RecipeScreen.RecipeDetails;
-import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientPrompt;
 import java.io.File;
 import javafx.event.ActionEvent;
@@ -17,6 +13,7 @@ import javax.sound.sampled.TargetDataLine;
 public class RecordIngredientPromptController {
 
   private RecordIngredientPrompt recordIngredientPrompt;
+  private TargetDataLine targetDataLine;
 
   public RecordIngredientPromptController(
     RecordIngredientPrompt recordIngredientPrompt
@@ -47,9 +44,7 @@ public class RecordIngredientPromptController {
               audioFormat
             );
             // the TargetDataLine used to capture audio data from the microphone
-            TargetDataLine targetDataLine = (TargetDataLine) AudioSystem.getLine(
-              dataLineInfo
-            );
+            targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
             targetDataLine.open(audioFormat);
             targetDataLine.start();
             recordIngredientPrompt.getRecordingLabel().setVisible(true);
@@ -68,7 +63,6 @@ public class RecordIngredientPromptController {
               AudioFileFormat.Type.WAVE,
               audioFile
             );
-            recordIngredientPrompt.setTargetDataLine(targetDataLine);
 
             recordIngredientPrompt.getRecordingLabel().setVisible(false);
           } catch (Exception e1) {}
@@ -79,8 +73,8 @@ public class RecordIngredientPromptController {
   }
 
   private void handleStopButton(ActionEvent event) {
-    recordIngredientPrompt.getTargetDataLine().stop();
+    targetDataLine.stop();
 
-    recordIngredientPrompt.getTargetDataLine().close();
+    targetDataLine.close();
   }
 }

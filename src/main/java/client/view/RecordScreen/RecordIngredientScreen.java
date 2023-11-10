@@ -1,7 +1,8 @@
 package client.view.RecordScreen;
 
 import client.View;
-import client.view.RecipeScreen.RecipeScreen;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
@@ -9,33 +10,30 @@ public class RecordIngredientScreen extends BorderPane {
 
   private Header header;
   private Footer footer;
-  private RecordIngredientPrompt recordPrompt;
+  private RecordIngredientPrompt recordIngredientPrompt;
 
-  private Button createButton;
+  private Button generateButton;
 
-  public RecordIngredientScreen(View view, String meal) {
+  public RecordIngredientScreen() {
     header = new Header();
-    recordPrompt = new RecordIngredientPrompt();
+    recordIngredientPrompt = new RecordIngredientPrompt();
     footer = new Footer();
 
     // Add header to the top of the BorderPane
     this.setTop(header);
     // Add scroller to the centre of the BorderPane
-    this.setCenter(recordPrompt);
+    this.setCenter(recordIngredientPrompt);
     // Add footer to the bottom of the BorderPane
     this.setBottom(footer);
 
-    createButton = footer.getCreateButton();
-    createButton.setOnAction(e -> {
-      String ingredients = "error";
-      try {
-        ingredients = Transcribe.transcribe();
-        ((RecipeScreen) view.getRoot("recipe")).generateRecipe(
-            meal,
-            ingredients
-          );
-      } catch (Exception exception) {}
-      view.setRoot("recipe");
-    });
+    generateButton = footer.getCreateButton();
+  }
+
+  public RecordIngredientPrompt getRecordIngredientPrompt() {
+    return recordIngredientPrompt;
+  }
+
+  public void setGenerateButtonAction(EventHandler<ActionEvent> eventHandler) {
+    generateButton.setOnAction(eventHandler);
   }
 }

@@ -34,12 +34,12 @@ public class RecordMealScreen extends BorderPane {
         String type = Transcribe.checkMealType(mealType);
         if (type == null) {
           view.setRoot("recordMealError");
-        } else if (type.equals("breakfast")) {
-          view.setRoot("recordBF");
-        } else if (type.equals("lunch")) {
-          view.setRoot("recordLN");
-        } else if (type.equals("dinner")) {
-          view.setRoot("recordDR");
+        } else if (
+          type.equals("breakfast") ||
+          type.equals("lunch") ||
+          type.equals("dinner")
+        ) {
+          view.setMealType(type);
         } else {
           view.setRoot("recordMealError");
         }

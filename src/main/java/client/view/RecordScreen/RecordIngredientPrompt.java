@@ -7,12 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.TargetDataLine;
 
 public class RecordIngredientPrompt extends VBox {
 
@@ -21,7 +15,6 @@ public class RecordIngredientPrompt extends VBox {
   private Button stopButton;
   // private AudioFormat audioFormat;
   private Label recordingLabel;
-  private TargetDataLine targetDataLine;
 
   RecordIngredientPrompt() {
     this.setSpacing(5); // sets spacing between tasks
@@ -57,13 +50,5 @@ public class RecordIngredientPrompt extends VBox {
 
   public void setStopButtonAction(EventHandler<ActionEvent> eventHandler) {
     stopButton.setOnAction(eventHandler);
-  }
-
-  public void setTargetDataLine(TargetDataLine targetDataLine) {
-    this.targetDataLine = targetDataLine;
-  }
-
-  public TargetDataLine getTargetDataLine() {
-    return this.targetDataLine;
   }
 }
