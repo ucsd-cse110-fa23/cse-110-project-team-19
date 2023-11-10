@@ -15,24 +15,33 @@ public class View {
   MainMenu mainMenu = new MainMenu();
   RecipeScreen recipeScreen = new RecipeScreen();
   RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
+  RecordMealScreen recordMealScreen =  new RecordMealScreen(this, "Record the Meal Type for the recipe:");
+  RecordMealScreen recordMealScreenError =  new RecordMealScreen(this, "Record the Meal Type for the recipe:");
   String mealType;
 
   public View() {
     scenes = new HashMap<>();
     scenes.put("main", mainMenu);
 
-    scenes.put(
-      "recordMeal",
-      new RecordMealScreen(this, "Record the Meal Type for the recipe:")
-    );
-    scenes.put(
-      "recordMealError",
-      new RecordMealScreen(this, "Please repeat Meal Type:")
-    );
+    // scenes.put(
+    //   "recordMeal",
+    //   this.recordMealScreen = new RecordMealScreen(this, "Record the Meal Type for the recipe:")
+    // );
+    // scenes.put(
+    //   "recordMealError",
+    //   this.recordMealScreen = new RecordMealScreen(this, "Please repeat Meal Type:")
+    // );
+    
     scenes.put("recipe", this.recipeScreen);
 
+    scenes.put("recordMeal", this.recordMealScreen);
+
+    scenes.put("recordMealError", this.recordMealScreenError);
+   
     scene = new Scene(scenes.get("main"), 500, 600);
   }
+
+
 
   public BorderPane getRoot(String key) {
     return scenes.get(key);

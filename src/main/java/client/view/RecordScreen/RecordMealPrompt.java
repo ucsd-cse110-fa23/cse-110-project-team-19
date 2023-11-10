@@ -21,7 +21,6 @@ public class RecordMealPrompt extends VBox {
   private Button startButton;
   private Button stopButton;
   // private AudioFormat audioFormat;
-  private TargetDataLine targetDataLine;
   private Label recordingLabel;
 
   RecordMealPrompt(String str) {
@@ -61,12 +60,5 @@ public class RecordMealPrompt extends VBox {
     stopButton.setOnAction(eventHandler);
   }
 
-  public void setTargetDataLine(TargetDataLine targetDataLine) {
-    this.targetDataLine = targetDataLine;
-  }
-
-  public TargetDataLine getTargetDataLine() {
-    return this.targetDataLine;
-  }
 
 }

@@ -17,6 +17,7 @@ import javax.sound.sampled.TargetDataLine;
 public class RecordMealTypePromptController {
 
     private RecordMealPrompt recordMealTypePrompt;
+    private TargetDataLine targetDataLine;
 
     public RecordMealTypePromptController(
     RecordMealPrompt recordMealTypePrompt
@@ -47,7 +48,7 @@ public class RecordMealTypePromptController {
               audioFormat
             );
             // the TargetDataLine used to capture audio data from the microphone
-            TargetDataLine targetDataLine = (TargetDataLine) AudioSystem.getLine(
+            targetDataLine = (TargetDataLine) AudioSystem.getLine(
               dataLineInfo
             );
             targetDataLine.open(audioFormat);
@@ -68,7 +69,7 @@ public class RecordMealTypePromptController {
               AudioFileFormat.Type.WAVE,
               audioFile
             );
-            recordMealTypePrompt.setTargetDataLine(targetDataLine);
+            
 
             recordMealTypePrompt.getRecordingLabel().setVisible(false);
           } catch (Exception e1) {}
@@ -79,8 +80,10 @@ public class RecordMealTypePromptController {
   }
 
   private void handleStopButton(ActionEvent event) {
-    recordMealTypePrompt.getTargetDataLine().stop();
+  
 
-    recordMealTypePrompt.getTargetDataLine().close();
+    targetDataLine.stop();
+
+    targetDataLine.close();
   }
 }
