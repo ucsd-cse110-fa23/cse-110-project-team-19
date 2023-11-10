@@ -2,7 +2,7 @@ package client.controller;
 
 import client.View;
 import client.view.MainMenu.MainMenu;
-import client.view.RecipeScreen.RecipeDetails;
+import client.model.RecipeDetails;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordMealPrompt;
 import java.io.File;
