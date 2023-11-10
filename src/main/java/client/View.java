@@ -16,7 +16,7 @@ public class View {
   RecipeScreen recipeScreen = new RecipeScreen();
   RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
   RecordMealScreen recordMealScreen =  new RecordMealScreen(this, "Record the Meal Type for the recipe:");
-  RecordMealScreen recordMealScreenError =  new RecordMealScreen(this, "Record the Meal Type for the recipe:");
+  RecordMealScreen recordMealScreenError =  new RecordMealScreen(this, "Please repeat Meal Type:");
   String mealType;
 
   public View() {
@@ -31,7 +31,7 @@ public class View {
     //   "recordMealError",
     //   this.recordMealScreen = new RecordMealScreen(this, "Please repeat Meal Type:")
     // );
-    
+
     scenes.put("recipe", this.recipeScreen);
 
     scenes.put("recordMeal", this.recordMealScreen);
