@@ -3,10 +3,7 @@ package client.GUI.RecipeScreen;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.scene.control.Label;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import javafx.scene.control.Label;
 
 public class RecipeDetailsMock implements IRecipeDetails{
     public Label text;
@@ -17,7 +14,6 @@ public class RecipeDetailsMock implements IRecipeDetails{
     public void newRecipe(String mealType, String ingredients)
             throws IOException, InterruptedException, URISyntaxException 
     {
-        // TODO
         String prompt =
         "Can you create me a recipe for " +
         mealType +

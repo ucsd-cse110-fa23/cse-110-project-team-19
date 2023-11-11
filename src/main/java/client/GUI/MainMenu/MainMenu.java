@@ -11,9 +11,13 @@ public class MainMenu extends BorderPane {
   private Footer footer;
   private RecipeList recipeList;
 
+  private View view;
+
   private Button createButton;
 
   public MainMenu(View view) {
+    this.view = view;
+
     header = new Header();
     recipeList = new RecipeList();
     footer = new Footer();
@@ -35,9 +39,9 @@ public class MainMenu extends BorderPane {
     });
   }
 
-  public void createRecipe(String str) {
-    Recipe recipe = new Recipe();
-    recipe.getRecipeName().setText(str);
+  public void createRecipe(String title) {
+    Recipe recipe = new Recipe(view, title);
+    recipe.getRecipeName().setText(title);
     recipeList.getChildren().add(recipe);
   }
 }

@@ -28,10 +28,12 @@ public class RecordMealScreen extends BorderPane {
 
     createButton = footer.getCreateButton();
     createButton.setOnAction(e -> {
-      String mealType = "error";
+      //uncomment after testing
+      String type = "breakfast";
+      // String mealType = "error";
       try {
-        mealType = Transcribe.transcribe();
-        String type = Transcribe.checkMealType(mealType);
+        // mealType = Transcribe.transcribe();
+        // String type = Transcribe.checkMealType(mealType);
         if (type == null) {
           view.setRoot("recordMealError");
         } else if (type.equals("breakfast")) {

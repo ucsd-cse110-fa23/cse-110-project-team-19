@@ -1,7 +1,10 @@
 package client.GUI.RecordScreen;
 
-// import client.GUI.MainMenu.MainMenu;
 import client.GUI.RecipeScreen.RecipeScreen;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import client.View;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -30,11 +33,16 @@ public class RecordIngredientScreen extends BorderPane {
     createButton.setOnAction(e -> {
       String ingredients = "error";
       try {
-        ingredients = Transcribe.transcribe();
-        ((RecipeScreen) view.getRoot("recipe")).generateRecipe(
-            meal,
-            ingredients
-          );
+        //uncomment after testing
+        RecipeScreen recipeScreen = (RecipeScreen) view.getRoot("recipe");
+        String details = ChatGPTRecipeGenerator.getFakeRecipe();
+        //String details = ChatGPTRecipeGenerator.generateNewRecipe("breakfast", "toast, tomatoes, and eggs");
+        recipeScreen.putRecipeDetail(ChatGPTRecipeGenerator.getTitleOfString(details), details);
+        // ingredients = Transcribe.transcribe();
+        // ChatGPTRecipeGenerator.generateNewRecipe( //why is generate in another class?? this is the only reference
+        //     meal,
+        //     ingredients
+        //   );
       } catch (Exception exception) {}
       view.setRoot("recipe");
     });
