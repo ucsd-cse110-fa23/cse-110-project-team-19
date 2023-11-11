@@ -27,6 +27,7 @@ public class RecipeScreen extends BorderPane {
   private RecipeDetails recipeDetails;
   public Button deleteButton;
   private DetailedRecipeView detailedRecipeView;
+  public Button backButton;
 
   private Button saveButton;
 
@@ -45,6 +46,7 @@ public class RecipeScreen extends BorderPane {
 
     saveButton = footer.getSaveButton();
     deleteButton = footer.getDeleteButton();
+    backButton = header.getbackButton();
   }
 
   public Button getSaveButton() {
@@ -64,6 +66,10 @@ public class RecipeScreen extends BorderPane {
   }
   public void setDeleteButtonAction(EventHandler<ActionEvent> eventHandler) {
     this.deleteButton.setOnAction(eventHandler);
+  }
+
+  public void setbackButtonAction(EventHandler<ActionEvent> eventHandler) {
+    this.backButton.setOnAction(eventHandler);
   }
 
   public void generateRecipe(String mealType, String ingredients)

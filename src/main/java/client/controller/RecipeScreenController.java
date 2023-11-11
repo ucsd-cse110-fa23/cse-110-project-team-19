@@ -31,10 +31,11 @@ public class RecipeScreenController {
     this.recipeDetails = recipeScreen.getRecipeDetails();
     this.view = view;
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
-    
+
     this.recipeScreen.setDeleteButtonAction(this::handleDeleteButton);
 
-    
+    this.recipeScreen.setbackButtonAction(this::handlebackButton);
+
   }
 
   private void handleSaveButton(ActionEvent event) {
@@ -60,17 +61,16 @@ public class RecipeScreenController {
       Label prompt = new Label("Are you sure you want to delete this recipe?");
 
       prompt.setStyle(
-        "-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 15px"
-      );
+          "-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 15px");
       Button confirmButton = new Button("Delete");
       confirmButton.setFocusTraversable(false);
       Button cancelButton = new Button("Cancel");
       cancelButton.setFocusTraversable(false);
-      grid.add(prompt,5,0);
-      HBox buttonBox = new HBox(10); 
+      grid.add(prompt, 5, 0);
+      HBox buttonBox = new HBox(10);
       buttonBox.getChildren().addAll(confirmButton, cancelButton);
-      grid.add(buttonBox, 5,3);
-    
+      grid.add(buttonBox, 5, 3);
+
       buttonBox.setAlignment(Pos.CENTER);
       cancelButton.setOnAction(e1 -> {
         addStage.close();
@@ -83,5 +83,10 @@ public class RecipeScreenController {
 
     });
 
+  }
+
+  private void handlebackButton(ActionEvent event) {
+
+    view.setRoot("main");
   }
 }
