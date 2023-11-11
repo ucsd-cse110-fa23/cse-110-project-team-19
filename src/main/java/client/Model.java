@@ -11,7 +11,8 @@ public class Model {
 
   public String performRequest(
     String method,
-    String recipe,
+    String language,
+    String year,
     String query
   ) {
     // Implement your HTTP request logic here and return the response
@@ -28,7 +29,7 @@ public class Model {
 
       if (method.equals("POST") || method.equals("PUT")) {
         OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-        out.write(recipe);
+        out.write(language + "," + year);
         out.flush();
         out.close();
       }

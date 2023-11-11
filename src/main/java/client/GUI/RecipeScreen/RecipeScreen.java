@@ -4,8 +4,6 @@ import client.GUI.MainMenu.MainMenu;
 import client.View;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
@@ -13,50 +11,33 @@ public class RecipeScreen extends BorderPane {
 
   private Header header;
   private Footer footer;
+  private RecipeDetails recipeDetails;
 
-  private HashMap<String, RecipeDetails> recipesInMemory;
-  private String currRecipe;
-
-  private Button saveButton;
-  private Button closeButton;
+  private Button createButton;
 
   public RecipeScreen(View view) {
     header = new Header();
-    recipesInMemory = new HashMap<>();
+    recipeDetails = new RecipeDetails();
     footer = new Footer();
 
     // Add header to the top of the BorderPane
     this.setTop(header);
     // Add scroller to the centre of the BorderPane
-    // currently empty center
+    this.setCenter(recipeDetails);
     // Add footer to the bottom of the BorderPane
     this.setBottom(footer);
 
-    saveButton = footer.getSaveButton();
-    saveButton.setOnAction(e -> {
-      ((MainMenu) view.getRoot("main")).createRecipe(currRecipe);
-      view.setRoot("main");
-    });
-
-    closeButton = footer.getCloseButton();
-    closeButton.setOnAction(e -> {
-      footer.switchToCreating();
+    createButton = footer.getSaveButton();
+    createButton.setOnAction(e -> {
+      ((MainMenu) view.getRoot("main")).createRecipe(recipeDetails.toString());
       view.setRoot("main");
     });
   }
 
-  public void putRecipeDetail(String title, String details){
-    currRecipe = title;
-    RecipeDetails recipeDetails = new RecipeDetails(title, details);
-    this.setCenter(recipeDetails);
-    recipesInMemory.put(title, recipeDetails);
-  }
-
-  public void setRecipeDetail(String title){
-    this.setCenter(recipesInMemory.get(title));
-  }
-
-  public void switchToViewing(){
-    footer.switchToViewing();
+  public void generateRecipe(String mealType, String ingredients)
+    throws IOException, InterruptedException, URISyntaxException {
+    try {
+      recipeDetails.newRecipe(mealType, ingredients);
+    } catch (Exception e) {}
   }
 }
