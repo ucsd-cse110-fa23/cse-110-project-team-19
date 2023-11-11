@@ -1,8 +1,9 @@
 package client.controller;
 
 import client.View;
-import client.view.MainMenu.MainMenu;
 import client.model.RecipeDetails;
+import client.view.MainMenu.MainMenu;
+import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.RecipeScreen;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
@@ -23,17 +24,19 @@ public class RecipeScreenController {
   private RecipeScreen recipeScreen;
   private RecipeDetails recipeDetails;
   private View view;
+  private MainMenu mainMenu;
 
   public RecipeScreenController(View view, RecipeScreen recipeScreen) {
     this.recipeScreen = recipeScreen;
     this.recipeDetails = recipeScreen.getRecipeDetails();
     this.view = view;
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
-    this.recipeScreen.setDeleButtonAction(this::handledeleButton);
   }
 
   private void handleSaveButton(ActionEvent event) {
-    ((MainMenu) view.getRoot("main")).createRecipe(recipeDetails.toString());
+    Recipe recipe = new Recipe();
+    recipe.getRecipeName().setText(recipeDetails.toString());
+    mainMenu.getRecipeList().getChildren().add(recipe);
     view.setRoot("main");
   }
 

@@ -1,9 +1,11 @@
 package client.controller;
 
 import client.View;
+import client.model.Transcribe;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
-import client.model.Transcribe;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
 
 public class RecordIngredientScreenController {
@@ -26,10 +28,8 @@ public class RecordIngredientScreenController {
     String ingredients = "error";
     try {
       ingredients = Transcribe.transcribe();
-      ((RecipeScreen) view.getRoot("recipe")).generateRecipe(
-          view.getMealType(),
-          ingredients
-        );
+      ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails()
+        .newRecipe(view.getMealType(), ingredients);
     } catch (Exception exception) {}
     view.setRoot("recipe");
   }

@@ -17,7 +17,7 @@ public class Footer extends HBox {
     String defaultButtonStyle =
       "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
 
-    createButton = new Button("Generate"); // text displayed on add button
+    createButton = new Button("Continue"); // text displayed on add button
     createButton.setStyle(defaultButtonStyle); // styling the button
 
     this.getChildren().add(createButton); // adding buttons to footer
