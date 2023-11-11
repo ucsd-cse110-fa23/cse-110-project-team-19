@@ -45,4 +45,8 @@ public class MainMenu extends BorderPane {
   public RecipeList getRecipeList() {
     return this.recipeList;
   }
+
+  public void deleteRecipe(){
+    // Delete recipe connect to the recipe delete confirmation "delete (Yes)" Button.
+  }
 }

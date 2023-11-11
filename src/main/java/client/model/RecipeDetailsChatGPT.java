@@ -6,24 +6,23 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-
+//import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
+// import javafx.scene.text.TextAlignment;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javafx.scene.control.Label;
+public class RecipeDetailsChatGPT {
 
-public class RecipeDetailsChatGPT implements IRecipeDetails{
-  private String str;
-  private Label text;
+    private String str;
+    private Label text;
 
-  private static final String API_ENDPOINT =
-    "https://api.openai.com/v1/completions";
-  private static final String API_KEY =
-    "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";
-  private static final String MODEL = "text-davinci-003";
+    private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
+    private static final String API_KEY = "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";
+    private static final String MODEL = "text-davinci-003";
 
-
-  public void newRecipe(String mealType, String ingredients)
+    public void newRecipe(String mealType, String ingredients)
     throws IOException, InterruptedException, URISyntaxException {
     String prompt =
       "Can you create me a recipe for " +
