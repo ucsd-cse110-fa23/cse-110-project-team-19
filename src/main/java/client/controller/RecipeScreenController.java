@@ -31,6 +31,7 @@ public class RecipeScreenController {
     this.recipeDetails = recipeScreen.getRecipeDetails();
     this.view = view;
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
+    this.recipeScreen.setDeleButtonAction(this::handledeleButton);
   }
 
   private void handleSaveButton(ActionEvent event) {
@@ -64,7 +65,6 @@ public class RecipeScreenController {
       grid.add(prompt,5,0);
       HBox buttonBox = new HBox(10); 
       buttonBox.getChildren().addAll(confirmButton, cancelButton);
-      buttonBox.setAlignment(Pos.CENTER);
       grid.add(buttonBox, 5,3);
     
       buttonBox.setAlignment(Pos.CENTER);

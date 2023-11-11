@@ -58,6 +58,11 @@ public class RecipeScreen extends BorderPane {
     saveButton.setOnAction(eventHandler);
   }
 
+  public void setDeleButtonAction(EventHandler<ActionEvent> eventHandler) {
+    deleButton.setOnAction(eventHandler);
+
+  }
+
   public void generateRecipe(String mealType, String ingredients)
     throws IOException, InterruptedException, URISyntaxException {
     try {
