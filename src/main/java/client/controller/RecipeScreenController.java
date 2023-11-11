@@ -12,6 +12,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -34,6 +36,8 @@ public class RecipeScreenController {
 
     this.recipeScreen.setDeleteButtonAction(this::handleDeleteButton);
 
+    this.recipeScreen.setEditButtonAction(this::handleEditButton);
+
     this.recipeScreen.setbackButtonAction(this::handlebackButton);
 
   }
@@ -41,7 +45,7 @@ public class RecipeScreenController {
   private void handleSaveButton(ActionEvent event) {
     Recipe recipe = new Recipe();
     // doesn't correctly store recipe name
-    recipe.getRecipeName().setText(recipeDetails.toString());
+    recipe.getRecipeName().setText(recipeDetails.getRecipe());
     mainMenu.getRecipeList().getChildren().add(recipe);
     view.setRoot("main");
   }
@@ -78,9 +82,39 @@ public class RecipeScreenController {
       });
       confirmButton.setOnAction(e2 -> {
         // delete recipe in main menu
+        view.setRoot("main");
+      });
+    });
+
+  }
+  private void handleEditButton(ActionEvent event) {
+    recipeScreen.editButton.setOnAction(e -> {
+      Stage addStage = new Stage();
+      addStage.setTitle("Edit Recipe");
+      GridPane grid = new GridPane();
+      grid.setHgap(10);
+      grid.setVgap(10);
+      grid.setPadding(new Insets(5, 5, 5, 5));
+      addStage.setScene(new Scene(grid, 400, 500));
+      addStage.setResizable(false);
+      addStage.show();
+
+      TextArea prompt = new TextArea();
+      prompt.setText(recipeDetails.getRecipe());
+      prompt.setMinSize(350, 425);
+      
+      Button saveButton = new Button("Save");
+      saveButton.setFocusTraversable(false);
+      grid.add(prompt, 2, 2);
+      HBox buttonBox = new HBox(4);
+      buttonBox.getChildren().addAll(saveButton);
+      grid.add(buttonBox, 2, 1);
+
+      buttonBox.setAlignment(Pos.CENTER);
+      saveButton.setOnAction(e1 -> {
+        addStage.close();
 
       });
-
     });
 
   }

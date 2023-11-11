@@ -1,4 +1,6 @@
 package client.view.RecipeScreen;
+
+import client.model.RecipeDetails;
 import javafx.scene.control.Button;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
@@ -6,6 +8,8 @@ import javafx.scene.text.*;
 
 public class Header extends HBox {
   private Button backButton;
+  private RecipeDetails recipeDetails;
+
 
 
   Header() {
@@ -18,8 +22,13 @@ public class Header extends HBox {
     backButton = new Button("Back"); // text displayed on edit button
     backButton.setStyle(defaultButtonStyle); // styling the button
 
-
-    Text titleText = new Text("Recipe"); // Text of the Header
+    Text titleText;
+    // if(recipeDetails.getRecipeName() == (null)){
+      titleText = new Text("Recipe"); // Text of the Header
+    // }
+    // else{
+    // titleText.setText(recipeDetails.getRecipeName()); // Text of the Header
+    // }
     titleText.setStyle("-fx-font-weight: bold; -fx-font-size: 20;");
     backButton.setMinSize(Button.USE_PREF_SIZE, Button.USE_PREF_SIZE);
     Pane spacer1 = new Pane();

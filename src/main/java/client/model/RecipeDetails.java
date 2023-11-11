@@ -14,6 +14,8 @@ import org.json.JSONObject;
 public class RecipeDetails {
 
   private String str;
+  
+
   //private DetailedRecipeView detailedRecipeView;
   //private Label text;
 
@@ -29,7 +31,8 @@ public class RecipeDetails {
       "Can you create me a recipe for " +
       mealType +
       " with these ingredients " +
-      ingredients;
+      ingredients + " Give me the recipe name on the first line and the recipe with each step on a new line.";
+    
     int maxTokens = 100;
     // Create a request body which you will pass into request object
     JSONObject requestBody = new JSONObject();
@@ -64,10 +67,24 @@ public class RecipeDetails {
     JSONArray choices = responseJson.getJSONArray("choices");
     str = choices.getJSONObject(0).getString("text");
 
+
     return str;
+
   }
 
   public String toString() {
     return str.substring(0, str.indexOf("\n"));
+  }
+  public String getRecipe(){
+    String recipe;
+    recipe = str.replaceAll("(?m)^[ \t]*\r?\n", "");
+    recipe = recipe.substring(recipe.indexOf("\n"));
+    return recipe;
+  }
+
+  public String getRecipeName() {
+    String recipeName;
+    recipeName = str.replaceAll("(?m)^[ \t]*\r?\n", "");
+    return recipeName.substring(0, recipeName.indexOf("\n"));
   }
 }

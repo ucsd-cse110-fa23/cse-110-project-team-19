@@ -8,8 +8,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 //import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-// import javafx.scene.text.TextAlignment;
+//import javafx.scene.layout.*;
+//import javafx.scene.text.TextAlignment;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

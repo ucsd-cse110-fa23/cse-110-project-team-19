@@ -1,6 +1,7 @@
 package client.controller;
 
 import client.View;
+import client.model.RecipeDetails;
 import client.model.Transcribe;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
@@ -13,6 +14,7 @@ public class RecordIngredientScreenController {
 
   private RecordIngredientScreen recordIngredientScreen;
   private View view;
+  private RecipeDetails recipeDetails;
 
   public RecordIngredientScreenController(
     View view,
