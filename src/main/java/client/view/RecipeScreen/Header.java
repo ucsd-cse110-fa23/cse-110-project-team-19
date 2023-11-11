@@ -21,8 +21,15 @@ public class Header extends HBox {
 
     Text titleText = new Text("Recipe"); // Text of the Header
     titleText.setStyle("-fx-font-weight: bold; -fx-font-size: 20;");
-    this.getChildren().addAll(titleText, backButton);
-    this.setAlignment(Pos.CENTER); // Align the text to the Center
+    backButton.setMinSize(Button.USE_PREF_SIZE, Button.USE_PREF_SIZE);
+    Pane spacer1 = new Pane();
+    Pane spacer2 = new Pane();
+    Header.setHgrow(spacer1, Priority.ALWAYS);
+    Header.setHgrow(spacer2, Priority.ALWAYS);
+    spacer1.setMaxWidth(10);
+    spacer2.setMaxWidth(160);
+    this.getChildren().addAll(spacer1,backButton, spacer2, titleText);
+    this.setAlignment(Pos.CENTER_LEFT); // Align the text to the Center
   }
 
   public Button getbackButton() {
