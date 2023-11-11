@@ -12,7 +12,7 @@ public class RecordMealScreen extends BorderPane {
   private Header header;
   private Footer footer;
   private RecordMealPrompt recordMealPrompt;
-
+  public Button backButton;
   private Button continueButton;
 
   public RecordMealScreen(View view, String str) {
@@ -28,13 +28,18 @@ public class RecordMealScreen extends BorderPane {
     this.setBottom(footer);
 
     continueButton = footer.getCreateButton();
+    backButton = header.getBackButton();
     
   }
 
   public RecordMealPrompt getRecordMealPrompt() {
     return recordMealPrompt;
   }
+  
 
+  public void setBackButtonAction(EventHandler<ActionEvent> eventHandler) {
+    backButton.setOnAction(eventHandler);
+  }
   public void setGenerateButtonAction(EventHandler<ActionEvent> eventHandler) {
     continueButton.setOnAction(eventHandler);
   }

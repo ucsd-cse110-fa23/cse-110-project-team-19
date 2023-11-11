@@ -22,21 +22,12 @@ public class App extends Application {
     View view = new View();
     new MainMenuController(view, view.mainMenu);
     new RecipeScreenController(view, view.recipeScreen);
-     new RecordMealScreenController(view, view.recordMealScreen);
-    new RecordMealTypePromptController(
-      view.recordMealScreen.getRecordMealPrompt()
-    );
+    new RecordMealScreenController(view, view.recordMealScreen);
+    new RecordMealTypePromptController(view.recordMealScreen.getRecordMealPrompt());
     new RecordMealScreenController(view, view.recordMealScreenError);
-    new RecordMealTypePromptController(
-      view.recordMealScreenError.getRecordMealPrompt()
-    );
+    new RecordMealTypePromptController(view.recordMealScreenError.getRecordMealPrompt());
     new RecordIngredientScreenController(view, view.recordIngredientScreen);
-    new RecordIngredientPromptController(
-      view.recordIngredientScreen.getRecordIngredientPrompt()
-    );
-   
-    
-    
+    new RecordIngredientPromptController(view.recordIngredientScreen.getRecordIngredientPrompt());
     //Model model = new Model();
     //Controller controller = new Controller(view, model);
 

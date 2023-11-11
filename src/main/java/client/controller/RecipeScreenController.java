@@ -33,6 +33,7 @@ public class RecipeScreenController {
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
     
     this.recipeScreen.setDeleteButtonAction(this::handleDeleteButton);
+
     
   }
 
