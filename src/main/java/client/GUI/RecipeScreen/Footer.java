@@ -8,6 +8,7 @@ public class Footer extends HBox {
 
   private Button editButton;
   private Button saveButton;
+  private Button closeButton;
   private Button deleteButton;
 
   Footer() {
@@ -25,6 +26,9 @@ public class Footer extends HBox {
     saveButton = new Button("Save"); // text displayed on save button
     saveButton.setStyle(defaultButtonStyle); // styling the button
 
+    closeButton = new Button("Close"); // text displayed on close button
+    closeButton.setStyle(defaultButtonStyle); // styling the button
+
     deleteButton = new Button("Delete"); // text displayed on delete button
     deleteButton.setStyle(defaultButtonStyle); // styling the button
 
@@ -40,7 +44,21 @@ public class Footer extends HBox {
     return saveButton;
   }
 
+  public Button getCloseButton() {
+    return closeButton;
+  }
+
   public Button getDeleteButton() {
     return deleteButton;
+  }
+
+  public void switchToViewing(){
+    this.getChildren().removeAll(saveButton, deleteButton);
+    this.getChildren().addAll(closeButton, deleteButton);
+  }
+
+  public void switchToCreating(){
+    this.getChildren().removeAll(closeButton, deleteButton);
+    this.getChildren().addAll(saveButton, deleteButton);
   }
 }
