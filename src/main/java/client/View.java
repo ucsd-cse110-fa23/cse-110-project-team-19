@@ -1,12 +1,14 @@
 package client;
 
 import client.view.MainMenu.MainMenu;
+import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
 import client.view.RecordScreen.RecordMealScreen;
 import java.util.HashMap;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Label;
 
 public class View {
 
@@ -21,16 +23,8 @@ public class View {
 
   public View() {
     scenes = new HashMap<>();
+    
     scenes.put("main", mainMenu);
-
-    // scenes.put(
-    //   "recordMeal",
-    //   this.recordMealScreen = new RecordMealScreen(this, "Record the Meal Type for the recipe:")
-    // );
-    // scenes.put(
-    //   "recordMealError",
-    //   this.recordMealScreen = new RecordMealScreen(this, "Please repeat Meal Type:")
-    // );
 
     scenes.put("recipe", this.recipeScreen);
 
@@ -40,7 +34,6 @@ public class View {
    
     scene = new Scene(scenes.get("main"), 500, 600);
   }
-
 
 
   public BorderPane getRoot(String key) {
@@ -63,4 +56,5 @@ public class View {
   public String getMealType() {
     return this.mealType;
   }
+
 }

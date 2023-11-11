@@ -1,6 +1,7 @@
 package client.view.RecipeScreen;
 
 import client.model.RecipeDetails;
+import client.view.RecipeScreen.DetailedRecipeView;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
@@ -25,42 +26,41 @@ public class RecipeScreen extends BorderPane {
   private Footer footer;
   private RecipeDetails recipeDetails;
   public Button deleButton;
+  private DetailedRecipeView detailedRecipeView;
 
   private Button saveButton;
 
   public RecipeScreen() {
     header = new Header();
     recipeDetails = new RecipeDetails();
+    detailedRecipeView = new DetailedRecipeView();
     footer = new Footer();
 
     // Add header to the top of the BorderPane
     this.setTop(header);
     // Add scroller to the centre of the BorderPane
-    this.setCenter(recipeDetails);
+    this.setCenter(detailedRecipeView);
     // Add footer to the bottom of the BorderPane
     this.setBottom(footer);
 
     saveButton = footer.getSaveButton();
     deleButton = footer.getDeleteButton();
-
-    
   }
 
   public Button getSaveButton() {
-    return saveButton;
+    return this.saveButton;
   }
 
   public RecipeDetails getRecipeDetails() {
-    return recipeDetails;
+    return this.recipeDetails;
+  }
+
+  public DetailedRecipeView getDetailedRecipeView() {
+    return this.detailedRecipeView;
   }
 
   public void setSaveButtonAction(EventHandler<ActionEvent> eventHandler) {
-    saveButton.setOnAction(eventHandler);
-  }
-
-  public void setDeleButtonAction(EventHandler<ActionEvent> eventHandler) {
-    deleButton.setOnAction(eventHandler);
-
+    this.saveButton.setOnAction(eventHandler);
   }
 
   public void generateRecipe(String mealType, String ingredients)

@@ -36,6 +36,7 @@ public class RecipeScreenController {
 
   private void handleSaveButton(ActionEvent event) {
     Recipe recipe = new Recipe();
+    // doesn't correctly store recipe name
     recipe.getRecipeName().setText(recipeDetails.toString());
     mainMenu.getRecipeList().getChildren().add(recipe);
     view.setRoot("main");

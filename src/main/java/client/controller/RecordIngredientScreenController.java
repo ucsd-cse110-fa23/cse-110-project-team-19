@@ -2,6 +2,7 @@ package client.controller;
 
 import client.View;
 import client.model.Transcribe;
+import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
 import java.io.IOException;
@@ -28,8 +29,12 @@ public class RecordIngredientScreenController {
     String ingredients = "error";
     try {
       ingredients = Transcribe.transcribe();
-      ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails()
-        .newRecipe(view.getMealType(), ingredients);
+
+      DetailedRecipeView detailedRecipeView = ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
+      
+      detailedRecipeView.setText(((RecipeScreen) view.getRoot("recipe")).getRecipeDetails()
+      .newRecipe(view.getMealType(), ingredients));
+
     } catch (Exception exception) {}
     view.setRoot("recipe");
   }
