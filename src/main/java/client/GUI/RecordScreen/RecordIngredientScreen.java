@@ -33,16 +33,11 @@ public class RecordIngredientScreen extends BorderPane {
     createButton.setOnAction(e -> {
       String ingredients = "error";
       try {
-        //uncomment after testing
+        // String details = ChatGPTRecipeGenerator.getFakeRecipe();
+        ingredients = Transcribe.transcribe();
+        String details = ChatGPTRecipeGenerator.generateNewRecipe(meal, ingredients);
         RecipeScreen recipeScreen = (RecipeScreen) view.getRoot("recipe");
-        String details = ChatGPTRecipeGenerator.getFakeRecipe();
-        //String details = ChatGPTRecipeGenerator.generateNewRecipe("breakfast", "toast, tomatoes, and eggs");
         recipeScreen.putRecipeDetail(ChatGPTRecipeGenerator.getTitleOfString(details), details);
-        // ingredients = Transcribe.transcribe();
-        // ChatGPTRecipeGenerator.generateNewRecipe( //why is generate in another class?? this is the only reference
-        //     meal,
-        //     ingredients
-        //   );
       } catch (Exception exception) {}
       view.setRoot("recipe");
     });

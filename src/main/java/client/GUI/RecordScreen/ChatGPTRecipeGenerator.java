@@ -60,13 +60,11 @@ class ChatGPTRecipeGenerator extends VBox {
     JSONObject responseJson = new JSONObject(responseBody);
 
     JSONArray choices = responseJson.getJSONArray("choices");
-    return choices.getJSONObject(0).getString("text");
+    return choices.getJSONObject(0).getString("text").trim();
   }
 
   public static String getTitleOfString(String str) {
-    String title = str;
-    title = title.trim();
-    return title.substring(0, title.indexOf("\n"));
+    return str.substring(0, str.indexOf("\n"));
   }
 
   public static String getFakeRecipe(){
