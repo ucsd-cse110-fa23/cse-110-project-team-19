@@ -31,7 +31,9 @@ public class RecipeScreenController {
     this.recipeDetails = recipeScreen.getRecipeDetails();
     this.view = view;
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
-    this.recipeScreen.setDeleButtonAction(this::handledeleButton);
+    
+    this.recipeScreen.setDeleteButtonAction(this::handleDeleteButton);
+    
   }
 
   private void handleSaveButton(ActionEvent event) {
@@ -42,8 +44,8 @@ public class RecipeScreenController {
     view.setRoot("main");
   }
 
-  private void handledeleButton(ActionEvent event) {
-    recipeScreen.deleButton.setOnAction(e -> {
+  private void handleDeleteButton(ActionEvent event) {
+    recipeScreen.deleteButton.setOnAction(e -> {
       Stage addStage = new Stage();
       addStage.setTitle("Delete comfirmation");
       GridPane grid = new GridPane();
@@ -61,7 +63,7 @@ public class RecipeScreenController {
       );
       Button confirmButton = new Button("Delete");
       confirmButton.setFocusTraversable(false);
-      Button cancelButton = new Button("cancel");
+      Button cancelButton = new Button("Cancel");
       cancelButton.setFocusTraversable(false);
       grid.add(prompt,5,0);
       HBox buttonBox = new HBox(10); 
