@@ -45,8 +45,6 @@ public class RecipeScreen extends BorderPane {
 
     saveButton = footer.getSaveButton();
     deleButton = footer.getDeleteButton();
-
-    
   }
 
   public Button getSaveButton() {
