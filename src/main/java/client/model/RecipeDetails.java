@@ -1,24 +1,21 @@
 package client.model;
 
+import client.view.RecipeScreen.DetailedRecipeView;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-//import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-// import javafx.scene.text.TextAlignment;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class RecipeDetails extends VBox {
-
-  private final String[] testTitles;
+public class RecipeDetails {
 
   private String str;
-  private Label text;
+  //private DetailedRecipeView detailedRecipeView;
+  //private Label text;
 
   private static final String API_ENDPOINT =
     "https://api.openai.com/v1/completions";
@@ -26,28 +23,7 @@ public class RecipeDetails extends VBox {
     "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";
   private static final String MODEL = "text-davinci-003";
 
-  public RecipeDetails() {
-    testTitles = new String[5];
-    testTitles[0] = "Fried Rice";
-    testTitles[1] = "Braised Pork";
-    testTitles[2] = "Stir-fried Cabbage";
-    testTitles[3] = "Wonton Soup";
-    testTitles[4] = "Chicken";
-
-    this.setSpacing(5); // sets spacing between tasks
-    this.setPrefSize(500, 560);
-    this.setStyle("-fx-background-color: #F0F8FF;");
-
-    text = new Label("");
-    text.setPrefSize(500, 400);
-    //text.setPadding(new Insets(5, 0, 0, 10));
-    text.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // set background color of label
-    //text.setTextAlignment(TextAlignment.CENTER); // set alignment of label
-    text.setWrapText(true);
-    this.getChildren().add(text); // add text to recipe details
-  }
-
-  public void newRecipe(String mealType, String ingredients)
+  public String newRecipe(String mealType, String ingredients)
     throws IOException, InterruptedException, URISyntaxException {
     String prompt =
       "Can you create me a recipe for " +
@@ -88,7 +64,7 @@ public class RecipeDetails extends VBox {
     JSONArray choices = responseJson.getJSONArray("choices");
     str = choices.getJSONObject(0).getString("text");
 
-    text.setText(str);
+    return str;
   }
 
   public String toString() {
