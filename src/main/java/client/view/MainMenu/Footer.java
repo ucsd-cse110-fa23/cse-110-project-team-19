@@ -20,7 +20,8 @@ public class Footer extends HBox {
     createButton = new Button("Create"); // text displayed on add button
     createButton.setStyle(defaultButtonStyle); // styling the button
 
-    this.getChildren().add(createButton); // adding buttons to footer
+
+    this.getChildren().addAll(createButton); // adding buttons to footer
     this.setAlignment(Pos.CENTER); // aligning the buttons to center
   }
 

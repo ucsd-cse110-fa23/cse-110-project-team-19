@@ -41,4 +41,6 @@ public class Recipe extends HBox {
   public Label getRecipeName() {
     return this.recipeName;
   }
+
+  
 }

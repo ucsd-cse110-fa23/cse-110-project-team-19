@@ -47,4 +47,8 @@ public class MainMenu extends BorderPane {
     recipe.getRecipeName().setText(str);
     recipeList.getChildren().add(recipe);
   }
+
+  public void deleteRecipe(){
+    // Delete recipe connect to the recipe delete confirmation "delete (Yes)" Button.
+  }
 }
