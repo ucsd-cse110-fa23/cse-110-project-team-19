@@ -4,22 +4,17 @@ import client.View;
 import client.model.RecipeDetails;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
+import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import javafx.event.ActionEvent;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class RecipeScreenController {
@@ -28,6 +23,7 @@ public class RecipeScreenController {
   private RecipeDetails recipeDetails;
   private View view;
   private MainMenu mainMenu;
+  private Recipe recipe;
 
   public RecipeScreenController(
     View view,
@@ -48,11 +44,21 @@ public class RecipeScreenController {
   }
 
   private void handleSaveButton(ActionEvent event) {
-    Recipe recipe = new Recipe();
+    recipe = new Recipe();
+    recipe.setRecipe(recipeDetails.getRecipe());
     // doesn't correctly store recipe name
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
+    recipe.setRecipeButtonAction(this::handleRecipeButtonAction);
     mainMenu.getRecipeList().getChildren().add(recipe);
     view.setRoot("main");
+  }
+
+  private void handleRecipeButtonAction(ActionEvent event) {
+    DetailedRecipeView detailedRecipeView =
+      ((RecipeScreen) view.getRoot("viewRecipe")).getDetailedRecipeView();
+
+    detailedRecipeView.setText(recipe.getRecipe());
+    view.setRoot("viewRecipe");
   }
 
   private void handleDeleteButton(ActionEvent event) {

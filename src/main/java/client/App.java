@@ -22,6 +22,7 @@ public class App extends Application {
     View view = new View();
     new MainMenuController(view, view.mainMenu);
     new RecipeScreenController(view, view.recipeScreen, view.mainMenu);
+    new RecipeScreenController(view, view.viewRecipeScreen, view.mainMenu);
     new RecordMealScreenController(view, view.recordMealScreen);
     new RecordMealTypePromptController(
       view.recordMealScreen.getRecordMealPrompt()

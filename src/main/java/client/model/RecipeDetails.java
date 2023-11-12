@@ -19,7 +19,7 @@ public class RecipeDetails {
   private static final String API_ENDPOINT =
     "https://api.openai.com/v1/completions";
   private static final String API_KEY =
-    "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";
+    "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";
   private static final String MODEL = "text-davinci-003";
 
   public void newRecipe(String mealType, String ingredients)

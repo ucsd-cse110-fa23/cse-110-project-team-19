@@ -1,7 +1,7 @@
 package client.view.RecordScreen;
 
-import client.model.Transcribe;
 import client.View;
+import client.model.Transcribe;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -29,20 +29,17 @@ public class RecordMealScreen extends BorderPane {
 
     continueButton = footer.getCreateButton();
     backButton = header.getBackButton();
-    
   }
 
   public RecordMealPrompt getRecordMealPrompt() {
     return recordMealPrompt;
   }
-  
 
   public void setBackButtonAction(EventHandler<ActionEvent> eventHandler) {
     backButton.setOnAction(eventHandler);
   }
+
   public void setGenerateButtonAction(EventHandler<ActionEvent> eventHandler) {
     continueButton.setOnAction(eventHandler);
   }
-
-  
 }
