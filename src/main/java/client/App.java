@@ -4,10 +4,10 @@ import client.controller.MainMenuController;
 import client.controller.RecipeScreenController;
 import client.controller.RecordIngredientPromptController;
 import client.controller.RecordIngredientScreenController;
-import client.controller.RecordMealTypePromptController;
 import client.controller.RecordMealScreenController;
-import client.view.RecordScreen.RecordMealScreen;
+import client.controller.RecordMealTypePromptController;
 import client.view.MainMenu.MainMenu;
+import client.view.RecordScreen.RecordMealScreen;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -21,13 +21,19 @@ public class App extends Application {
   public void start(Stage primaryStage) {
     View view = new View();
     new MainMenuController(view, view.mainMenu);
-    new RecipeScreenController(view, view.recipeScreen);
+    new RecipeScreenController(view, view.recipeScreen, view.mainMenu);
     new RecordMealScreenController(view, view.recordMealScreen);
-    new RecordMealTypePromptController(view.recordMealScreen.getRecordMealPrompt());
+    new RecordMealTypePromptController(
+      view.recordMealScreen.getRecordMealPrompt()
+    );
     new RecordMealScreenController(view, view.recordMealScreenError);
-    new RecordMealTypePromptController(view.recordMealScreenError.getRecordMealPrompt());
+    new RecordMealTypePromptController(
+      view.recordMealScreenError.getRecordMealPrompt()
+    );
     new RecordIngredientScreenController(view, view.recordIngredientScreen);
-    new RecordIngredientPromptController(view.recordIngredientScreen.getRecordIngredientPrompt());
+    new RecordIngredientPromptController(
+      view.recordIngredientScreen.getRecordIngredientPrompt()
+    );
     //Model model = new Model();
     //Controller controller = new Controller(view, model);
 

@@ -1,6 +1,5 @@
 package client.model;
 
-import client.view.RecipeScreen.DetailedRecipeView;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,7 +11,7 @@ import org.json.JSONObject;
 
 public class RecipeDetails {
 
-  private String str;
+  private String recipe;
 
   //private DetailedRecipeView detailedRecipeView;
   //private Label text;
@@ -23,7 +22,7 @@ public class RecipeDetails {
     "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";
   private static final String MODEL = "text-davinci-003";
 
-  public String newRecipe(String mealType, String ingredients)
+  public void newRecipe(String mealType, String ingredients)
     throws IOException, InterruptedException, URISyntaxException {
     String prompt =
       "Can you create me a recipe for " +
@@ -32,7 +31,7 @@ public class RecipeDetails {
       ingredients +
       " Give me the recipe name on the first line and the recipe with each step on a new line.";
 
-    int maxTokens = 100;
+    int maxTokens = 300;
     // Create a request body which you will pass into request object
     JSONObject requestBody = new JSONObject();
     requestBody.put("model", MODEL);
@@ -64,25 +63,16 @@ public class RecipeDetails {
     JSONObject responseJson = new JSONObject(responseBody);
 
     JSONArray choices = responseJson.getJSONArray("choices");
-    str = choices.getJSONObject(0).getString("text");
-
-    return str;
-  }
-
-  public String toString() {
-    return str.substring(0, str.indexOf("\n"));
+    recipe = choices.getJSONObject(0).getString("text");
   }
 
   public String getRecipe() {
-    String recipe;
-    recipe = str.replaceAll("(?m)^[ \t]*\r?\n", "");
-    recipe = recipe.substring(recipe.indexOf("\n"));
-    return recipe;
+    return recipe.replaceAll("(?m)^[ \t]*\r?\n", "");
   }
 
   public String getRecipeName() {
     String recipeName;
-    recipeName = str.replaceAll("(?m)^[ \t]*\r?\n", "");
+    recipeName = recipe.replaceAll("(?m)^[ \t]*\r?\n", "");
     return recipeName.substring(0, recipeName.indexOf("\n"));
   }
 }
