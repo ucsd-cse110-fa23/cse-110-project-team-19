@@ -9,7 +9,7 @@ import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class RecipeDetails {
+public class RecipeDetails implements IRecipeDetails {
 
   private String recipe;
 
