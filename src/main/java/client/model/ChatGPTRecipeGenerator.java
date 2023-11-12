@@ -1,37 +1,34 @@
 package client.model;
 
-import client.view.RecipeScreen.DetailedRecipeView;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class RecipeDetails {
+class ChatGPTRecipeGenerator extends VBox {
 
-  private String str;
-
-  //private DetailedRecipeView detailedRecipeView;
-  //private Label text;
-
+  //this entire class should be part of Model
   private static final String API_ENDPOINT =
     "https://api.openai.com/v1/completions";
   private static final String API_KEY =
     "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";
   private static final String MODEL = "text-davinci-003";
 
-  public String newRecipe(String mealType, String ingredients)
+  ChatGPTRecipeGenerator() {}
+
+  public static String generateNewRecipe(String mealType, String ingredients)
     throws IOException, InterruptedException, URISyntaxException {
     String prompt =
       "Can you create me a recipe for " +
       mealType +
       " with these ingredients " +
-      ingredients +
-      " Give me the recipe name on the first line and the recipe with each step on a new line.";
-
+      ingredients;
     int maxTokens = 100;
     // Create a request body which you will pass into request object
     JSONObject requestBody = new JSONObject();
@@ -64,25 +61,34 @@ public class RecipeDetails {
     JSONObject responseJson = new JSONObject(responseBody);
 
     JSONArray choices = responseJson.getJSONArray("choices");
-    str = choices.getJSONObject(0).getString("text");
-
-    return str;
+    return choices.getJSONObject(0).getString("text").trim();
   }
 
-  public String toString() {
+  public static String getTitleOfString(String str) {
     return str.substring(0, str.indexOf("\n"));
   }
 
-  public String getRecipe() {
-    String recipe;
-    recipe = str.replaceAll("(?m)^[ \t]*\r?\n", "");
-    recipe = recipe.substring(recipe.indexOf("\n"));
-    return recipe;
-  }
-
-  public String getRecipeName() {
-    String recipeName;
-    recipeName = str.replaceAll("(?m)^[ \t]*\r?\n", "");
-    return recipeName.substring(0, recipeName.indexOf("\n"));
+  public static String getFakeRecipe() {
+    return (
+      "\n\n" +
+      "Tomato Toasts with Eggs\n" +
+      "\n" +
+      "Ingredients:\n" +
+      "2 thick slices white or whole wheat bread\n" +
+      "2 slices tomato\n" +
+      "2 teaspoons butter\n" +
+      "2 eggs\n" +
+      "Salt and ground black pepper, to taste\n" +
+      "\n" +
+      "Instructions\n" +
+      "\n" +
+      "1. Preheat a skillet over medium heat.\n" +
+      "\n" +
+      "2. Toast bread slices until they are golden and crisp.\n" +
+      "\n" +
+      "3. Spread one teaspoon of butter onto each slice of toast.\n" +
+      "\n" +
+      "4. Place tomato slices onto the toasts.\n"
+    );
   }
 }
