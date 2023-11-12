@@ -32,11 +32,15 @@ public class RecordIngredientScreenController {
     try {
       ingredients = Transcribe.transcribe();
 
-      DetailedRecipeView detailedRecipeView = ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
-      
-      detailedRecipeView.setText(((RecipeScreen) view.getRoot("recipe")).getRecipeDetails()
-      .newRecipe(view.getMealType(), ingredients));
+      DetailedRecipeView detailedRecipeView =
+        ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
 
+      ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails()
+        .newRecipe(view.getMealType(), ingredients);
+
+      detailedRecipeView.setText(
+        ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe()
+      );
     } catch (Exception exception) {}
     view.setRoot("recipe");
   }

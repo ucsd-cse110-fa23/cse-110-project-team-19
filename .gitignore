@@ -1,3 +1,5 @@
 .vscode/
 bin/
 ingredients.wav
+build/
+.gradle/
