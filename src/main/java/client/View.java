@@ -16,7 +16,7 @@ public class View {
   Scene scene;
   MainMenu mainMenu = new MainMenu();
   RecipeScreen recipeScreen = new RecipeScreen(true);
-  RecipeScreen viewRecipeScreen = new RecipeScreen(false);
+  public RecipeScreen viewRecipeScreen = new RecipeScreen(false);
   RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
   RecordMealScreen recordMealScreen = new RecordMealScreen(
     this,

@@ -59,11 +59,12 @@ public class RecipeScreenController {
 
     detailedRecipeView.setText(recipe.getRecipe());
     view.setRoot("viewRecipe");
+    view.viewRecipeScreen.setRecipe(recipe);
   }
 
   private void handleDeleteButton(ActionEvent event) {
     Stage addStage = new Stage();
-    addStage.setTitle("Delete comfirmation");
+    addStage.setTitle("Delete confirmation");
     GridPane grid = new GridPane();
     grid.setHgap(10);
     grid.setVgap(10);
@@ -92,6 +93,11 @@ public class RecipeScreenController {
     });
     confirmButton.setOnAction(e2 -> {
       // delete recipe in main menu
+      mainMenu
+        .getRecipeList()
+        .getChildren()
+        .remove(view.viewRecipeScreen.recipe);
+      addStage.close();
       view.setRoot("main");
     });
   }
@@ -108,7 +114,7 @@ public class RecipeScreenController {
     addStage.show();
 
     TextArea prompt = new TextArea();
-    prompt.setText(recipeDetails.getRecipe());
+    prompt.setText(view.viewRecipeScreen.getRecipe());
     prompt.setMinSize(350, 425);
 
     Button saveButton = new Button("Save");

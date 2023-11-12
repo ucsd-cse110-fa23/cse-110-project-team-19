@@ -66,7 +66,14 @@ public class RecipeDetails {
     recipe = choices.getJSONObject(0).getString("text");
   }
 
+  public void setRecipe(String recipe) {
+    this.recipe = recipe;
+  }
+
   public String getRecipe() {
+    if (recipe == null) {
+      return null;
+    }
     return recipe.replaceAll("(?m)^[ \t]*\r?\n", "");
   }
 

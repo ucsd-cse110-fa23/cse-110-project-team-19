@@ -1,6 +1,7 @@
 package client.view.RecipeScreen;
 
 import client.model.RecipeDetails;
+import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -30,6 +31,7 @@ public class RecipeScreen extends BorderPane {
   public Button deleteButton;
   private DetailedRecipeView detailedRecipeView;
   public Button backButton;
+  public Recipe recipe;
 
   public Button editButton;
   private Button saveButton;
@@ -96,5 +98,13 @@ public class RecipeScreen extends BorderPane {
     try {
       recipeDetails.newRecipe(mealType, ingredients);
     } catch (Exception e) {}
+  }
+
+  public void setRecipe(Recipe recipe) {
+    this.recipe = recipe;
+  }
+
+  public String getRecipe() {
+    return this.recipe.getRecipe();
   }
 }
