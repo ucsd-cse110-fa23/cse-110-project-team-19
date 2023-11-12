@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -37,11 +38,13 @@ public class RecipeScreen extends BorderPane {
     recipeDetails = new RecipeDetails();
     detailedRecipeView = new DetailedRecipeView();
     footer = new Footer();
-
+    ScrollPane scroll = new ScrollPane(detailedRecipeView);
+    scroll.setFitToWidth(true);
+    
     // Add header to the top of the BorderPane
     this.setTop(header);
     // Add scroller to the centre of the BorderPane
-    this.setCenter(detailedRecipeView);
+    this.setCenter(scroll);
     // Add footer to the bottom of the BorderPane
     this.setBottom(footer);
 

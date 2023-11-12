@@ -69,9 +69,7 @@ public class RecipeDetails {
     return str;
   }
 
-  public String toString() {
-    return str.substring(0, str.indexOf("\n"));
-  }
+  
 
   public String getRecipe() {
     String recipe;

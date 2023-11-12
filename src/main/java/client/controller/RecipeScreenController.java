@@ -83,6 +83,7 @@ public class RecipeScreenController {
       confirmButton.setOnAction(e2 -> {
         // delete recipe in main menu
         view.setRoot("main");
+        addStage.close();
       });
     });
 
