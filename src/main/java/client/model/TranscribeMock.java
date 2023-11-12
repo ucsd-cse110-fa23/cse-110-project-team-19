@@ -23,42 +23,41 @@ public class TranscribeMock extends ATranscribe {
 
   public String transcribe() throws IOException, URISyntaxException {
         // Create file object from file path
-    File file = new File(FILE_PATH);
+    // File file = new File(FILE_PATH);
 
-    // Set up HTTP connection
-    URL url = new URI(API_ENDPOINT).toURL();
-    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-    connection.setRequestMethod("POST");
-    connection.setDoOutput(true);
+    // // Set up HTTP connection
+    // URL url = new URI(API_ENDPOINT).toURL();
+    // HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    // connection.setRequestMethod("POST");
+    // connection.setDoOutput(true);
 
-    // Set up request headers
-    String boundary = "Boundary-" + System.currentTimeMillis();
-    connection.setRequestProperty(
-      "Content-Type",
-      "multipart/form-data; boundary=" + boundary
-    );
-    connection.setRequestProperty("Authorization", "Bearer " + TOKEN);
+    // // Set up request headers
+    // String boundary = "Boundary-" + System.currentTimeMillis();
+    // connection.setRequestProperty(
+    //   "Content-Type",
+    //   "multipart/form-data; boundary=" + boundary
+    // );
+    // connection.setRequestProperty("Authorization", "Bearer " + TOKEN);
 
-    // Set up output stream to write request body
-    OutputStream outputStream = connection.getOutputStream();
+    // // Set up output stream to write request body
+    // OutputStream outputStream = connection.getOutputStream();
 
-    // Write model parameter to request body
-    writeParameterToOutputStream(outputStream, "model", MODEL, boundary);
+    // // Write model parameter to request body
+    // writeParameterToOutputStream(outputStream, "model", MODEL, boundary);
 
-    // Write file parameter to request body
-    writeFileToOutputStream(outputStream, file, boundary);
+    // // Write file parameter to request body
+    // writeFileToOutputStream(outputStream, file, boundary);
 
-    // Write closing boundary to request body
-    outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+    // // Write closing boundary to request body
+    // outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
 
-    // Flush and close output stream
-    outputStream.flush();
-    outputStream.close();  
+    // // Flush and close output stream
+    // outputStream.flush();
+    // outputStream.close();  
     
     if (meal) {
-          return "lunch";
-      }
-      
-      return "potatoes, beans";
+      return "lunch";
+    }
+    return "potatoes, beans";
   }
 }

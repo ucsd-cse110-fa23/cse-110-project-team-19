@@ -27,7 +27,8 @@ public class RecipeDetailsMock implements IRecipeDetails {
       requestBody.put("prompt", prompt);
       requestBody.put("max_tokens", maxTokens);
       requestBody.put("temperature", 1.0);
-  
+
+      
       //System.out.println(requestBody.toString());
     }
 
