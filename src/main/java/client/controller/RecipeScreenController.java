@@ -108,6 +108,7 @@ public class RecipeScreenController {
         .remove(view.viewRecipeScreen.recipe);
       addStage.close();
       view.setRoot("main");
+      addStage.close();
     });
   }
 
@@ -128,10 +129,10 @@ public class RecipeScreenController {
 
     Button saveButton = new Button("Save");
     saveButton.setFocusTraversable(false);
-    grid.add(prompt, 2, 2);
+    grid.add(prompt, 1, 2);
     HBox buttonBox = new HBox(4);
     buttonBox.getChildren().addAll(saveButton);
-    grid.add(buttonBox, 2, 1);
+    grid.add(buttonBox, 1, 3);
 
     buttonBox.setAlignment(Pos.CENTER);
     saveButton.setOnAction(e1 -> {
