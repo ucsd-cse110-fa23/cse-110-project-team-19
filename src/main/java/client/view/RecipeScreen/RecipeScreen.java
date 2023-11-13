@@ -1,5 +1,6 @@
 package client.view.RecipeScreen;
 
+import client.model.IRecipeDetails;
 import client.model.RecipeDetails;
 import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
@@ -27,7 +28,7 @@ public class RecipeScreen extends BorderPane {
 
   private Header header;
   private Footer footer;
-  private RecipeDetails recipeDetails;
+  private IRecipeDetails recipeDetails;
   public Button deleteButton;
   private DetailedRecipeView detailedRecipeView;
   public Button backButton;
@@ -69,7 +70,7 @@ public class RecipeScreen extends BorderPane {
     return this.saveButton;
   }
 
-  public RecipeDetails getRecipeDetails() {
+  public IRecipeDetails getRecipeDetails() {
     return this.recipeDetails;
   }
 

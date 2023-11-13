@@ -1,6 +1,7 @@
 package client.controller;
 
 import client.View;
+import client.model.ATranscribe;
 import client.model.Transcribe;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
@@ -11,6 +12,7 @@ public class RecordIngredientScreenController {
 
   private RecordIngredientScreen recordIngredientScreen;
   private View view;
+  private ATranscribe transcriber = new Transcribe();
 
   public RecordIngredientScreenController(
     View view,
@@ -26,7 +28,7 @@ public class RecordIngredientScreenController {
   private void handleGenerateButton(ActionEvent event) {
     String ingredients = "error";
     try {
-      ingredients = Transcribe.transcribe();
+      ingredients = transcriber.transcribe();
 
       DetailedRecipeView detailedRecipeView =
         ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
