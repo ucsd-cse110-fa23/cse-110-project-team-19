@@ -32,7 +32,7 @@ public class App extends Application {
     );
     new RecipeScreenController(
       view,
-      view.viewRecipeScreen,
+      view.recipeScreen,
       view.mainMenu,
       model,
       null

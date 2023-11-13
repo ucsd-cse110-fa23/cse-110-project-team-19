@@ -19,7 +19,7 @@ public abstract class ATranscribe {
     private static final String API_ENDPOINT =
     "https://api.openai.com/v1/audio/transcriptions";
     private static final String TOKEN =
-    "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";
+    "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";
     private static final String MODEL = "whisper-1";
     private static final String FILE_PATH = "ingredients.wav";
 
