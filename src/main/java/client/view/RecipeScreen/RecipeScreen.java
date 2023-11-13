@@ -44,9 +44,6 @@ public class RecipeScreen extends BorderPane {
     recipeDetails = new RecipeDetails();
     detailedRecipeView = new DetailedRecipeView();
     footer = new Footer();
-    if (!newRecipe) {
-      footer.switchToViewing();
-    }
 
     scrollPane = new ScrollPane();
     scrollPane.setContent(detailedRecipeView);
@@ -107,5 +104,9 @@ public class RecipeScreen extends BorderPane {
 
   public String getRecipe() {
     return this.recipe.getRecipe();
+  }
+
+  public Footer getFooter() {
+    return this.footer;
   }
 }

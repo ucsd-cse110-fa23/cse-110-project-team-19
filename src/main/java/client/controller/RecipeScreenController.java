@@ -1,8 +1,8 @@
 package client.controller;
 
-import client.Model;
 import client.View;
 import client.model.IRecipeDetails;
+import client.model.Model;
 import client.model.RecipeDetails;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
@@ -27,6 +27,8 @@ public class RecipeScreenController {
   private MainMenu mainMenu;
   private Recipe recipe;
   private Model model;
+  private String recString;
+  TextArea prompt = new TextArea();
 
   public RecipeScreenController(
     View view,
@@ -58,17 +60,21 @@ public class RecipeScreenController {
     recipe.setRecipeButtonAction(this::handleRecipeButtonAction);
     mainMenu.getRecipeList().getChildren().add(recipe);
     String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
-    model.performRequest("POST", name, recipeDetails.getRecipe(), null);
+    if (recString == null) {
+      recString = recipeDetails.getRecipe();
+    }
+    model.performRequest("POST", name, recString, null);
     view.setRoot("main");
   }
 
   private void handleRecipeButtonAction(ActionEvent event) {
     DetailedRecipeView detailedRecipeView =
-      ((RecipeScreen) view.getRoot("viewRecipe")).getDetailedRecipeView();
+      ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
 
-    detailedRecipeView.setText(recipe.getRecipe());
-    view.setRoot("viewRecipe");
-    view.viewRecipeScreen.setRecipe(recipe);
+    detailedRecipeView.setText(recString);
+    view.recipeScreen.getFooter().switchToViewing();
+    view.setRoot("recipe");
+    view.recipeScreen.setRecipe(recipe);
   }
 
   private void handleDeleteButton(ActionEvent event) {
@@ -102,13 +108,13 @@ public class RecipeScreenController {
     });
     confirmButton.setOnAction(e2 -> {
       // delete recipe in main menu
-      mainMenu
-        .getRecipeList()
-        .getChildren()
-        .remove(view.viewRecipeScreen.recipe);
+      mainMenu.getRecipeList().getChildren().remove(recipeScreen.recipe);
       addStage.close();
       view.setRoot("main");
       addStage.close();
+      String name = view.recipeScreen.recipe.getRecipeName().getText();
+      name = name.replaceAll(" ", "_");
+      model.performRequest("DELETE", null, null, name);
     });
   }
 
@@ -123,8 +129,10 @@ public class RecipeScreenController {
     addStage.setResizable(false);
     addStage.show();
 
-    TextArea prompt = new TextArea();
-    prompt.setText(view.viewRecipeScreen.getRecipe());
+    if ((prompt.getText()).isEmpty()) {
+      prompt.setText(recipeDetails.getRecipe());
+    }
+
     prompt.setMinSize(350, 425);
 
     Button saveButton = new Button("Save");
@@ -136,6 +144,9 @@ public class RecipeScreenController {
 
     buttonBox.setAlignment(Pos.CENTER);
     saveButton.setOnAction(e1 -> {
+      recString = prompt.getText();
+      handleRecipeButtonAction(e1);
+      prompt.setText(recString);
       addStage.close();
     });
   }

@@ -15,8 +15,8 @@ public class View {
   HashMap<String, BorderPane> scenes;
   Scene scene;
   MainMenu mainMenu = new MainMenu();
-  RecipeScreen recipeScreen = new RecipeScreen(true);
-  public RecipeScreen viewRecipeScreen = new RecipeScreen(false);
+  public RecipeScreen recipeScreen = new RecipeScreen(true);
+  //public RecipeScreen viewRecipeScreen = new RecipeScreen(false);
   RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
   RecordMealScreen recordMealScreen = new RecordMealScreen(
     this,
@@ -35,7 +35,7 @@ public class View {
 
     scenes.put("recipe", this.recipeScreen);
 
-    scenes.put("viewRecipe", this.viewRecipeScreen);
+    //scenes.put("viewRecipe", this.viewRecipeScreen);
 
     scenes.put("recordMeal", this.recordMealScreen);
 

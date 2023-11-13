@@ -47,14 +47,12 @@ public class RequestHandler implements HttpHandler {
     URI uri = httpExchange.getRequestURI();
     String query = uri.getRawQuery();
     String value = query.substring(query.indexOf("=") + 1);
-    System.out.println(value);
     if (value.equals("all")) {
       response = "";
       if (data.size() == 0) {
         return "";
       }
       for (String key : data.keySet()) {
-        System.out.println(key);
         response += key + ",";
       }
       return response;
@@ -75,12 +73,11 @@ public class RequestHandler implements HttpHandler {
     InputStream inStream = httpExchange.getRequestBody();
     Scanner scanner = new Scanner(inStream);
     String postData = scanner.nextLine();
-    String language = postData.substring(
-      0,
-      postData.indexOf(",")
-    ), year = postData.substring(postData.indexOf(",") + 1);
-
-    System.out.println("?" + language + year);
+    String language = postData.substring(0, postData.indexOf(","));
+    String year = postData.substring(postData.indexOf(",") + 1) + '\n';
+    while (scanner.hasNext()) {
+      year += scanner.nextLine() + '\n';
+    }
 
     // Store data in hashmap
     data.put(language, year);

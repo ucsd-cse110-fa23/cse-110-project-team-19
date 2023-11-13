@@ -1,4 +1,4 @@
-package client;
+package client.model;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -40,6 +40,9 @@ public class Model {
         new InputStreamReader(conn.getInputStream())
       );
       String response = in.readLine();
+      while (in.ready()) {
+        response += '\n' + in.readLine();
+      }
       in.close();
       return response;
     } catch (Exception ex) {
