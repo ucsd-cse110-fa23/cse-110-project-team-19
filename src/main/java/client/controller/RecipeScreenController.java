@@ -51,7 +51,9 @@ public class RecipeScreenController {
   }
 
   private void handleSaveButton(ActionEvent event) {
-    recipe = new Recipe(view);
+    if (recipe == null) {
+      recipe = new Recipe(view);
+    }
     recipe.setRecipe(recipeDetails.getRecipe());
     // doesn't correctly store recipe name
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
@@ -114,7 +116,7 @@ public class RecipeScreenController {
     addStage.show();
 
     TextArea prompt = new TextArea();
-    prompt.setText(view.recipeScreen.getRecipe());
+    prompt.setText(view.recipeScreen.recipe.getRecipe());
     prompt.setMinSize(350, 425);
 
     Button saveButton = new Button("Save");
@@ -131,7 +133,15 @@ public class RecipeScreenController {
       DetailedRecipeView detailedRecipeView =
         ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
       detailedRecipeView.setText(recString);
+      if (recipe == null) {
+        recipe = new Recipe(view);
+      }
+      recipeDetails.setRecipe(recString);
+      recipe.setRecipe(recString);
       view.recipeScreen.setRecipe(recipe);
+
+      String name = recipeDetails.getRecipeName().replaceAll(" ", "_");\
+      model.performRequest("PUT", name, recString, null);
 
       view.setRoot("recipe");
       addStage.close();

@@ -38,7 +38,6 @@ public class Recipe extends HBox {
 
       view.recipeScreen.getFooter().switchToViewing();
       view.recipeScreen.setRecipe(this);
-      System.out.println(recipe);
       view.setRoot("recipe");
     });
   }

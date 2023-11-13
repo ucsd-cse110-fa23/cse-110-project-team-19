@@ -3,6 +3,7 @@ package client.controller;
 import client.View;
 import client.model.ATranscribe;
 import client.model.Transcribe;
+import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
@@ -40,6 +41,11 @@ public class RecordIngredientScreenController {
         ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe()
       );
     } catch (Exception exception) {}
+    Recipe recipe = new Recipe(view);
+    recipe.setRecipe(
+      ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe()
+    );
+    view.recipeScreen.setRecipe(recipe);
     view.recipeScreen.getFooter().switchToCreating();
     view.setRoot("recipe");
   }

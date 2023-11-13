@@ -41,6 +41,7 @@ public class Model {
       while (in.ready()) {
         response += '\n' + in.readLine();
       }
+      System.out.println('3' + response);
       in.close();
       return response;
     } catch (Exception ex) {
