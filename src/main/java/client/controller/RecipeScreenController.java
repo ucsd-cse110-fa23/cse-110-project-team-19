@@ -1,5 +1,6 @@
 package client.controller;
 
+import client.Model;
 import client.View;
 import client.model.RecipeDetails;
 import client.view.MainMenu.MainMenu;
@@ -24,16 +25,21 @@ public class RecipeScreenController {
   private View view;
   private MainMenu mainMenu;
   private Recipe recipe;
+  private Model model;
 
   public RecipeScreenController(
     View view,
     RecipeScreen recipeScreen,
-    MainMenu mainMenu
+    MainMenu mainMenu,
+    Model model,
+    Recipe recipe
   ) {
     this.recipeScreen = recipeScreen;
     this.recipeDetails = recipeScreen.getRecipeDetails();
     this.view = view;
+    this.model = model;
     this.mainMenu = mainMenu;
+    this.recipe = recipe;
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
 
     this.recipeScreen.setDeleteButtonAction(this::handleDeleteButton);
@@ -50,6 +56,8 @@ public class RecipeScreenController {
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
     recipe.setRecipeButtonAction(this::handleRecipeButtonAction);
     mainMenu.getRecipeList().getChildren().add(recipe);
+    String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
+    model.performRequest("POST", name, recipeDetails.getRecipe(), null);
     view.setRoot("main");
   }
 

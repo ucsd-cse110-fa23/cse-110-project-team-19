@@ -46,8 +46,20 @@ public class RequestHandler implements HttpHandler {
     String response = "Invalid GET request";
     URI uri = httpExchange.getRequestURI();
     String query = uri.getRawQuery();
+    String value = query.substring(query.indexOf("=") + 1);
+    System.out.println(value);
+    if (value.equals("all")) {
+      response = "";
+      if (data.size() == 0) {
+        return "";
+      }
+      for (String key : data.keySet()) {
+        System.out.println(key);
+        response += key + ",";
+      }
+      return response;
+    }
     if (query != null) {
-      String value = query.substring(query.indexOf("=") + 1);
       String year = data.get(value); // Retrieve data from hashmap
       if (year != null) {
         response = year;
@@ -67,6 +79,8 @@ public class RequestHandler implements HttpHandler {
       0,
       postData.indexOf(",")
     ), year = postData.substring(postData.indexOf(",") + 1);
+
+    System.out.println("?" + language + year);
 
     // Store data in hashmap
     data.put(language, year);
