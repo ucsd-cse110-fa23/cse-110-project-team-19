@@ -138,4 +138,8 @@ public class RequestHandler implements HttpHandler {
     }
     return response;
   }
+
+  public Map<String, String> getData() {
+    return this.data;
+  }
 }
