@@ -30,7 +30,7 @@ public class AppTest {
   }
 
   /*
-   * UNIT TEST - FEATURE 1 (create new recipe)
+   * UNIT TEST
    * 
    * checkMealType() should:  1) take in a string
    *                          2) check if input matches desired meal type options
@@ -57,7 +57,7 @@ public class AppTest {
   }
 
   /*
-   * UNIT TEST - FEATURE 1 (create new recipe)
+   * UNIT TEST
    * 
    * newRecipe() should:  1) take in two strings
    *                      2) have the proper request body to send
@@ -77,7 +77,41 @@ public class AppTest {
   }
 
   /*
-   * STORY TEST - FEATURE 1 (create new recipe - BDD scenario)
+   * UNIT TEST
+   * 
+   * getRecipe() should:    1) get the entire recipe details
+   *                        2) should return a string
+   */
+  @Test 
+  void testGetRecipe(){
+    String mealType = "lunch";
+    String ingredients = "potatoes, beans";
+    try{
+      mockGPT.newRecipe(mealType, ingredients);
+    }catch(Exception e){}
+
+    assertEquals("ChatGPT\nmocked recipe", mockGPT.getRecipe());
+  }
+
+  /*
+   * UNIT TEST
+   * 
+   * getRecipeName() should:    1) get just the recipe's name
+   *                            2) should return a string
+   */
+  @Test 
+  void testGetRecipeName(){
+    String mealType = "lunch";
+    String ingredients = "potatoes, beans";
+    try{
+      mockGPT.newRecipe(mealType, ingredients);
+    }catch(Exception e){}
+
+    assertEquals("ChatGPT", mockGPT.getRecipeName());
+  }
+
+  /*
+   * STORY TEST - create new recipe
    * 
    * 1 - record meal type with transcribe
    * 2 - check meal type is correct
