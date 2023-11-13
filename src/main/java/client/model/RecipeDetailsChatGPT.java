@@ -6,12 +6,17 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+//import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+//import javafx.scene.layout.*;
+//import javafx.scene.text.TextAlignment;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class RecipeDetails implements IRecipeDetails {
+public class RecipeDetailsChatGPT {
 
-  private String recipe;
+  private String str;
+  private Label text;
 
   private static final String API_ENDPOINT =
     "https://api.openai.com/v1/completions";
@@ -25,10 +30,8 @@ public class RecipeDetails implements IRecipeDetails {
       "Can you create me a recipe for " +
       mealType +
       " with these ingredients " +
-      ingredients +
-      " Give me the recipe name on the first line and the recipe with each step on a new line.";
-
-    int maxTokens = 300;
+      ingredients;
+    int maxTokens = 100;
     // Create a request body which you will pass into request object
     JSONObject requestBody = new JSONObject();
     requestBody.put("model", MODEL);
@@ -60,23 +63,12 @@ public class RecipeDetails implements IRecipeDetails {
     JSONObject responseJson = new JSONObject(responseBody);
 
     JSONArray choices = responseJson.getJSONArray("choices");
-    recipe = choices.getJSONObject(0).getString("text");
+    str = choices.getJSONObject(0).getString("text");
+
+    text.setText(str);
   }
 
-  public void setRecipe(String recipe) {
-    this.recipe = recipe;
-  }
-
-  public String getRecipe() {
-    if (recipe == null) {
-      return null;
-    }
-    return recipe.replaceAll("(?m)^[ \t]*\r?\n", "");
-  }
-
-  public String getRecipeName() {
-    String recipeName;
-    recipeName = recipe.replaceAll("(?m)^[ \t]*\r?\n", "");
-    return recipeName.substring(0, recipeName.indexOf("\n"));
+  public String toString() {
+    return str.substring(0, str.indexOf("\n"));
   }
 }

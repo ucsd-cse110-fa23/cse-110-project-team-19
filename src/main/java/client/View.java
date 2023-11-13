@@ -7,34 +7,42 @@ import client.view.RecordScreen.RecordIngredientScreen;
 import client.view.RecordScreen.RecordMealScreen;
 import java.util.HashMap;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 
 public class View {
 
   HashMap<String, BorderPane> scenes;
   Scene scene;
   MainMenu mainMenu = new MainMenu();
-  RecipeScreen recipeScreen = new RecipeScreen();
+  RecipeScreen recipeScreen = new RecipeScreen(true);
+  public RecipeScreen viewRecipeScreen = new RecipeScreen(false);
   RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
-  RecordMealScreen recordMealScreen =  new RecordMealScreen(this, "Record the Meal Type for the recipe:");
-  RecordMealScreen recordMealScreenError =  new RecordMealScreen(this, "Please repeat Meal Type:");
+  RecordMealScreen recordMealScreen = new RecordMealScreen(
+    this,
+    "Record the Meal Type for the recipe:"
+  );
+  RecordMealScreen recordMealScreenError = new RecordMealScreen(
+    this,
+    "Please repeat Meal Type:"
+  );
   String mealType;
 
   public View() {
     scenes = new HashMap<>();
-    
+
     scenes.put("main", mainMenu);
 
     scenes.put("recipe", this.recipeScreen);
 
+    scenes.put("viewRecipe", this.viewRecipeScreen);
+
     scenes.put("recordMeal", this.recordMealScreen);
 
     scenes.put("recordMealError", this.recordMealScreenError);
-   
+
     scene = new Scene(scenes.get("main"), 500, 600);
   }
-
 
   public BorderPane getRoot(String key) {
     return scenes.get(key);
@@ -56,5 +64,4 @@ public class View {
   public String getMealType() {
     return this.mealType;
   }
-
 }

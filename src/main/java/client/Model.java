@@ -11,6 +11,7 @@ public class Model {
 
   public String performRequest(
     String method,
+    String name,
     String recipe,
     String query
   ) {
@@ -28,7 +29,7 @@ public class Model {
 
       if (method.equals("POST") || method.equals("PUT")) {
         OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-        out.write(recipe);
+        out.write(name + "," + recipe);
         out.flush();
         out.close();
       }

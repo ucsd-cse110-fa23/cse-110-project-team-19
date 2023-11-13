@@ -1,26 +1,22 @@
 package client.controller;
 
+import client.Model;
 import client.View;
 import client.model.IRecipeDetails;
 import client.model.RecipeDetails;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
+import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import javafx.event.ActionEvent;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class RecipeScreenController {
@@ -29,16 +25,22 @@ public class RecipeScreenController {
   private IRecipeDetails recipeDetails;
   private View view;
   private MainMenu mainMenu;
+  private Recipe recipe;
+  private Model model;
 
   public RecipeScreenController(
     View view,
     RecipeScreen recipeScreen,
-    MainMenu mainMenu
+    MainMenu mainMenu,
+    Model model,
+    Recipe recipe
   ) {
     this.recipeScreen = recipeScreen;
     this.recipeDetails = recipeScreen.getRecipeDetails();
     this.view = view;
+    this.model = model;
     this.mainMenu = mainMenu;
+    this.recipe = recipe;
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
 
     this.recipeScreen.setDeleteButtonAction(this::handleDeleteButton);
@@ -49,16 +51,29 @@ public class RecipeScreenController {
   }
 
   private void handleSaveButton(ActionEvent event) {
-    Recipe recipe = new Recipe();
+    recipe = new Recipe();
+    recipe.setRecipe(recipeDetails.getRecipe());
     // doesn't correctly store recipe name
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
+    recipe.setRecipeButtonAction(this::handleRecipeButtonAction);
     mainMenu.getRecipeList().getChildren().add(recipe);
+    String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
+    model.performRequest("POST", name, recipeDetails.getRecipe(), null);
     view.setRoot("main");
+  }
+
+  private void handleRecipeButtonAction(ActionEvent event) {
+    DetailedRecipeView detailedRecipeView =
+      ((RecipeScreen) view.getRoot("viewRecipe")).getDetailedRecipeView();
+
+    detailedRecipeView.setText(recipe.getRecipe());
+    view.setRoot("viewRecipe");
+    view.viewRecipeScreen.setRecipe(recipe);
   }
 
   private void handleDeleteButton(ActionEvent event) {
     Stage addStage = new Stage();
-    addStage.setTitle("Delete comfirmation");
+    addStage.setTitle("Delete confirmation");
     GridPane grid = new GridPane();
     grid.setHgap(10);
     grid.setVgap(10);
@@ -87,6 +102,11 @@ public class RecipeScreenController {
     });
     confirmButton.setOnAction(e2 -> {
       // delete recipe in main menu
+      mainMenu
+        .getRecipeList()
+        .getChildren()
+        .remove(view.viewRecipeScreen.recipe);
+      addStage.close();
       view.setRoot("main");
       addStage.close();
     });
@@ -104,7 +124,7 @@ public class RecipeScreenController {
     addStage.show();
 
     TextArea prompt = new TextArea();
-    prompt.setText(recipeDetails.getRecipe());
+    prompt.setText(view.viewRecipeScreen.getRecipe());
     prompt.setMinSize(350, 425);
 
     Button saveButton = new Button("Save");

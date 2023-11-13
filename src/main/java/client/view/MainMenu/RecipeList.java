@@ -9,19 +9,4 @@ public class RecipeList extends VBox {
     this.setPrefSize(500, 560);
     this.setStyle("-fx-background-color: #F0F8FF;");
   }
-  // TODO
-  // public void updateTaskIndices() {
-  //   int index = 1;
-  //   for (int i = 0; i < this.getChildren().size(); i++) {
-  //     if (this.getChildren().get(i) instanceof Recipe) {
-  //       ((Recipe) this.getChildren().get(i)).setTaskIndex(index);
-  //       index++;
-  //     }
-  //   }
-  // }
-
-  // public void deleteRecipe(Recipe recipe) {
-  //   this.getChildren().removeIf(curr -> curr.equals(recipe));
-  //   this.updateTaskIndices();
-  // }
 }

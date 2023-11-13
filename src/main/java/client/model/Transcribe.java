@@ -14,17 +14,16 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Transcribe extends ATranscribe {
 
-    // FIELDS
-    private static final String API_ENDPOINT = getEndpoint();
-    private static final String TOKEN = getToken();
-    private static final String MODEL = getModel();
-    private static final String FILE_PATH = getFilePath();
+  // FIELDS
+  private static final String API_ENDPOINT = getEndpoint();
+  private static final String TOKEN = getToken();
+  private static final String MODEL = getModel();
+  private static final String FILE_PATH = getFilePath();
 
   public String transcribe() throws IOException, URISyntaxException {
     // Create file object from file path
@@ -75,5 +74,4 @@ public class Transcribe extends ATranscribe {
     connection.disconnect();
     return rString;
   }
-    
 }

@@ -1,5 +1,6 @@
 package client;
 
+import client.Model;
 import client.controller.MainMenuController;
 import client.controller.RecipeScreenController;
 import client.controller.RecordIngredientPromptController;
@@ -20,8 +21,22 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) {
     View view = new View();
-    new MainMenuController(view, view.mainMenu);
-    new RecipeScreenController(view, view.recipeScreen, view.mainMenu);
+    Model model = new Model();
+    new MainMenuController(view, view.mainMenu, model);
+    new RecipeScreenController(
+      view,
+      view.recipeScreen,
+      view.mainMenu,
+      model,
+      null
+    );
+    new RecipeScreenController(
+      view,
+      view.viewRecipeScreen,
+      view.mainMenu,
+      model,
+      null
+    );
     new RecordMealScreenController(view, view.recordMealScreen);
     new RecordMealTypePromptController(
       view.recordMealScreen.getRecordMealPrompt()
