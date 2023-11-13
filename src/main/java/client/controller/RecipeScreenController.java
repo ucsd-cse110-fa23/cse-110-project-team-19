@@ -112,7 +112,7 @@ public class RecipeScreenController {
       addStage.close();
       view.setRoot("main");
       addStage.close();
-      String name = view.viewRecipeScreen.recipe.getRecipeName().getText();
+      String name = view.recipeScreen.recipe.getRecipeName().getText();
       name = name.replaceAll(" ", "_");
       model.performRequest("DELETE", null, null, name);
     });
