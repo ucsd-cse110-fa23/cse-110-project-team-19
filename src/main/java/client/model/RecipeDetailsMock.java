@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class RecipeDetailsMock implements IRecipeDetails {
-    public Label text;
+
     public JSONObject requestBody;
     private static final String MODEL = "text-davinci-003";
   
@@ -27,8 +27,17 @@ public class RecipeDetailsMock implements IRecipeDetails {
       requestBody.put("prompt", prompt);
       requestBody.put("max_tokens", maxTokens);
       requestBody.put("temperature", 1.0);
-  
-      text.setText("");
+
+      
       //System.out.println(requestBody.toString());
+    }
+
+    public String getRecipe(){
+      // TODO
+      return "";
+    }
+    public String getRecipeName(){
+      // TODO
+      return "";
     }
 }

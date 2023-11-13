@@ -5,6 +5,7 @@ import client.view.MainMenu.MainMenu;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
 import client.view.RecordScreen.RecordMealScreen;
+import client.model.ATranscribe;
 import client.model.Transcribe;
 import client.App;
 import javafx.event.ActionEvent;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 public class RecordMealScreenController {
     private RecordMealScreen recordMealScreen;
     private View view;
+    private ATranscribe transcriber = new Transcribe();
     
     
 
@@ -35,7 +37,7 @@ public class RecordMealScreenController {
   private void handleGenerateButton(ActionEvent event) {
     String mealType = "error";
       try {
-        mealType = Transcribe.transcribe();
+        mealType = transcriber.transcribe();
         String type = Transcribe.checkMealType(mealType);
         if (type == null) {
           view.setRoot("recordMealError");

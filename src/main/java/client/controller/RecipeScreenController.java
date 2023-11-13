@@ -1,6 +1,7 @@
 package client.controller;
 
 import client.View;
+import client.model.IRecipeDetails;
 import client.model.RecipeDetails;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
@@ -25,7 +26,7 @@ import javafx.stage.Stage;
 public class RecipeScreenController {
 
   private RecipeScreen recipeScreen;
-  private RecipeDetails recipeDetails;
+  private IRecipeDetails recipeDetails;
   private View view;
   private MainMenu mainMenu;
 
