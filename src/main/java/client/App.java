@@ -1,12 +1,12 @@
 package client;
 
-import client.Model;
 import client.controller.MainMenuController;
 import client.controller.RecipeScreenController;
 import client.controller.RecordIngredientPromptController;
 import client.controller.RecordIngredientScreenController;
 import client.controller.RecordMealScreenController;
 import client.controller.RecordMealTypePromptController;
+import client.model.Model;
 import client.view.MainMenu.MainMenu;
 import client.view.RecordScreen.RecordMealScreen;
 import javafx.application.Application;

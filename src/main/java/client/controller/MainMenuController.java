@@ -1,7 +1,7 @@
 package client.controller;
 
-import client.Model;
 import client.View;
+import client.model.Model;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
@@ -22,7 +22,6 @@ public class MainMenuController {
     String response = model.performRequest("GET", null, null, query);
     if (response != null) {
       String[] recipes = response.split(",");
-      System.out.println(response);
       for (String name : recipes) {
         String recipeName = name.replaceAll("_", " ");
         recipe = new Recipe();
