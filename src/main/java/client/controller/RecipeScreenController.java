@@ -1,8 +1,8 @@
 package client.controller;
 
-import client.Model;
 import client.View;
 import client.model.IRecipeDetails;
+import client.model.Model;
 import client.model.RecipeDetails;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
@@ -109,6 +109,9 @@ public class RecipeScreenController {
       addStage.close();
       view.setRoot("main");
       addStage.close();
+      String name = view.viewRecipeScreen.recipe.getRecipeName().getText();
+      name = name.replaceAll(" ", "_");
+      model.performRequest("DELETE", null, null, name);
     });
   }
 
