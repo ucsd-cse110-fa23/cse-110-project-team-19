@@ -49,6 +49,7 @@ public class MainMenuController {
       ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
 
     detailedRecipeView.setText(recipe.getRecipe());
+    view.recipeScreen.getFooter().switchToViewing();
     view.setRoot("recipe");
     view.recipeScreen.setRecipe(recipe);
   }
