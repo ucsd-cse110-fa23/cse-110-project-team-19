@@ -40,6 +40,7 @@ public class RecordIngredientScreenController {
         ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe()
       );
     } catch (Exception exception) {}
+    view.recipeScreen.getFooter().switchToCreating();
     view.setRoot("recipe");
   }
 }

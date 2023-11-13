@@ -1,5 +1,8 @@
 package client.view.MainMenu;
 
+import client.View;
+import client.view.RecipeScreen.DetailedRecipeView;
+import client.view.RecipeScreen.RecipeScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -15,7 +18,7 @@ public class Recipe extends HBox {
   private Button recipeName;
   private String recipe;
 
-  public Recipe() {
+  public Recipe(View view) {
     this.setPrefSize(500, 20); // sets size of task
     this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
 
@@ -28,6 +31,16 @@ public class Recipe extends HBox {
     this.getChildren().add(recipeName); // add textlabel to task
     //recipeName.setTextAlignment(TextAlignment.LEFT);
     this.setAlignment(Pos.BOTTOM_LEFT);
+    recipeName.setOnAction(e -> {
+      DetailedRecipeView detailedRecipeView =
+        ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
+      detailedRecipeView.setText(recipe);
+
+      view.recipeScreen.getFooter().switchToViewing();
+      view.recipeScreen.setRecipe(this);
+      System.out.println(recipe);
+      view.setRoot("recipe");
+    });
   }
 
   // TODO
@@ -35,10 +48,6 @@ public class Recipe extends HBox {
   //   this.index.setText(num + ""); // num to String
   //   this.recipeName.setText("Task " + num);
   // }
-
-  public void setRecipeButtonAction(EventHandler<ActionEvent> eventHandler) {
-    this.recipeName.setOnAction(eventHandler);
-  }
 
   public Button getRecipeName() {
     return this.recipeName;

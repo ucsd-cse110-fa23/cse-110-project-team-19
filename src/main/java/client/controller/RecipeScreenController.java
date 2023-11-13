@@ -51,24 +51,14 @@ public class RecipeScreenController {
   }
 
   private void handleSaveButton(ActionEvent event) {
-    recipe = new Recipe();
+    recipe = new Recipe(view);
     recipe.setRecipe(recipeDetails.getRecipe());
     // doesn't correctly store recipe name
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
-    recipe.setRecipeButtonAction(this::handleRecipeButtonAction);
     mainMenu.getRecipeList().getChildren().add(recipe);
     String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
     model.performRequest("POST", name, recipeDetails.getRecipe(), null);
     view.setRoot("main");
-  }
-
-  private void handleRecipeButtonAction(ActionEvent event) {
-    DetailedRecipeView detailedRecipeView =
-      ((RecipeScreen) view.getRoot("viewRecipe")).getDetailedRecipeView();
-
-    detailedRecipeView.setText(recipe.getRecipe());
-    view.setRoot("viewRecipe");
-    view.viewRecipeScreen.setRecipe(recipe);
   }
 
   private void handleDeleteButton(ActionEvent event) {
@@ -102,14 +92,11 @@ public class RecipeScreenController {
     });
     confirmButton.setOnAction(e2 -> {
       // delete recipe in main menu
-      mainMenu
-        .getRecipeList()
-        .getChildren()
-        .remove(view.viewRecipeScreen.recipe);
+      mainMenu.getRecipeList().getChildren().remove(view.recipeScreen.recipe);
       addStage.close();
       view.setRoot("main");
       addStage.close();
-      String name = view.viewRecipeScreen.recipe.getRecipeName().getText();
+      String name = view.recipeScreen.recipe.getRecipeName().getText();
       name = name.replaceAll(" ", "_");
       model.performRequest("DELETE", null, null, name);
     });
@@ -127,7 +114,7 @@ public class RecipeScreenController {
     addStage.show();
 
     TextArea prompt = new TextArea();
-    prompt.setText(view.viewRecipeScreen.getRecipe());
+    prompt.setText(view.recipeScreen.getRecipe());
     prompt.setMinSize(350, 425);
 
     Button saveButton = new Button("Save");
@@ -139,6 +126,14 @@ public class RecipeScreenController {
 
     buttonBox.setAlignment(Pos.CENTER);
     saveButton.setOnAction(e1 -> {
+      String recString = prompt.getText();
+      prompt.setText(recString);
+      DetailedRecipeView detailedRecipeView =
+        ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
+      detailedRecipeView.setText(recString);
+      view.recipeScreen.setRecipe(recipe);
+
+      view.setRoot("recipe");
       addStage.close();
     });
   }

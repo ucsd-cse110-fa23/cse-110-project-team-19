@@ -108,4 +108,8 @@ public class RecipeScreen extends BorderPane {
   public String getRecipe() {
     return this.recipe.getRecipe();
   }
+
+  public Footer getFooter() {
+    return this.footer;
+  }
 }

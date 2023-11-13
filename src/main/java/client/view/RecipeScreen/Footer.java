@@ -47,4 +47,9 @@ public class Footer extends HBox {
   public void switchToViewing() {
     this.getChildren().remove(saveButton);
   }
+
+  public void switchToCreating() {
+    this.getChildren().remove(saveButton);
+    this.getChildren().add(saveButton);
+  }
 }
