@@ -16,7 +16,6 @@ public class View {
   Scene scene;
   MainMenu mainMenu = new MainMenu();
   public RecipeScreen recipeScreen = new RecipeScreen(true);
-  //public RecipeScreen viewRecipeScreen = new RecipeScreen(false);
   RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
   RecordMealScreen recordMealScreen = new RecordMealScreen(
     this,
@@ -34,8 +33,6 @@ public class View {
     scenes.put("main", mainMenu);
 
     scenes.put("recipe", this.recipeScreen);
-
-    //scenes.put("viewRecipe", this.viewRecipeScreen);
 
     scenes.put("recordMeal", this.recordMealScreen);
 

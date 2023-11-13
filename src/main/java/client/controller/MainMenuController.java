@@ -6,6 +6,7 @@ import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
+import java.util.List;
 import javafx.event.ActionEvent;
 
 public class MainMenuController {
@@ -24,11 +25,10 @@ public class MainMenuController {
       String[] recipes = response.split(",");
       for (String name : recipes) {
         String recipeName = name.replaceAll("_", " ");
-        recipe = new Recipe();
+        recipe = new Recipe(view);
         String recipeContent = model.performRequest("GET", null, null, name);
         recipe.setRecipe(recipeContent);
         recipe.getRecipeName().setText(recipeName);
-        recipe.setRecipeButtonAction(this::handleRecipeButtonAction);
         mainMenu.getRecipeList().getChildren().add(recipe);
         new RecipeScreenController(
           view,
@@ -41,16 +41,6 @@ public class MainMenuController {
     }
 
     this.mainMenu.setCreateButtonAction(this::handleCreateButton);
-  }
-
-  private void handleRecipeButtonAction(ActionEvent event) {
-    DetailedRecipeView detailedRecipeView =
-      ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
-
-    detailedRecipeView.setText(recipe.getRecipe());
-    view.recipeScreen.getFooter().switchToViewing();
-    view.setRoot("recipe");
-    view.recipeScreen.setRecipe(recipe);
   }
 
   private void handleCreateButton(ActionEvent event) {

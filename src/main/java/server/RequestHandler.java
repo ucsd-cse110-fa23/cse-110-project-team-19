@@ -62,6 +62,7 @@ public class RequestHandler implements HttpHandler {
       if (year != null) {
         response = year;
         System.out.println("Queried for " + value + " and found " + year);
+        return year;
       } else {
         response = "No data found for " + value;
       }
@@ -93,10 +94,11 @@ public class RequestHandler implements HttpHandler {
     InputStream inStream = httpExchange.getRequestBody();
     Scanner scanner = new Scanner(inStream);
     String postData = scanner.nextLine();
-    String language = postData.substring(
-      0,
-      postData.indexOf(",")
-    ), year = postData.substring(postData.indexOf(",") + 1);
+    String language = postData.substring(0, postData.indexOf(","));
+    String year = postData.substring(postData.indexOf(",") + 1) + '\n';
+    while (scanner.hasNext()) {
+      year += scanner.nextLine() + '\n';
+    }
 
     String response = "";
     // Update data in hashmap
@@ -109,10 +111,10 @@ public class RequestHandler implements HttpHandler {
         "} (previous year: " +
         data.get(language) +
         ")";
+      data.put(language, year);
     } else {
-      response = "Added entry {" + language + ", " + year + "}";
+      response = "not in database";
     }
-    data.put(language, year);
 
     System.out.println(response);
     scanner.close();

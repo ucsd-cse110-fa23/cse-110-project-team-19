@@ -38,4 +38,6 @@ public class RecipeDetailsMock implements IRecipeDetails {
     // TODO
     return "";
   }
+
+  public void setRecipe(String recipe) {}
 }
