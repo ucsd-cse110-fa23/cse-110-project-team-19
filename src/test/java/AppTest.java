@@ -123,7 +123,7 @@ public class AppTest {
     );
 
     // 5 checking getRecipe() and getRecipeName() match expected output
-    assertEquals("ChatGPT\nmocked recipe",mockGPT.getRecipe());
+    assertEquals("ChatGPT\nmocked recipe", mockGPT.getRecipe());
     assertEquals("ChatGPT", mockGPT.getRecipeName());
   }
 

@@ -15,7 +15,6 @@ public class RecipeDetailsMock implements IRecipeDetails {
   
     public void newRecipe(String mealType, String ingredients)
       throws IOException, InterruptedException, URISyntaxException {
-      // TODO
       String prompt =
         "Can you create me a recipe for " +
         mealType +
