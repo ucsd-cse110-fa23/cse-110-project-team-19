@@ -27,6 +27,8 @@ public class RecipeScreenController {
   private MainMenu mainMenu;
   private Recipe recipe;
   private Model model;
+  private String recString;
+  TextArea prompt = new TextArea();
 
   public RecipeScreenController(
     View view,
@@ -59,7 +61,10 @@ public class RecipeScreenController {
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
     mainMenu.getRecipeList().getChildren().add(recipe);
     String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
-    model.performRequest("POST", name, recipeDetails.getRecipe(), null);
+    if (recString == null) {
+      recString = recipeDetails.getRecipe();
+    }
+    model.performRequest("POST", name, recString, null);
     view.setRoot("main");
   }
 
