@@ -9,14 +9,16 @@ import java.net.URL;
 
 public class Model {
 
+  // takes in method, name, recipe, and query
+  // returns a response
   public String performRequest(
     String method,
     String name,
     String recipe,
     String query
   ) {
+    
     // Implement your HTTP request logic here and return the response
-
     try {
       String urlString = "http://localhost:8100/";
       if (query != null) {

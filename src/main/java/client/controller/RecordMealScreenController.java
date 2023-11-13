@@ -25,8 +25,6 @@ public class RecordMealScreenController {
     private View view;
     private ATranscribe transcriber = new Transcribe();
     
-    
-
     public RecordMealScreenController(View view, RecordMealScreen recordMealScreen) {
     this.recordMealScreen = recordMealScreen;
     this.view = view;
@@ -38,7 +36,7 @@ public class RecordMealScreenController {
     String mealType = "error";
       try {
         mealType = transcriber.transcribe();
-        String type = Transcribe.checkMealType(mealType);
+        String type = ATranscribe.checkMealType(mealType);
         if (type == null) {
           view.setRoot("recordMealError");
         } else if (
