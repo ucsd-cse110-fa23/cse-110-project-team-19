@@ -140,7 +140,7 @@ public class RecipeScreenController {
       recipe.setRecipe(recString);
       view.recipeScreen.setRecipe(recipe);
 
-      String name = recipeDetails.getRecipeName().replaceAll(" ", "_");\
+      String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
       model.performRequest("PUT", name, recString, null);
 
       view.setRoot("recipe");
