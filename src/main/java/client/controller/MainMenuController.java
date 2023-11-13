@@ -32,7 +32,7 @@ public class MainMenuController {
         mainMenu.getRecipeList().getChildren().add(recipe);
         new RecipeScreenController(
           view,
-          view.viewRecipeScreen,
+          view.recipeScreen,
           mainMenu,
           model,
           recipe
@@ -45,10 +45,12 @@ public class MainMenuController {
 
   private void handleRecipeButtonAction(ActionEvent event) {
     DetailedRecipeView detailedRecipeView =
-      ((RecipeScreen) view.getRoot("viewRecipe")).getDetailedRecipeView();
+      ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
+
     detailedRecipeView.setText(recipe.getRecipe());
-    view.setRoot("viewRecipe");
-    view.viewRecipeScreen.setRecipe(recipe);
+    view.recipeScreen.getFooter().switchToViewing();
+    view.setRoot("recipe");
+    view.recipeScreen.setRecipe(recipe);
   }
 
   private void handleCreateButton(ActionEvent event) {

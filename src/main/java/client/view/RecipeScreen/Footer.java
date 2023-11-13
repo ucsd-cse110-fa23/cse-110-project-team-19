@@ -28,7 +28,7 @@ public class Footer extends HBox {
     deleteButton = new Button("Delete"); // text displayed on delete button
     deleteButton.setStyle(defaultButtonStyle); // styling the button
 
-    this.getChildren().addAll(editButton, saveButton, deleteButton); // adding buttons to footer
+    this.getChildren().addAll(editButton, deleteButton, saveButton); // adding buttons to footer
     this.setAlignment(Pos.CENTER); // aligning the buttons to center
   }
 
@@ -46,5 +46,10 @@ public class Footer extends HBox {
 
   public void switchToViewing() {
     this.getChildren().remove(saveButton);
+  }
+
+  public void switchToCreating() {
+    this.getChildren().remove(saveButton);
+    this.getChildren().add(saveButton);
   }
 }
