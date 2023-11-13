@@ -22,7 +22,7 @@ public class TranscribeMock extends ATranscribe {
   private static final String FILE_PATH = getFilePath();
 
   public String transcribe() throws IOException, URISyntaxException {
-        // Create file object from file path
+    //     // Create file object from file path
     // File file = new File(FILE_PATH);
 
     // // Set up HTTP connection

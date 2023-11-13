@@ -1,3 +1,4 @@
+import static client.model.ATranscribe.checkMealType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -78,5 +79,23 @@ public class AppTest {
       "{\"max_tokens\":100,\"temperature\":1,\"model\":\"text-davinci-003\",\"prompt\":\"Can you create me a recipe for lunch with these ingredients potatoes, beans\"}",
       mockGPT.requestBody.toString()
     );
+  }
+
+  /*
+   * UNIT TEST
+   */
+  @Test
+  void testCheckMealType(){
+    // testing all lowercase input
+    String mealType = "breakfast";
+    assertEquals("breakfast", checkMealType(mealType));
+
+    // testing random uppercase
+    mealType = "LunCh";
+    assertEquals("lunch", checkMealType(mealType));
+
+    // testing random word out of context
+    mealType = "Tired";
+    assertEquals(null, checkMealType(mealType));
   }
 }

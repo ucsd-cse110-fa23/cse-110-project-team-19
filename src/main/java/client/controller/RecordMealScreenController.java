@@ -25,8 +25,6 @@ public class RecordMealScreenController {
     private View view;
     private ATranscribe transcriber = new Transcribe();
     
-    
-
     public RecordMealScreenController(View view, RecordMealScreen recordMealScreen) {
     this.recordMealScreen = recordMealScreen;
     this.view = view;

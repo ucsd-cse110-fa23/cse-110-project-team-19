@@ -130,6 +130,6 @@ public abstract class ATranscribe {
     return null;
   }
 
-// ABSTRACT METHODS
+  // ABSTRACT METHODS
   public abstract String transcribe() throws IOException, URISyntaxException;
 }
