@@ -22,7 +22,6 @@ public class MainMenuController {
     String response = model.performRequest("GET", null, null, query);
     if (response != null) {
       String[] recipes = response.split(",");
-      System.out.println(response);
       for (String name : recipes) {
         String recipeName = name.replaceAll("_", " ");
         recipe = new Recipe();
@@ -47,7 +46,6 @@ public class MainMenuController {
   private void handleRecipeButtonAction(ActionEvent event) {
     DetailedRecipeView detailedRecipeView =
       ((RecipeScreen) view.getRoot("viewRecipe")).getDetailedRecipeView();
-
     detailedRecipeView.setText(recipe.getRecipe());
     view.setRoot("viewRecipe");
     view.viewRecipeScreen.setRecipe(recipe);

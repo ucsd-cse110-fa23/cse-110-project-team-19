@@ -8,53 +8,53 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
 import java.net.URISyntaxException;
+import java.net.URL;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public abstract class ATranscribe {
-    
-    // FIELDS
-    private static final String API_ENDPOINT =
+
+  // FIELDS
+  private static final String API_ENDPOINT =
     "https://api.openai.com/v1/audio/transcriptions";
-    private static final String TOKEN =
-    "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";
-    private static final String MODEL = "whisper-1";
-    private static final String FILE_PATH = "ingredients.wav";
+  private static final String TOKEN =
+    "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";
+  private static final String MODEL = "whisper-1";
+  private static final String FILE_PATH = "ingredients.wav";
 
-    // CONCRETE METHODS
-    public static String getEndpoint() {
+  // CONCRETE METHODS
+  public static String getEndpoint() {
     return API_ENDPOINT;
-    }
+  }
 
-    public static String getToken() {
+  public static String getToken() {
     return TOKEN;
-    }
+  }
 
-    public static String getModel() {
+  public static String getModel() {
     return MODEL;
-    }
+  }
 
-    public static String getFilePath() {
+  public static String getFilePath() {
     return FILE_PATH;
-    }
+  }
 
-    // Helper method to write a parameter to the output stream in multipart form data format
-    public static void writeParameterToOutputStream(
-        OutputStream outputStream,
-        String parameterName,
-        String parameterValue,
-        String boundary
-    ) throws IOException {
+  // Helper method to write a parameter to the output stream in multipart form data format
+  public static void writeParameterToOutputStream(
+    OutputStream outputStream,
+    String parameterName,
+    String parameterValue,
+    String boundary
+  ) throws IOException {
     outputStream.write(("--" + boundary + "\r\n").getBytes());
     outputStream.write(
-        (
+      (
         "Content-Disposition: form-data; name=\"" + parameterName + "\"\r\n\r\n"
-        ).getBytes()
+      ).getBytes()
     );
     outputStream.write((parameterValue + "\r\n").getBytes());
-    }
+  }
 
   // Helper method to write a file to the output stream in multipart form data format
   public static void writeFileToOutputStream(
@@ -115,7 +115,6 @@ public abstract class ATranscribe {
     }
     errorReader.close();
     String errorResult = errorResponse.toString();
-    System.out.println("Error Result: " + errorResult);
   }
 
   public static String checkMealType(String input) {
@@ -130,6 +129,6 @@ public abstract class ATranscribe {
     return null;
   }
 
-// ABSTRACT METHODS
+  // ABSTRACT METHODS
   public abstract String transcribe() throws IOException, URISyntaxException;
 }

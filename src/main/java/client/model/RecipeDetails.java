@@ -16,7 +16,7 @@ public class RecipeDetails implements IRecipeDetails {
   private static final String API_ENDPOINT =
     "https://api.openai.com/v1/completions";
   private static final String API_KEY =
-    "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";
+    "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";
   private static final String MODEL = "text-davinci-003";
 
   public void newRecipe(String mealType, String ingredients)
