@@ -4,9 +4,6 @@
 - Start by selecting "MyServer" and hitting the green arrow to start the server.
 - Finally, select "App" and hit the green arrow to run the PantryPal Application.
  
-that's what I put in the readme
-I just put it at the top
-if you can't it's ok I can delete this branch and start over
 
 ## Getting Started
 
