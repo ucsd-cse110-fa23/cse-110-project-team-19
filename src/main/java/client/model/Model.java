@@ -6,6 +6,10 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.charset.StandardCharsets;
 
 public class Model {
 
@@ -43,6 +47,7 @@ public class Model {
         response += '\n' + in.readLine();
       }
       in.close();
+      response = URLDecoder.decode(response, StandardCharsets.UTF_8.toString());
       return response;
     } catch (Exception ex) {
       ex.printStackTrace();

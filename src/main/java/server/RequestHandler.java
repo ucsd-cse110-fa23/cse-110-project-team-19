@@ -10,10 +10,10 @@ import com.mongodb.client.MongoDatabase;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.bson.types.ObjectId;
 
 public class RequestHandler implements HttpHandler {
 
@@ -41,7 +41,7 @@ public class RequestHandler implements HttpHandler {
       response = e.toString();
       e.printStackTrace();
     }
-    System.out.println(response);
+    response = URLEncoder.encode(response, StandardCharsets.UTF_8.toString());
     httpExchange.sendResponseHeaders(200, response.length());
     OutputStream outStream = httpExchange.getResponseBody();
     outStream.write(response.getBytes());
