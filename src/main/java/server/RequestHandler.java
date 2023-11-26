@@ -1,17 +1,24 @@
 package server;
 
+import static com.mongodb.client.model.Filters.eq;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 public class RequestHandler implements HttpHandler {
 
-  private final Map<String, String> data;
-
-  public RequestHandler(Map<String, String> data) {
-    this.data = data;
-  }
+  String mongoURI =
+    "mongodb+srv://user:RbrRuGgkHtbSgqai@pantrypal.mz6l5wo.mongodb.net/?retryWrites=true&w=majority";
 
   public void handle(HttpExchange httpExchange) throws IOException {
     String response = "Request Received";
@@ -34,8 +41,7 @@ public class RequestHandler implements HttpHandler {
       response = e.toString();
       e.printStackTrace();
     }
-
-    //Sending back response to the client
+    System.out.println(response);
     httpExchange.sendResponseHeaders(200, response.length());
     OutputStream outStream = httpExchange.getResponseBody();
     outStream.write(response.getBytes());
@@ -46,27 +52,23 @@ public class RequestHandler implements HttpHandler {
     String response = "Invalid GET request";
     URI uri = httpExchange.getRequestURI();
     String query = uri.getRawQuery();
-    String value = query.substring(query.indexOf("=") + 1);
-    if (value.equals("all")) {
-      response = "";
-      if (data.size() == 0) {
-        return "";
-      }
-      for (String key : data.keySet()) {
-        response += key + ",";
-      }
-      return response;
-    }
-    if (query != null) {
-      String year = data.get(value); // Retrieve data from hashmap
-      if (year != null) {
-        response = year;
-        System.out.println("Queried for " + value + " and found " + year);
-        return year;
-      } else {
-        response = "No data found for " + value;
+    String username = query.substring(query.indexOf("=") + 1);
+    response = "";
+    try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
+      MongoDatabase sampleTrainingDB = mongoClient.getDatabase("account_db");
+      MongoCollection<Document> recipesCollection = sampleTrainingDB.getCollection(
+        "recipes"
+      );
+      Bson filter = eq("account", username);
+
+      FindIterable<Document> recipes = recipesCollection.find(filter);
+
+      for (Document recipe : recipes) {
+        System.out.println(recipe);
+        response += recipe.get("recipe") + "~";
       }
     }
+    System.out.println(response);
     return response;
   }
 
@@ -74,16 +76,23 @@ public class RequestHandler implements HttpHandler {
     InputStream inStream = httpExchange.getRequestBody();
     Scanner scanner = new Scanner(inStream);
     String postData = scanner.nextLine();
-    String language = postData.substring(0, postData.indexOf(","));
-    String year = postData.substring(postData.indexOf(",") + 1) + '\n';
+    String username = postData.substring(0, postData.indexOf(","));
+    String recipe = postData.substring(postData.indexOf(",") + 1) + '\n';
     while (scanner.hasNext()) {
-      year += scanner.nextLine() + '\n';
+      recipe += scanner.nextLine() + '\n';
     }
 
-    // Store data in hashmap
-    data.put(language, year);
+    try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
+      MongoDatabase accountDB = mongoClient.getDatabase("account_db");
+      MongoCollection<Document> recipesCollection = accountDB.getCollection(
+        "recipes"
+      );
+      Document account = new Document("account", username);
+      account.append("recipe", recipe);
+      recipesCollection.insertOne(account);
+    }
 
-    String response = "Posted entry {" + language + ", " + year + "}";
+    String response = "Posted entry {" + username + ", " + recipe + "}";
     System.out.println(response);
     scanner.close();
 
@@ -101,20 +110,6 @@ public class RequestHandler implements HttpHandler {
     }
 
     String response = "";
-    // Update data in hashmap
-    if (data.containsKey(language)) {
-      response =
-        "Updated entry {" +
-        language +
-        ", " +
-        year +
-        "} (previous year: " +
-        data.get(language) +
-        ")";
-      data.put(language, year);
-    } else {
-      response = "not in database";
-    }
 
     System.out.println(response);
     scanner.close();
@@ -128,7 +123,7 @@ public class RequestHandler implements HttpHandler {
     String query = uri.getRawQuery();
     if (query != null) {
       String value = query.substring(query.indexOf("=") + 1);
-      String year = data.remove(value); // Delete data from hashmap
+      String year = "";
       if (year != null) {
         response = "Deleted entry {" + value + ", " + year + "}";
         System.out.println(response);
@@ -137,9 +132,5 @@ public class RequestHandler implements HttpHandler {
       }
     }
     return response;
-  }
-
-  public Map<String, String> getData() {
-    return this.data;
   }
 }

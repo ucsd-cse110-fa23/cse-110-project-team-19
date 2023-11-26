@@ -1,5 +1,6 @@
 package client;
 
+import client.view.AccountScreen.AccountScreen;
 import client.view.MainMenu.MainMenu;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
@@ -26,6 +27,8 @@ public class View {
     "Please repeat Meal Type:"
   );
   String mealType;
+  AccountScreen accountScreen = new AccountScreen();
+  String username;
 
   public View() {
     scenes = new HashMap<>();
@@ -38,7 +41,9 @@ public class View {
 
     scenes.put("recordMealError", this.recordMealScreenError);
 
-    scene = new Scene(scenes.get("main"), 500, 600);
+    scenes.put("accountScreen", this.accountScreen);
+
+    scene = new Scene(scenes.get("accountScreen"), 500, 600);
   }
 
   public BorderPane getRoot(String key) {
@@ -60,5 +65,13 @@ public class View {
 
   public String getMealType() {
     return this.mealType;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getUsername() {
+    return this.username;
   }
 }

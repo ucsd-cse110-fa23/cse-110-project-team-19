@@ -163,11 +163,4 @@ public class AppTest {
     assertEquals("ChatGPT\nmocked recipe", mockGPT.getRecipe());
     assertEquals("ChatGPT", mockGPT.getRecipeName());
   }
-
-  @Test
-  void testEmptyServer() {
-    Map<String, String> data = new HashMap<>();
-    RequestHandler requestHandler = new RequestHandler(data);
-    assertEquals(data, requestHandler.getData());
-  }
 }

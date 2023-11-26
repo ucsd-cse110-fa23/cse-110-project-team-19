@@ -7,19 +7,19 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 
-public class Model {
+public class CreateAccountModel {
 
   // takes in method, name, recipe, and query
   // returns a response
   public String performRequest(
     String method,
-    String account,
-    String recipe,
+    String username,
+    String password,
     String query
   ) {
     // Implement your HTTP request logic here and return the response
     try {
-      String urlString = "http://localhost:8100/";
+      String urlString = "http://localhost:8100/create-account";
       if (query != null) {
         urlString += "?=" + query;
       }
@@ -30,7 +30,7 @@ public class Model {
 
       if (method.equals("POST") || method.equals("PUT")) {
         OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-        out.write(account + "," + recipe);
+        out.write(username + "," + password);
         out.flush();
         out.close();
       }

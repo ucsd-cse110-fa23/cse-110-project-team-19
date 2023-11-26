@@ -19,9 +19,7 @@ public class MyServer {
       10
     );
 
-    // create a map to store data
-    Map<String, String> data = new HashMap<>();
-    RequestHandler requestHandler = new RequestHandler(data);
+    RequestHandler requestHandler = new RequestHandler();
 
     // create a server
     HttpServer server = HttpServer.create(
@@ -30,6 +28,8 @@ public class MyServer {
     );
 
     server.createContext("/", requestHandler);
+    server.createContext("/create-account", new CreateAccountHandler());
+    server.createContext("/login", new LoginHandler());
     server.setExecutor(threadPoolExecutor);
     server.start();
 
