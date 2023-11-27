@@ -28,6 +28,7 @@ public class View {
   );
   String mealType;
   AccountScreen accountScreen = new AccountScreen();
+  AccountScreen accountScreenError = new AccountScreen();
   String username;
 
   public View() {
@@ -42,6 +43,8 @@ public class View {
     scenes.put("recordMealError", this.recordMealScreenError);
 
     scenes.put("accountScreen", this.accountScreen);
+
+    scenes.put("accountScreenError", this.accountScreenError);
 
     scene = new Scene(scenes.get("accountScreen"), 500, 600);
   }
