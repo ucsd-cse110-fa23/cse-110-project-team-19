@@ -6,24 +6,20 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.charset.StandardCharsets;
 
-public class Model {
+public class LoginModel {
 
   // takes in method, name, recipe, and query
   // returns a response
   public String performRequest(
     String method,
-    String account,
-    String recipe,
+    String username,
+    String password,
     String query
   ) {
     // Implement your HTTP request logic here and return the response
     try {
-      String urlString = "http://localhost:8100/";
+      String urlString = "http://localhost:8100/login";
       if (query != null) {
         urlString += "?=" + query;
       }
@@ -34,7 +30,7 @@ public class Model {
 
       if (method.equals("POST") || method.equals("PUT")) {
         OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-        out.write(account + "," + recipe);
+        out.write(username + "," + password);
         out.flush();
         out.close();
       }
@@ -47,7 +43,6 @@ public class Model {
         response += '\n' + in.readLine();
       }
       in.close();
-      response = URLDecoder.decode(response, StandardCharsets.UTF_8.toString());
       return response;
     } catch (Exception ex) {
       ex.printStackTrace();

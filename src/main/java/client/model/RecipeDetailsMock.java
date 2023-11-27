@@ -29,7 +29,6 @@ public class RecipeDetailsMock implements IRecipeDetails {
     requestBody.put("temperature", 1.0);
 
     recipe = "ChatGPT\nmocked recipe";
-    //System.out.println(requestBody.toString());
   }
 
   // could be changed in the future, this is duplicate code from RecipeDetails

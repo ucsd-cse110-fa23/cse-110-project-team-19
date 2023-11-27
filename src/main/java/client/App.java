@@ -1,11 +1,14 @@
 package client;
 
+import client.controller.AccountScreenController;
 import client.controller.MainMenuController;
 import client.controller.RecipeScreenController;
 import client.controller.RecordIngredientPromptController;
 import client.controller.RecordIngredientScreenController;
 import client.controller.RecordMealScreenController;
 import client.controller.RecordMealTypePromptController;
+import client.model.CreateAccountModel;
+import client.model.LoginModel;
 import client.model.Model;
 import client.view.MainMenu.MainMenu;
 import client.view.RecordScreen.RecordMealScreen;
@@ -22,7 +25,9 @@ public class App extends Application {
   public void start(Stage primaryStage) {
     View view = new View();
     Model model = new Model();
-    new MainMenuController(view, view.mainMenu, model);
+    CreateAccountModel createAccountModel = new CreateAccountModel();
+    LoginModel loginModel = new LoginModel();
+    new MainMenuController(view, view.mainMenu);
     new RecipeScreenController(
       view,
       view.recipeScreen,
@@ -48,6 +53,14 @@ public class App extends Application {
     new RecordIngredientScreenController(view, view.recordIngredientScreen);
     new RecordIngredientPromptController(
       view.recordIngredientScreen.getRecordIngredientPrompt()
+    );
+    new AccountScreenController(
+      view,
+      model,
+      createAccountModel,
+      loginModel,
+      view.accountScreen,
+      view.mainMenu
     );
     //Model model = new Model();
     //Controller controller = new Controller(view, model);
