@@ -41,9 +41,10 @@ public class View {
     "Please repeat Meal Type: \n (Say Breakfast, Lunch, or Dinner)"
   );
   String mealType;
-  AccountScreen accountScreen = new AccountScreen();
-  AccountScreen accountScreenError = new AccountScreen();
+  AccountScreen accountScreen = new AccountScreen(true);
+  AccountScreen createAccountError = new AccountScreen(false);
   String username;
+  //boolean successfulCreation;
 
   public View() {
     scenes = new HashMap<>();
@@ -57,8 +58,8 @@ public class View {
     scenes.put("recordMealError", this.recordMealScreenError);
 
     scenes.put("accountScreen", this.accountScreen);
-
-    scenes.put("accountScreenError", this.accountScreenError);
+    
+    scenes.put("createAccountError", this.createAccountError);
 
     scenes.put("serverDown", this.serverStatus);
 
@@ -102,4 +103,9 @@ public class View {
   public String getUsername() {
     return this.username;
   }
+
+  // public void setCreateSuccess(boolean validUsername, boolean validPasswordConfirm) {
+  //   this.successfulCreation = validUsername && validPasswordConfirm;
+  //   scene.setRoot(mainMenu);
+  // }
 }
