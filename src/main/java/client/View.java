@@ -55,6 +55,8 @@ public class View {
   );
   String username;
 
+  //boolean successfulCreation;
+
   public View() {
     scenes = new HashMap<>();
 
