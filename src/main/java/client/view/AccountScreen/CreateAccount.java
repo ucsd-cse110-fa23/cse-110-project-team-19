@@ -20,7 +20,7 @@ public class CreateAccount extends VBox {
 
     errorPrompt = new Label(prompt);
     errorPrompt.setStyle(
-    "-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 18px"
+      "-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 18px"
     );
 
     username = new TextField();
@@ -58,11 +58,10 @@ public class CreateAccount extends VBox {
   public String getPasswordConfirmation() {
     return confirmPassword.getText();
   }
+
   public void clearCreateAccount() {
     username.clear();
     password.clear();
     confirmPassword.clear();
-    
   }
-
 }
