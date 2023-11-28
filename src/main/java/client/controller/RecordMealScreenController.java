@@ -51,10 +51,7 @@ public class RecordMealScreenController {
       } catch (Exception exception) {}
   }
 
-
-  
   private void handleBackButton(ActionEvent event) {
     view.setRoot("main");
-  
   }
 }

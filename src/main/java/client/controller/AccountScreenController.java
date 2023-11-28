@@ -107,6 +107,7 @@ public class AccountScreenController {
 
     if (response.equals("Duplicate Username")) {
       // some error handling
+      view.setRoot("createAccountError");
       return;
     }
     view.setUsername(username);

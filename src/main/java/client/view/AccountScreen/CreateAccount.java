@@ -9,13 +9,22 @@ public class CreateAccount extends VBox {
   private TextField username;
   private TextField password;
   private TextField confirmPassword;
+  private Label errorPrompt;
 
-  public CreateAccount() {
+  public CreateAccount(boolean validUsername) {
     this.setSpacing(5); // sets spacing between tasks
     this.setPrefSize(500, 560);
     this.setStyle("-fx-background-color: #F0F8FF;");
 
     String textStyle = "-fx-background-color: #DAE5EA; -fx-border-width: 0;";
+
+    if (!validUsername){
+      errorPrompt = new Label("Invalid creation, username already taken");
+      errorPrompt.setStyle(
+      "-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 18px"
+      );
+      this.getChildren().add(errorPrompt);
+    }
 
     username = new TextField();
     username.setPrefSize(380, 20);
