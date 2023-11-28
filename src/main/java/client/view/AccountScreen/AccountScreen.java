@@ -28,12 +28,12 @@ public class AccountScreen extends BorderPane {
   private EventHandler<ActionEvent> createSwitchAction;
   private EventHandler<ActionEvent> createAccountAction;
 
-  public AccountScreen(boolean valid) {
+  public AccountScreen(String prompt) {
     createHeader = new Header("Create Account");
     loginHeader = new Header("Login");
     footer = new Footer();
 
-    createAccount = new CreateAccount(valid);
+    createAccount = new CreateAccount(prompt);
     login = new Login();
 
     // Add header to the top of the BorderPane
