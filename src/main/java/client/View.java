@@ -27,10 +27,10 @@ public class View {
     "Please repeat Meal Type:"
   );
   String mealType;
-  AccountScreen accountScreen = new AccountScreen(true);
-  AccountScreen createAccountError = new AccountScreen(false);
+  AccountScreen accountScreen = new AccountScreen("");
+  AccountScreen createAccountError = new AccountScreen(
+    "Username already in use, please choose another username.");
   String username;
-  //boolean successfulCreation;
 
   public View() {
     scenes = new HashMap<>();
@@ -78,9 +78,4 @@ public class View {
   public String getUsername() {
     return this.username;
   }
-
-  // public void setCreateSuccess(boolean validUsername, boolean validPasswordConfirm) {
-  //   this.successfulCreation = validUsername && validPasswordConfirm;
-  //   scene.setRoot(mainMenu);
-  // }
 }
