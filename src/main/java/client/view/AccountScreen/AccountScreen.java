@@ -21,6 +21,8 @@ public class AccountScreen extends BorderPane {
   private Button createAccountButton;
   private Button loginButton;
 
+  //private boolean validUsername;
+
   private EventHandler<ActionEvent> loginSwitchAction;
   private EventHandler<ActionEvent> loginAction;
   private EventHandler<ActionEvent> createSwitchAction;
@@ -101,4 +103,7 @@ public class AccountScreen extends BorderPane {
   public CreateAccount getCreateAccount() {
     return createAccount;
   }
+  // public void setSuccess(boolean validUsername){
+  //   this.validUsername = validUsername;
+  // }
 }
