@@ -1,6 +1,8 @@
 package server;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
@@ -89,6 +91,7 @@ public class RequestHandler implements HttpHandler {
       );
       Document account = new Document("account", username);
       account.append("recipe", recipe);
+      account.append("title", recipe.substring(0, recipe.indexOf('\n')));
       recipesCollection.insertOne(account);
     }
 
@@ -103,14 +106,26 @@ public class RequestHandler implements HttpHandler {
     InputStream inStream = httpExchange.getRequestBody();
     Scanner scanner = new Scanner(inStream);
     String postData = scanner.nextLine();
-    String language = postData.substring(0, postData.indexOf(","));
-    String year = postData.substring(postData.indexOf(",") + 1) + '\n';
+    String username = postData.substring(0, postData.indexOf(","));
+    String recipe = postData.substring(postData.indexOf(",") + 1) + '\n';
     while (scanner.hasNext()) {
-      year += scanner.nextLine() + '\n';
+      recipe += scanner.nextLine() + '\n';
     }
 
-    String response = "";
+    try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
+      MongoDatabase accountDB = mongoClient.getDatabase("account_db");
+      MongoCollection<Document> recipesCollection = accountDB.getCollection(
+        "recipes"
+      );
+      Bson filter = and(
+        eq("title", recipe.substring(0, recipe.indexOf('\n'))),
+        eq("account", username)
+      );
+      Bson updateOperation = set("recipe", recipe);
+      recipesCollection.updateOne(filter, updateOperation);
+    }
 
+    String response = "Posted entry {" + username + ", " + recipe + "}";
     System.out.println(response);
     scanner.close();
 
@@ -122,13 +137,19 @@ public class RequestHandler implements HttpHandler {
     URI uri = httpExchange.getRequestURI();
     String query = uri.getRawQuery();
     if (query != null) {
-      String value = query.substring(query.indexOf("=") + 1);
-      String year = "";
-      if (year != null) {
-        response = "Deleted entry {" + value + ", " + year + "}";
-        System.out.println(response);
-      } else {
-        response = "No data found for " + value;
+      String username = query.substring(
+        query.indexOf("=") + 1,
+        query.indexOf('~')
+      );
+      String name = query.substring(query.indexOf('~') + 1);
+      name = name.replaceAll("_", " ");
+      try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
+        MongoDatabase accountDB = mongoClient.getDatabase("account_db");
+        MongoCollection<Document> recipesCollection = accountDB.getCollection(
+          "recipes"
+        );
+        Bson filter = and(eq("title", name), eq("account", username));
+        recipesCollection.deleteOne(filter);
       }
     }
     return response;
