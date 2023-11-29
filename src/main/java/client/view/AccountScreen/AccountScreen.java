@@ -37,6 +37,13 @@ public class AccountScreen extends BorderPane {
     // Add header to the top of the BorderPane
     this.setTop(createHeader);
     // Add scroller to the centre of the BorderPane
+    // if (loginPrompt.length() > 0){
+    //   System.out.println("HERE");
+    //   this.setCenter(login);
+    // }else{
+    //   this.setCenter(createAccount);
+    // }
+    // this.setCenter(login);
     this.setCenter(createAccount);
     // Add footer to the bottom of the BorderPane
     this.setBottom(footer);
@@ -94,7 +101,4 @@ public class AccountScreen extends BorderPane {
   public CreateAccount getCreateAccount() {
     return createAccount;
   }
-  // public void setSuccess(boolean validUsername){
-  //   this.validUsername = validUsername;
-  // }
 }
