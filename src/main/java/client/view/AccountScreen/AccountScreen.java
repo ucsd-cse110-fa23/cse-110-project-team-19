@@ -101,7 +101,4 @@ public class AccountScreen extends BorderPane {
   public CreateAccount getCreateAccount() {
     return createAccount;
   }
-  // public void setSuccess(boolean validUsername){
-  //   this.validUsername = validUsername;
-  // }
 }
