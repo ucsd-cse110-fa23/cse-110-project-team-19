@@ -30,6 +30,8 @@ public class View {
   AccountScreen accountScreen = new AccountScreen("");
   AccountScreen createAccountError = new AccountScreen(
     "Username already in use, please choose another username.");
+  AccountScreen passwordComfirmError = new AccountScreen(
+    "Password confirmation failed, please try again.");
   String username;
 
   public View() {
@@ -46,6 +48,8 @@ public class View {
     scenes.put("accountScreen", this.accountScreen);
     
     scenes.put("createAccountError", this.createAccountError);
+
+    scenes.put("passwordConfirmError", this.passwordComfirmError);
 
     scene = new Scene(scenes.get("accountScreen"), 500, 600);
   }
