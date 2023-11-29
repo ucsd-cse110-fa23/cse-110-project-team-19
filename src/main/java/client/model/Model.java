@@ -47,7 +47,10 @@ public class Model {
         response += '\n' + in.readLine();
       }
       in.close();
-      response = URLDecoder.decode(response, StandardCharsets.UTF_8.toString());
+      if (response != null) {
+        response =
+          URLDecoder.decode(response, StandardCharsets.UTF_8.toString());
+      }
       return response;
     } catch (Exception ex) {
       ex.printStackTrace();

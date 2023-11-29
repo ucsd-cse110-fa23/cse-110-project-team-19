@@ -103,7 +103,8 @@ public class RecipeScreenController {
       addStage.close();
       String name = view.recipeScreen.recipe.getRecipeName().getText();
       name = name.replaceAll(" ", "_");
-      model.performRequest("DELETE", null, null, name);
+      String username = view.getUsername();
+      model.performRequest("DELETE", null, null, username + "~" + name);
     });
   }
 
@@ -118,12 +119,16 @@ public class RecipeScreenController {
     addStage.setResizable(false);
     addStage.show();
 
+    String recipeContent = view.recipeScreen.recipe.getRecipe();
+    String title = recipeContent.substring(0, recipeContent.indexOf('\n'));
+    Label recipeTitle = new Label(title);
     TextArea prompt = new TextArea();
-    prompt.setText(view.recipeScreen.recipe.getRecipe());
+    prompt.setText(recipeContent.substring(recipeContent.indexOf('\n') + 1));
     prompt.setMinSize(350, 425);
 
     Button saveButton = new Button("Save");
     saveButton.setFocusTraversable(false);
+    grid.add(recipeTitle, 1, 0);
     grid.add(prompt, 1, 2);
     HBox buttonBox = new HBox(4);
     buttonBox.getChildren().addAll(saveButton);
@@ -131,7 +136,7 @@ public class RecipeScreenController {
 
     buttonBox.setAlignment(Pos.CENTER);
     saveButton.setOnAction(e1 -> {
-      String recString = prompt.getText();
+      String recString = title + "\n" + prompt.getText();
       prompt.setText(recString);
       DetailedRecipeView detailedRecipeView =
         ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
@@ -143,7 +148,6 @@ public class RecipeScreenController {
       recipe.setRecipe(recString);
       view.recipeScreen.setRecipe(recipe);
 
-      String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
       model.performRequest("PUT", view.getUsername(), recString, null);
 
       view.setRoot("recipe");
