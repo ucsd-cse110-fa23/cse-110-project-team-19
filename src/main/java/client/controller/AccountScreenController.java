@@ -85,7 +85,9 @@ public class AccountScreenController {
       for (String recipeContent : recipes) {
         System.out.println(recipeContent);
         recipe = new Recipe(view);
-        recipe.setRecipe(recipeContent);
+        recipe.setRecipe(
+          recipeContent.substring(0, recipeContent.indexOf("|"))
+        );
 
         //String recipeName = recipeContent.replaceAll("(?m)^[ \t]*\r?\n", "");
         String recipeName = recipeContent.substring(
