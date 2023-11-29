@@ -72,6 +72,14 @@ public class App extends Application {
       view.passwordComfirmError,
       view.mainMenu
     );
+    new AccountScreenController(
+      view,
+      model,
+      createAccountModel,
+      loginModel,
+      view.incorrectPassword,
+      view.mainMenu
+    );
     //Model model = new Model();
     //Controller controller = new Controller(view, model);
 

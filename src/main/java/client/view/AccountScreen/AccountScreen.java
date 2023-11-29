@@ -26,17 +26,24 @@ public class AccountScreen extends BorderPane {
   private EventHandler<ActionEvent> createSwitchAction;
   private EventHandler<ActionEvent> createAccountAction;
 
-  public AccountScreen(String prompt) {
+  public AccountScreen(String createAccountPrompt, String loginPrompt) {
     createHeader = new Header("Create Account");
     loginHeader = new Header("Login");
     footer = new Footer();
 
-    createAccount = new CreateAccount(prompt);
-    login = new Login();
+    createAccount = new CreateAccount(createAccountPrompt);
+    login = new Login(loginPrompt);
 
     // Add header to the top of the BorderPane
     this.setTop(createHeader);
     // Add scroller to the centre of the BorderPane
+    // if (loginPrompt.length() > 0){
+    //   System.out.println("HERE");
+    //   this.setCenter(login);
+    // }else{
+    //   this.setCenter(createAccount);
+    // }
+    // this.setCenter(login);
     this.setCenter(createAccount);
     // Add footer to the bottom of the BorderPane
     this.setBottom(footer);
@@ -94,8 +101,4 @@ public class AccountScreen extends BorderPane {
   public CreateAccount getCreateAccount() {
     return createAccount;
   }
-
-  // public void setSuccess(boolean validUsername){
-  //   this.validUsername = validUsername;
-  // }
 }

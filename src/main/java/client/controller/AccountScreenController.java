@@ -57,6 +57,7 @@ public class AccountScreenController {
 
     if (response.equals("Incorrect Password")) {
       // error handling
+      view.setRoot("incorrectPassword");
       return;
     }
 
