@@ -43,11 +43,17 @@ public class App extends Application {
       null
     );
     new RecordMealScreenController(view, view.recordMealScreen);
-    new RecordMealTypePromptController(view.recordMealScreen.getRecordMealPrompt());
+    new RecordMealTypePromptController(
+      view.recordMealScreen.getRecordMealPrompt()
+    );
     new RecordMealScreenController(view, view.recordMealScreenError);
-    new RecordMealTypePromptController(view.recordMealScreenError.getRecordMealPrompt());
+    new RecordMealTypePromptController(
+      view.recordMealScreenError.getRecordMealPrompt()
+    );
     new RecordIngredientScreenController(view, view.recordIngredientScreen);
-    new RecordIngredientPromptController(view.recordIngredientScreen.getRecordIngredientPrompt());
+    new RecordIngredientPromptController(
+      view.recordIngredientScreen.getRecordIngredientPrompt()
+    );
     new AccountScreenController(
       view,
       model,

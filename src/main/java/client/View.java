@@ -77,6 +77,8 @@ public class View {
 
     scenes.put("passwordConfirmError", this.passwordComfirmError);
 
+    scenes.put("passwordConfirmError", this.passwordComfirmError);
+
     scenes.put("incorrectPassword", this.incorrectPassword);
 
     scenes.put("invalidUsername", this.invalidUsername);
