@@ -27,11 +27,13 @@ public class View {
     "Please repeat Meal Type:"
   );
   String mealType;
-  AccountScreen accountScreen = new AccountScreen("");
+  AccountScreen accountScreen = new AccountScreen("", "");
   AccountScreen createAccountError = new AccountScreen(
-    "Username already in use, please choose another username.");
+    "Username already in use, please choose another username.", "");
   AccountScreen passwordComfirmError = new AccountScreen(
-    "Password confirmation failed, please try again.");
+    "Password confirmation failed, please try again.", "");
+  AccountScreen incorrectPassword = new AccountScreen(
+    "", "Incorrect password, please try again.");
   String username;
 
   public View() {
@@ -50,6 +52,8 @@ public class View {
     scenes.put("createAccountError", this.createAccountError);
 
     scenes.put("passwordConfirmError", this.passwordComfirmError);
+
+    scenes.put("incorrectPassword", this.incorrectPassword);
 
     scene = new Scene(scenes.get("accountScreen"), 500, 600);
   }
