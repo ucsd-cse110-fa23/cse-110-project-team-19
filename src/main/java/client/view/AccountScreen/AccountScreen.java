@@ -21,8 +21,6 @@ public class AccountScreen extends BorderPane {
   private Button createAccountButton;
   private Button loginButton;
 
-  //private boolean validUsername;
-
   private EventHandler<ActionEvent> loginSwitchAction;
   private EventHandler<ActionEvent> loginAction;
   private EventHandler<ActionEvent> createSwitchAction;

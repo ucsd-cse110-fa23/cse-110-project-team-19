@@ -121,6 +121,7 @@ public class AccountScreenController {
 
     if (!password.equals(confirmPassword)) {
       // some error handling
+      view.setRoot("passwordConfirmError");
       return;
     }
     String response = createAccountModel.performRequest(

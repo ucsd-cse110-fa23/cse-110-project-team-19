@@ -44,6 +44,8 @@ public class View {
   AccountScreen accountScreen = new AccountScreen("");
   AccountScreen createAccountError = new AccountScreen(
     "Username already in use, please choose another username.");
+  AccountScreen passwordComfirmError = new AccountScreen(
+    "Password confirmation failed, please try again.");
   String username;
 
   public View() {
@@ -61,18 +63,7 @@ public class View {
     
     scenes.put("createAccountError", this.createAccountError);
 
-    scenes.put("serverDown", this.serverStatus);
-
-    ViewController viewController = new ViewController(this);
-
-    if(MyServer.isServerRunning()){
-      scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
-    }else{
-      
-      scene = new Scene(scenes.get("serverDown"), 500, 600); 
-
-    }
-    
+    scene = new Scene(scenes.get("accountScreen"), 500, 600);
   }
 
   public BorderPane getRoot(String key) {
