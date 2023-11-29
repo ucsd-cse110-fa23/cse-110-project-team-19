@@ -3,3 +3,4 @@ bin/
 ingredients.wav
 build/
 .gradle/
+*.class
