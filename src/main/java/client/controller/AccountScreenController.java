@@ -55,12 +55,11 @@ public class AccountScreenController {
       username + "," + password
     );
 
-    if (response.equals("Not Valid Username")){
+    if (response.equals("Not Valid Username")) {
       view.setRoot("invalidUsername");
       view.setInvalidUsernameScreen();
       return;
-    }
-    else if (response.equals("Incorrect Password")) {
+    } else if (response.equals("Incorrect Password")) {
       // error handling
       view.setRoot("incorrectPassword");
       view.setIncorrectPasswordScreen();
@@ -79,13 +78,12 @@ public class AccountScreenController {
     view.setUsername(username);
 
     String query = username;
-    response = model.performRequest("GET",null, null, query);
+    response = model.performRequest("GET", null, null, query);
     if (response != null) {
       String[] recipes = response.split("~");
       for (String recipeContent : recipes) {
         recipe = new Recipe(view);
         recipe.setRecipe(recipeContent);
-
 
         //String recipeName = recipeContent.replaceAll("(?m)^[ \t]*\r?\n", "");
         String recipeName = recipeContent.substring(
@@ -97,9 +95,8 @@ public class AccountScreenController {
         try {
           recipeImage = new RecipeImage();
           recipeImage.NewImage(recipeName);
-        } catch(Exception e1){}
+        } catch (Exception e1) {}
         recipe.setImageURL(recipeImage.getURL());
-        
 
         mainMenu.getRecipeList().getChildren().add(recipe);
         new RecipeScreenController(

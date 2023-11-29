@@ -11,6 +11,7 @@ public class Login extends VBox {
   private TextField password;
   private Label errorPrompt;
   private CheckBox automaticLogin;
+  private Label errorPrompt;
 
   public Login(String prompt) {
     this.setSpacing(5); // sets spacing between tasks
@@ -52,11 +53,12 @@ public class Login extends VBox {
   public String getPassword() {
     return password.getText();
   }
+
   public void clearLogin() {
     password.clear();
     username.clear();
   }
-  
+
   public boolean automaticLogin() {
     return automaticLogin.isSelected();
   }
