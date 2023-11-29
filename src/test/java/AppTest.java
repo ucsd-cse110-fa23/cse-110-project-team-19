@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import client.View;
+import client.model.MockLoginModel;
 import client.model.RecipeDetailsMock;
 import client.model.TranscribeMock;
+import client.view.AccountScreen.MockAccountScreen;
 import client.view.MainMenu.*;
 import client.view.RecipeScreen.*;
 import client.view.RecordScreen.*;
@@ -162,5 +164,19 @@ public class AppTest {
     // 5 checking getRecipe() and getRecipeName() match expected output
     assertEquals("ChatGPT\nmocked recipe", mockGPT.getRecipe());
     assertEquals("ChatGPT", mockGPT.getRecipeName());
+  }
+
+  @Test
+  void testAccountCreation(){
+    MockAccountScreen mockAccountScreen = new MockAccountScreen();
+    mockAccountScreen.inputUsername("username");
+    mockAccountScreen.inputtedPassword("password");
+
+    MockLoginModel mockLoginModel = new MockLoginModel();
+    String response = mockLoginModel.performRequest(
+      "PUT", mockAccountScreen.getUsername(), mockAccountScreen.getPasswword(), null);
+    
+    assertEquals("put username: " + mockAccountScreen.getUsername() + 
+      " and password:" + mockAccountScreen.getPasswword() + " into server", response);
   }
 }
