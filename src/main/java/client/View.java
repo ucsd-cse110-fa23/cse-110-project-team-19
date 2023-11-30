@@ -100,4 +100,8 @@ public class View {
   public String getUsername() {
     return this.username;
   }
+
+  public void setIncorrectPasswordScreen() {
+    this.incorrectPassword.switchToLogin();
+  }
 }
