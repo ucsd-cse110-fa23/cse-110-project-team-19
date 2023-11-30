@@ -48,6 +48,8 @@ public class View {
     "Password confirmation failed, please try again.", "");
   AccountScreen incorrectPassword = new AccountScreen(
     "", "Incorrect password, please try again.");
+  AccountScreen invalidUsername = new AccountScreen(
+    "", "Username does not exist for any account, please try again.");
   String username;
 
   public View() {
@@ -68,6 +70,8 @@ public class View {
     scenes.put("passwordConfirmError", this.passwordComfirmError);
 
     scenes.put("incorrectPassword", this.incorrectPassword);
+
+    scenes.put("invalidUsername", this.invalidUsername);
 
     scene = new Scene(scenes.get("accountScreen"), 500, 600);
   }
@@ -99,6 +103,10 @@ public class View {
 
   public String getUsername() {
     return this.username;
+  }
+
+  public void setInvalidUsernameScreen() {
+    this.invalidUsername.switchToLogin();
   }
 
   public void setIncorrectPasswordScreen() {

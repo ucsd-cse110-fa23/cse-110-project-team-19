@@ -55,7 +55,12 @@ public class AccountScreenController {
       username + "," + password
     );
 
-    if (response.equals("Incorrect Password")) {
+    if (response.equals("Not Valid Username")){
+      view.setRoot("invalidUsername");
+      view.setInvalidUsernameScreen();
+      return;
+    }
+    else if (response.equals("Incorrect Password")) {
       // error handling
       view.setRoot("incorrectPassword");
       view.setIncorrectPasswordScreen();
