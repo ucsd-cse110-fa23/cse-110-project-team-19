@@ -39,6 +39,7 @@ public class RecipeScreenController {
   private String recipeurl;
   private RecipeImage recipeImage;
 
+  private String mealType;
   TextArea prompt = new TextArea();
   private ATranscribe transcriber = new Transcribe();
 
@@ -52,6 +53,7 @@ public class RecipeScreenController {
     this.recipeScreen = recipeScreen;
     this.recipeDetails = recipeScreen.getRecipeDetails();
     this.view = view;
+    this.mealType = view.getMealType();
     this.model = model;
     this.mainMenu = mainMenu;
     this.recipe = recipe;
