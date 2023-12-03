@@ -49,6 +49,7 @@ public class RecipeScreenController {
     MainMenu mainMenu,
     Model model,
     Recipe recipe
+    //RecipeImage recipeImage
   ) {
     this.recipeScreen = recipeScreen;
     this.recipeDetails = recipeScreen.getRecipeDetails();

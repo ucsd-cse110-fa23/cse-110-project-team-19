@@ -3,6 +3,7 @@ package client.controller;
 import client.View;
 import client.model.ATranscribe;
 import client.model.RecipeImage;
+import client.model.RecipeImage;
 import client.model.Transcribe;
 import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
@@ -11,6 +12,7 @@ import client.view.RecordScreen.RecordIngredientScreen;
 import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 import javafx.event.ActionEvent;
+import javafx.scene.image.*;
 import javafx.scene.image.*;
 
 public class RecordIngredientScreenController {
