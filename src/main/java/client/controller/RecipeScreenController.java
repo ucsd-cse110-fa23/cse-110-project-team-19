@@ -5,6 +5,7 @@ import client.model.ATranscribe;
 import client.model.IRecipeDetails;
 import client.model.Model;
 import client.model.RecipeDetails;
+import client.model.RecipeImage;
 import client.model.Transcribe;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
@@ -30,22 +31,26 @@ public class RecipeScreenController {
   private Recipe recipe;
   private Model model;
   private String recString;
+  private RecipeImage recipeImage;
   TextArea prompt = new TextArea();
   private ATranscribe transcriber = new Transcribe();
 
   public RecipeScreenController(
-    View view,
-    RecipeScreen recipeScreen,
-    MainMenu mainMenu,
+    View view, 
+    RecipeScreen recipeScreen, 
+    MainMenu mainMenu, 
     Model model,
     Recipe recipe
-  ) {
+    //RecipeImage recipeImage
+    ) {
+
     this.recipeScreen = recipeScreen;
     this.recipeDetails = recipeScreen.getRecipeDetails();
     this.view = view;
     this.model = model;
     this.mainMenu = mainMenu;
     this.recipe = recipe;
+    //this.recipeImage = recipeScreen.getRecipeDetails();
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
 
     this.recipeScreen.setDeleteButtonAction(this::handleDeleteButton);
@@ -88,6 +93,7 @@ public class RecipeScreenController {
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
     mainMenu.getRecipeList().getChildren().add(recipe);
     String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
+    //recipeImage.NewImage(name);
     if (recString == null) {
       recString = recipeDetails.getRecipe();
     }

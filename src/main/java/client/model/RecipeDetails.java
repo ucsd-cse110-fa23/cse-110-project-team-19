@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 public class RecipeDetails implements IRecipeDetails {
 
-  private String recipe;
+  public String recipe;
 
   private static final String API_ENDPOINT =
     "https://api.openai.com/v1/completions";
