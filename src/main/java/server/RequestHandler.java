@@ -1,19 +1,19 @@
 package server;
 
-import static com.mongodb.client.model.Filters.eq;
+// import static com.mongodb.client.model.Filters.eq;
 
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+// import com.mongodb.client.FindIterable;
+// import com.mongodb.client.MongoClient;
+// import com.mongodb.client.MongoClients;
+// import com.mongodb.client.MongoCollection;
+// import com.mongodb.client.MongoDatabase;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import org.bson.Document;
-import org.bson.conversions.Bson;
+// import org.bson.Document;
+// import org.bson.conversions.Bson;
 
 public class RequestHandler implements HttpHandler {
 
@@ -54,20 +54,20 @@ public class RequestHandler implements HttpHandler {
     String query = uri.getRawQuery();
     String username = query.substring(query.indexOf("=") + 1);
     response = "";
-    try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
-      MongoDatabase sampleTrainingDB = mongoClient.getDatabase("account_db");
-      MongoCollection<Document> recipesCollection = sampleTrainingDB.getCollection(
-        "recipes"
-      );
-      Bson filter = eq("account", username);
+    // try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
+    //   MongoDatabase sampleTrainingDB = mongoClient.getDatabase("account_db");
+    //   MongoCollection<Document> recipesCollection = sampleTrainingDB.getCollection(
+    //     "recipes"
+    //   );
+    //   Bson filter = eq("account", username);
 
-      FindIterable<Document> recipes = recipesCollection.find(filter);
+    //   FindIterable<Document> recipes = recipesCollection.find(filter);
 
-      for (Document recipe : recipes) {
-        System.out.println(recipe);
-        response += recipe.get("recipe") + "~";
-      }
-    }
+    //   for (Document recipe : recipes) {
+    //     System.out.println(recipe);
+    //     response += recipe.get("recipe") + "~";
+    //   }
+    // }
     System.out.println(response);
     return response;
   }
@@ -82,15 +82,15 @@ public class RequestHandler implements HttpHandler {
       recipe += scanner.nextLine() + '\n';
     }
 
-    try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
-      MongoDatabase accountDB = mongoClient.getDatabase("account_db");
-      MongoCollection<Document> recipesCollection = accountDB.getCollection(
-        "recipes"
-      );
-      Document account = new Document("account", username);
-      account.append("recipe", recipe);
-      recipesCollection.insertOne(account);
-    }
+    // try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
+    //   MongoDatabase accountDB = mongoClient.getDatabase("account_db");
+    //   MongoCollection<Document> recipesCollection = accountDB.getCollection(
+    //     "recipes"
+    //   );
+    //   Document account = new Document("account", username);
+    //   account.append("recipe", recipe);
+    //   recipesCollection.insertOne(account);
+    // }
 
     String response = "Posted entry {" + username + ", " + recipe + "}";
     System.out.println(response);

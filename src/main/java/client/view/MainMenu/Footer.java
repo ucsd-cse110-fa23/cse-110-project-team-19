@@ -7,6 +7,7 @@ import javafx.scene.layout.*;
 public class Footer extends HBox {
 
   private Button createButton;
+  
 
   Footer() {
     this.setPrefSize(500, 60);
