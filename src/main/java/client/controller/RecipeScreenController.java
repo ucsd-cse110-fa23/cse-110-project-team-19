@@ -49,6 +49,7 @@ public class RecipeScreenController {
     MainMenu mainMenu,
     Model model,
     Recipe recipe
+    //RecipeImage recipeImage
   ) {
     this.recipeScreen = recipeScreen;
     this.recipeDetails = recipeScreen.getRecipeDetails();
@@ -70,7 +71,6 @@ public class RecipeScreenController {
     this.recipeScreen.setShareButtonAction(this::handleShareButton);
 
     this.recipeScreen.setbackButtonAction(this::handlebackButton);
-
   }
 
   public void handleRegenerateButton(ActionEvent event) {
@@ -111,7 +111,12 @@ public class RecipeScreenController {
     if (recString == null) {
       recString = recipeDetails.getRecipe(); // + "|" + recipe.getMealType() + "\n";
     }
-    model.performRequest("POST", view.getUsername(), recString + "|" + recipe.getMealType(), null);
+    model.performRequest(
+      "POST",
+      view.getUsername(),
+      recString + "|" + recipe.getMealType(),
+      null
+    );
     view.setRoot("main");
   }
 
@@ -222,9 +227,11 @@ public class RecipeScreenController {
     addStage.setResizable(false);
     addStage.show();
 
-    Label prompt = new Label("Share your Recipe! \n" + link );
+    Label prompt = new Label("Share your Recipe! \n" + link);
 
-    prompt.setStyle("-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 15px");
+    prompt.setStyle(
+      "-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 15px"
+    );
     prompt.setTextAlignment(TextAlignment.CENTER);
     Button copyButton = new Button("Copy Link");
     copyButton.setFocusTraversable(false);
@@ -242,8 +249,6 @@ public class RecipeScreenController {
       clipboard.setContent(content);
       addStage.close();
       view.setRoot("recipe");
-
-
     });
   }
 }

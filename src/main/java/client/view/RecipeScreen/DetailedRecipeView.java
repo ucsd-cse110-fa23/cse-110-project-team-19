@@ -1,11 +1,10 @@
 package client.view.RecipeScreen;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 public class DetailedRecipeView extends VBox {
@@ -25,7 +24,7 @@ public class DetailedRecipeView extends VBox {
     //text.setPadding(new Insets(5, 0, 0, 10));
     text.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // set background color of label
     //text.setTextAlignment(TextAlignment.CENTER); // set alignment of label
-    text.setWrapText(true);    
+    text.setWrapText(true);
     this.getChildren().addAll(image, text); // add text to recipe details
   }
 
