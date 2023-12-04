@@ -3,23 +3,22 @@ package client.controller;
 import client.View;
 import client.model.CompareAlphabetical;
 import client.model.CompareChrono;
-import client.view.AccountScreen.*;
-import client.view.MainMenu.*;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Collections;
 import client.model.CreateAccountModel;
 import client.model.LoginModel;
 import client.model.Model;
 import client.view.AccountScreen.*;
+import client.view.AccountScreen.*;
+import client.view.AccountScreen.*;
+import client.view.MainMenu.*;
 import client.view.MainMenu.MainMenu;
 import client.view.RecipeScreen.RecipeScreen;
 import com.sun.tools.javac.Main;
+import com.sun.tools.javac.Main;
 import java.io.FileWriter;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TextField;
-import client.view.AccountScreen.*;
-
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Insets;
@@ -32,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -64,7 +64,6 @@ public class MainMenuController {
   }
 
   private void handleLogOutButton(ActionEvent event) {
-
     accountScreen.getLogin().clearLogin();
     accountScreen.getCreateAccount().clearCreateAccount();
     mainMenu.clearRecipeList();
@@ -74,8 +73,6 @@ public class MainMenuController {
       fw.write("false");
       fw.close();
     } catch (Exception e) {}
-
-
   }
 
   private void handlesortButton(ActionEvent event) {
@@ -225,7 +222,4 @@ public class MainMenuController {
       this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
     }
   }
-
-
 }
-
