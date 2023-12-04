@@ -39,6 +39,7 @@ public class RecipeScreen extends BorderPane {
   public Button editButton;
   public Button regenButton;
   private Button saveButton;
+  public Button shareButton;
 
   private ScrollPane scrollPane;
 
@@ -93,6 +94,10 @@ public class RecipeScreen extends BorderPane {
 
   public void setDeleteButtonAction(EventHandler<ActionEvent> eventHandler) {
     this.deleteButton.setOnAction(eventHandler);
+  }
+
+  public void setShareButtonAction(EventHandler<ActionEvent> eventHandler) {
+    this.shareButton.setOnAction(eventHandler);
   }
 
   public void setbackButtonAction(EventHandler<ActionEvent> eventHandler) {
