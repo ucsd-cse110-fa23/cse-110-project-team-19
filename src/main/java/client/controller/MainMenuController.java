@@ -46,6 +46,8 @@ public class MainMenuController {
     this.accountScreen = accountScreen;
 
     this.mainMenu.setCreateButtonAction(this::handleCreateButton);
+    this.mainMenu.setsortButtonAction(this::handlesortButton);
+    this.mainMenu.setfilterButtonAction(this::handlefilterButton);
     this.mainMenu.setLogOutButtonAction(this::handleLogOutButton);
     this.mainMenu.setsortButtonAction(this::handlesortButton);
     this.mainMenu.setfilterButtonAction(this::handlefilterButton);
