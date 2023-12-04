@@ -19,6 +19,7 @@ public class RecordIngredientScreenController {
   private RecipeImage recipeImage;
   private ATranscribe transcriber = new Transcribe();
   private DetailedRecipeView detailedRecipeView;
+   
 
   public RecordIngredientScreenController(
     View view,
@@ -47,13 +48,13 @@ public class RecordIngredientScreenController {
       recipeImage = ((RecipeScreen) view.getRoot("recipe")).getRecipeImage();
       recipeImage.NewImage(((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipeName());
 
-       detailedRecipeView.SI(recipeImage.getURL());
+      detailedRecipeView.SI(recipeImage.getURL());
 
       
     } catch (Exception exception) {}
     Recipe recipe = new Recipe(view);
     recipe.setRecipe(((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe());
-
+    recipe.setImageURL(((RecipeScreen) view.getRoot("recipe")).getRecipeImage().getURL());
     
     view.recipeScreen.setRecipe(recipe);
     view.recipeScreen.getFooter().switchToCreating();

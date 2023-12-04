@@ -4,6 +4,7 @@ import client.View;
 import client.model.CreateAccountModel;
 import client.model.LoginModel;
 import client.model.Model;
+import client.model.RecipeImage;
 import client.view.AccountScreen.AccountScreen;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
@@ -19,6 +20,7 @@ public class AccountScreenController {
   private CreateAccountModel createAccountModel;
   private Model model;
   private LoginModel loginModel;
+  private RecipeImage recipeImage;
 
   public AccountScreenController(
     View view,
@@ -70,7 +72,7 @@ public class AccountScreenController {
     view.setUsername(username);
 
     String query = username;
-    response = model.performRequest("GET", null, null, query);
+    response = model.performRequest("GET",null, null, query);
     if (response != null) {
       String[] recipes = response.split("~");
       for (String recipeContent : recipes) {
@@ -85,7 +87,14 @@ public class AccountScreenController {
         );
 
         recipe.getRecipeName().setText(recipeName);
-        mainMenu.getRecipeList().getChildren().add(0, recipe);
+        try {
+          recipeImage = new RecipeImage();
+          recipeImage.NewImage(recipeName);
+        } catch(Exception e1){}
+        recipe.setImageURL(recipeImage.getURL());
+        
+
+        mainMenu.getRecipeList().getChildren().add(recipe);
         new RecipeScreenController(
           view,
           view.recipeScreen,

@@ -16,10 +16,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class RecipeScreenController {
@@ -31,7 +36,9 @@ public class RecipeScreenController {
   private Recipe recipe;
   private Model model;
   private String recString;
+  private String recipeurl;
   private RecipeImage recipeImage;
+
   TextArea prompt = new TextArea();
   private ATranscribe transcriber = new Transcribe();
 
@@ -41,7 +48,7 @@ public class RecipeScreenController {
     MainMenu mainMenu, 
     Model model,
     Recipe recipe
-    //RecipeImage recipeImage
+    
     ) {
 
     this.recipeScreen = recipeScreen;
@@ -50,7 +57,8 @@ public class RecipeScreenController {
     this.model = model;
     this.mainMenu = mainMenu;
     this.recipe = recipe;
-    //this.recipeImage = recipeScreen.getRecipeDetails();
+    this.recipeImage = recipeScreen.getRecipeImage();
+    
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
 
     this.recipeScreen.setDeleteButtonAction(this::handleDeleteButton);
@@ -60,6 +68,8 @@ public class RecipeScreenController {
     this.recipeScreen.setRegenButtonAction(this::handleRegenerateButton);
 
     this.recipeScreen.setbackButtonAction(this::handlebackButton);
+
+    this.recipeScreen.setShareButtonAction(this::handleShareButton);
   }
 
   public void handleRegenerateButton(ActionEvent event) {
@@ -90,6 +100,8 @@ public class RecipeScreenController {
     recipe = new Recipe(view);
     recipe.setRecipe(recipeDetails.getRecipe());
     recipe.setTime();
+    recipeurl = recipeImage.getURL();
+    recipe.setImageURL(recipeurl);
     // doesn't correctly store recipe name
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
     mainMenu.getRecipeList().getChildren().add(0, recipe);
@@ -140,7 +152,7 @@ public class RecipeScreenController {
       String name = view.recipeScreen.recipe.getRecipeName().getText();
       name = name.replaceAll(" ", "_");
       String username = view.getUsername();
-      model.performRequest("DELETE", null, null, username + "~" + name);
+      model.performRequest("DELETE",  null,null, username + "~" + name);
     });
   }
 
@@ -193,5 +205,42 @@ public class RecipeScreenController {
 
   private void handlebackButton(ActionEvent event) {
     view.setRoot("main");
+  }
+
+
+  private void handleShareButton(ActionEvent event) {
+    String link = "localhost:8100/recipeName?=RECIPEID" ;
+    Stage addStage = new Stage();
+    addStage.setTitle("Share Recipe");
+    GridPane grid = new GridPane();
+    grid.setHgap(10);
+    grid.setVgap(10);
+    addStage.setScene(new Scene(grid, 400, 150));
+    addStage.setResizable(false);
+    addStage.show();
+
+    Label prompt = new Label("Share your Recipe! \n" + link );
+
+    prompt.setStyle("-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 15px");
+    prompt.setTextAlignment(TextAlignment.CENTER);
+    Button copyButton = new Button("Copy Link");
+    copyButton.setFocusTraversable(false);
+    grid.add(prompt, 0, 2);
+    HBox buttonBox = new HBox(10);
+    buttonBox.getChildren().addAll(copyButton);
+    grid.add(buttonBox, 3, 6);
+
+    buttonBox.setAlignment(Pos.CENTER);
+    copyButton.setOnAction(e1 -> {
+      // Copy to clipboard
+      Clipboard clipboard = Clipboard.getSystemClipboard();
+      ClipboardContent content = new ClipboardContent();
+      content.putString(link);
+      clipboard.setContent(content);
+      addStage.close();
+      view.setRoot("recipe");
+
+      
+    });
   }
 }

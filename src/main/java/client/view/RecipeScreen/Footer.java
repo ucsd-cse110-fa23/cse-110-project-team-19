@@ -47,6 +47,7 @@ public class Footer extends HBox {
   public Button getSaveButton() {
     return saveButton;
   }
+  
 
   public Button getDeleteButton() {
     return deleteButton;

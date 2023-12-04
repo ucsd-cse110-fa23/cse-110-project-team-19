@@ -8,6 +8,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
+
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -29,6 +31,7 @@ public class RecordMealPrompt extends VBox {
     this.setStyle("-fx-background-color: #F0F8FF;");
 
     prompt = new Label(str);
+    prompt.setTextAlignment(TextAlignment.CENTER);
 
     prompt.setStyle(
       "-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 24px"
