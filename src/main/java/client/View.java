@@ -1,9 +1,11 @@
 package client;
 
 import client.controller.RecipeScreenController;
+import client.controller.RecipeScreenController;
+import client.controller.RecipeScreenController;
 import client.controller.ViewController;
 import client.model.Model;
-import client.controller.RecipeScreenController;
+import client.model.Model;
 import client.model.Model;
 import client.view.AccountScreen.AccountScreen;
 import client.view.MainMenu.MainMenu;
@@ -12,10 +14,7 @@ import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
 import client.view.RecordScreen.RecordMealScreen;
-import server.MyServer;
-
 import client.view.ServerScreen.ServerStatus;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -23,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import server.MyServer;
 
 public class View {
 
@@ -43,13 +43,21 @@ public class View {
   String mealType;
   AccountScreen accountScreen = new AccountScreen("", "");
   AccountScreen createAccountError = new AccountScreen(
-    "Username already in use, please choose another username.", "");
+    "Username already in use, please choose another username.",
+    ""
+  );
   AccountScreen passwordComfirmError = new AccountScreen(
-    "Password confirmation failed, please try again.", "");
+    "Password confirmation failed, please try again.",
+    ""
+  );
   AccountScreen incorrectPassword = new AccountScreen(
-    "", "Incorrect password, please try again.");
+    "",
+    "Incorrect password, please try again."
+  );
   AccountScreen invalidUsername = new AccountScreen(
-    "", "Username does not exist for any account, please try again.");
+    "",
+    "Username does not exist for any account, please try again."
+  );
   String username;
 
   public View() {
@@ -64,7 +72,7 @@ public class View {
     scenes.put("recordMealError", this.recordMealScreenError);
 
     scenes.put("accountScreen", this.accountScreen);
-    
+
     scenes.put("createAccountError", this.createAccountError);
 
     scenes.put("passwordConfirmError", this.passwordComfirmError);
@@ -73,7 +81,43 @@ public class View {
 
     scenes.put("invalidUsername", this.invalidUsername);
 
-    scene = new Scene(scenes.get("accountScreen"), 500, 600);
+    try {
+      FileReader fr = new FileReader("automaticLogin.txt");
+      BufferedReader br = new BufferedReader(fr);
+      String line = br.readLine();
+      if (line.equals("false")) {
+        scene = new Scene(scenes.get("accountScreen"), 500, 600);
+      } else if (line.equals("true")) {
+        username = br.readLine();
+        String query = username;
+        Model model = new Model();
+        String response = model.performRequest("GET", null, null, query);
+        if (response != null) {
+          String[] recipes = response.split("~");
+          for (String recipeContent : recipes) {
+            Recipe recipe = new Recipe(this);
+            recipe.setRecipe(recipeContent);
+
+            String recipeName = recipeContent.substring(
+              0,
+              recipeContent.indexOf('\n')
+            );
+
+            recipe.getRecipeName().setText(recipeName);
+            mainMenu.getRecipeList().getChildren().add(recipe);
+            new RecipeScreenController(
+              this,
+              recipeScreen,
+              mainMenu,
+              model,
+              recipe
+            );
+          }
+        }
+        scene = new Scene(scenes.get("main"), 500, 600);
+      }
+      br.close();
+    } catch (Exception e) {}
   }
 
   public BorderPane getRoot(String key) {

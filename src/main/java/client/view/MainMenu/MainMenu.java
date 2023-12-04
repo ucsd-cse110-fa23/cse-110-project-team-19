@@ -77,10 +77,6 @@ public class MainMenu extends BorderPane {
     filterButton.setOnAction(e);
   }
 
-  public void setLogOutButtonAction(EventHandler<ActionEvent> e) {
-    logOutButton.setOnAction(e);
-  }
-
   public RecipeList getRecipeList() {
     return this.recipeList;
   }

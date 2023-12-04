@@ -7,29 +7,19 @@ import client.model.CreateAccountModel;
 import client.model.LoginModel;
 import client.model.Model;
 import client.view.AccountScreen.*;
-import client.view.AccountScreen.*;
-import client.view.AccountScreen.*;
 import client.view.MainMenu.*;
 import client.view.MainMenu.MainMenu;
 import client.view.RecipeScreen.RecipeScreen;
 import com.sun.tools.javac.Main;
-import com.sun.tools.javac.Main;
-import java.io.FileWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import javafx.event.ActionEvent;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -52,8 +42,6 @@ public class MainMenuController {
     this.accountScreen = accountScreen;
 
     this.mainMenu.setCreateButtonAction(this::handleCreateButton);
-    this.mainMenu.setsortButtonAction(this::handlesortButton);
-    this.mainMenu.setfilterButtonAction(this::handlefilterButton);
     this.mainMenu.setLogOutButtonAction(this::handleLogOutButton);
     this.mainMenu.setsortButtonAction(this::handlesortButton);
     this.mainMenu.setfilterButtonAction(this::handlefilterButton);
@@ -67,6 +55,14 @@ public class MainMenuController {
     accountScreen.getLogin().clearLogin();
     accountScreen.getCreateAccount().clearCreateAccount();
     mainMenu.clearRecipeList();
+
+    try {
+      FileWriter fw = new FileWriter("automaticLogin.txt");
+      fw.write("false");
+      fw.close();
+    } catch (Exception e) {}
+
+    view.setRoot("accountScreen");
 
     try {
       FileWriter fw = new FileWriter("automaticLogin.txt");
