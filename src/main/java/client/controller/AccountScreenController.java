@@ -61,6 +61,7 @@ public class AccountScreenController {
     if (accountScreen.getLogin().automaticLogin()) {
       try {
         FileWriter fw = new FileWriter("automaticLogin.txt");
+        fw.write("true\n");
         fw.write(username);
         fw.close();
       } catch (Exception e) {}
@@ -95,7 +96,6 @@ public class AccountScreenController {
       }
     }
     view.setRoot("main");
-    
   }
 
   private void handleCreateAccount(ActionEvent event) {
@@ -124,7 +124,6 @@ public class AccountScreenController {
 
     view.setRoot("main");
   }
-
 
   private void handleLoginSwitch(ActionEvent event) {
     accountScreen.switchToLogin();

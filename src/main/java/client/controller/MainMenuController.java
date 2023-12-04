@@ -7,11 +7,15 @@ import client.model.CreateAccountModel;
 import client.model.LoginModel;
 import client.model.Model;
 import client.view.AccountScreen.*;
+import client.view.AccountScreen.*;
 import client.view.MainMenu.*;
 import client.view.RecipeScreen.RecipeScreen;
 import com.sun.tools.javac.Main;
+import com.sun.tools.javac.Main;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import javafx.event.ActionEvent;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -54,6 +58,12 @@ public class MainMenuController {
     accountScreen.getLogin().clearLogin();
     accountScreen.getCreateAccount().clearCreateAccount();
     mainMenu.clearRecipeList();
+
+    try {
+      FileWriter fw = new FileWriter("automaticLogin.txt");
+      fw.write("false");
+      fw.close();
+    } catch (Exception e) {}
 
     view.setRoot("accountScreen");
   }
