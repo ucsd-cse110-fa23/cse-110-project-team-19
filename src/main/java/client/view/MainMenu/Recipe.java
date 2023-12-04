@@ -1,9 +1,9 @@
 package client.view.MainMenu;
 
 import client.View;
+import client.model.RecipeImage;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
-import client.model.RecipeImage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -44,12 +44,6 @@ public class Recipe extends HBox {
       view.setRoot("recipe");
     });
   }
-
-  // TODO
-  // public void setTaskIndex(int num) {
-  //   this.index.setText(num + ""); // num to String
-  //   this.recipeName.setText("Task " + num);
-  // }
 
   public Button getRecipeName() {
     return this.recipeName;
