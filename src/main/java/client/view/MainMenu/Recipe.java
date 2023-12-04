@@ -2,7 +2,6 @@ package client.view.MainMenu;
 
 import client.View;
 import client.model.RecipeImage;
-import client.model.RecipeImage;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import java.time.LocalTime;
