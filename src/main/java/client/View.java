@@ -3,6 +3,8 @@ package client;
 import client.controller.RecipeScreenController;
 import client.controller.ViewController;
 import client.model.Model;
+import client.controller.RecipeScreenController;
+import client.model.Model;
 import client.view.AccountScreen.AccountScreen;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
@@ -50,9 +52,43 @@ public class View {
 
     scenes.put("accountScreen", this.accountScreen);
 
-    ViewController viewController = new ViewController(this);
+    try {
+      FileReader fr = new FileReader("automaticLogin.txt");
+      BufferedReader br = new BufferedReader(fr);
+      String line = br.readLine();
+      if (line.equals("false")) {
+        scene = new Scene(scenes.get("accountScreen"), 500, 600);
+      } else if (line.equals("true")) {
+        username = br.readLine();
+        String query = username;
+        Model model = new Model();
+        String response = model.performRequest("GET", null, null, query);
+        if (response != null) {
+          String[] recipes = response.split("~");
+          for (String recipeContent : recipes) {
+            Recipe recipe = new Recipe(this);
+            recipe.setRecipe(recipeContent);
 
-    scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
+            String recipeName = recipeContent.substring(
+              0,
+              recipeContent.indexOf('\n')
+            );
+
+            recipe.getRecipeName().setText(recipeName);
+            mainMenu.getRecipeList().getChildren().add(recipe);
+            new RecipeScreenController(
+              this,
+              recipeScreen,
+              mainMenu,
+              model,
+              recipe
+            );
+          }
+        }
+        scene = new Scene(scenes.get("main"), 500, 600);
+      }
+      br.close();
+    } catch (Exception e) {}
   }
 
   public BorderPane getRoot(String key) {
