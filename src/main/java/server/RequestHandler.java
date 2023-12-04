@@ -67,7 +67,7 @@ public class RequestHandler implements HttpHandler {
 
       for (Document recipe : recipes) {
         System.out.println(recipe);
-        response += recipe.get("recipe") + "~";
+        response += recipe.get("recipe") + "|" + recipe.get("meal_type") + "~";
       }
     }
     System.out.println(response);
@@ -79,6 +79,7 @@ public class RequestHandler implements HttpHandler {
     Scanner scanner = new Scanner(inStream);
     String postData = scanner.nextLine();
     String username = postData.substring(0, postData.indexOf(","));
+    //String mealType = postData.substring(postData.indexOf("["), postData.indexOf(postData));
     String recipe = postData.substring(postData.indexOf(",") + 1) + '\n';
     while (scanner.hasNext()) {
       recipe += scanner.nextLine() + '\n';
@@ -92,6 +93,7 @@ public class RequestHandler implements HttpHandler {
       Document account = new Document("account", username);
       account.append("recipe", recipe);
       account.append("title", recipe.substring(0, recipe.indexOf('\n')));
+      // account.append("meal_type", recipe.substring(,));
       recipesCollection.insertOne(account);
     }
 
@@ -107,6 +109,7 @@ public class RequestHandler implements HttpHandler {
     Scanner scanner = new Scanner(inStream);
     String postData = scanner.nextLine();
     String username = postData.substring(0, postData.indexOf(","));
+    //String mealType = postData.substring();
     String recipe = postData.substring(postData.indexOf(",") + 1) + '\n';
     while (scanner.hasNext()) {
       recipe += scanner.nextLine() + '\n';
