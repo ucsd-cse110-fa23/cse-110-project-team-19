@@ -12,15 +12,18 @@ public class MainMenu extends BorderPane {
 
   private Header header;
   private Footer footer;
-  private RecipeList recipeList = new RecipeList();
+  private RecipeList recipeList;
 
   private Button createButton;
+  private Button logOutButton;
   private Button sortButton;
   private Button filterButton;
 
   public MainMenu() {
     header = new Header();
     footer = new Footer();
+
+    recipeList = new RecipeList();
 
     ScrollPane scrollPane = new ScrollPane(recipeList);
     scrollPane.setFitToWidth(true);
@@ -34,12 +37,17 @@ public class MainMenu extends BorderPane {
     this.setBottom(footer);
 
     createButton = footer.getCreateButton();
+    logOutButton = footer.getLogOutButton();
     sortButton = header.getsortButton();
     filterButton = header.getfilterButton();
   }
 
   public Button getCreateButton() {
     return createButton;
+  }
+
+  public Button getLogOutButton() {
+    return logOutButton;
   }
 
   public Button getsortButton() {
@@ -49,8 +57,13 @@ public class MainMenu extends BorderPane {
   public Button getfilterButton() {
     return filterButton;
   }
+
   public void setCreateButtonAction(EventHandler<ActionEvent> e) {
     createButton.setOnAction(e);
+  }
+
+  public void setLogOutButtonAction(EventHandler<ActionEvent> e) {
+    logOutButton.setOnAction(e);
   }
 
   public void setsortButtonAction(EventHandler<ActionEvent> e) {
@@ -65,7 +78,7 @@ public class MainMenu extends BorderPane {
     return this.recipeList;
   }
 
-  public void deleteRecipe() {
-    // Delete recipe connect to the recipe delete confirmation "delete (Yes)" Button.
+  public void clearRecipeList() {
+    this.recipeList.getChildren().clear();
   }
 }

@@ -3,9 +3,13 @@ package client.controller;
 import client.View;
 import client.model.CompareAlphabetical;
 import client.model.CompareChrono;
+import client.model.CreateAccountModel;
+import client.model.LoginModel;
 import client.model.Model;
-import client.view.MainMenu.MainMenu;
-import client.view.MainMenu.Recipe;
+import client.view.AccountScreen.*;
+import client.view.MainMenu.*;
+import client.view.RecipeScreen.RecipeScreen;
+import com.sun.tools.javac.Main;
 import java.util.ArrayList;
 import java.util.Collections;
 import javafx.event.ActionEvent;
@@ -15,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,18 +29,33 @@ public class MainMenuController {
 
   private MainMenu mainMenu;
   private View view;
+  private AccountScreen accountScreen;
 
-  public MainMenuController(View view, MainMenu mainMenu) {
+  public MainMenuController(
+    View view,
+    MainMenu mainMenu,
+    AccountScreen accountScreen
+  ) {
     this.mainMenu = mainMenu;
     this.view = view;
+    this.accountScreen = accountScreen;
 
     this.mainMenu.setCreateButtonAction(this::handleCreateButton);
+    this.mainMenu.setLogOutButtonAction(this::handleLogOutButton);
     this.mainMenu.setsortButtonAction(this::handlesortButton);
     this.mainMenu.setfilterButtonAction(this::handlefilterButton);
   }
 
   private void handleCreateButton(ActionEvent event) {
     view.setRoot("recordMeal");
+  }
+
+  private void handleLogOutButton(ActionEvent event) {
+    accountScreen.getLogin().clearLogin();
+    accountScreen.getCreateAccount().clearCreateAccount();
+    mainMenu.clearRecipeList();
+
+    view.setRoot("accountScreen");
   }
 
   private void handlesortButton(ActionEvent event) {
