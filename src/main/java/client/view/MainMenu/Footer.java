@@ -7,6 +7,7 @@ import javafx.scene.layout.*;
 public class Footer extends HBox {
 
   private Button createButton;
+  private Button LogOutButton;
 
   Footer() {
     this.setPrefSize(500, 60);
@@ -20,12 +21,19 @@ public class Footer extends HBox {
     createButton = new Button("Create"); // text displayed on add button
     createButton.setStyle(defaultButtonStyle); // styling the button
 
+    LogOutButton = new Button("Log Out"); // text displayed on add button
+    LogOutButton.setStyle(defaultButtonStyle); // styling the button
 
-    this.getChildren().addAll(createButton); // adding buttons to footer
+
+    this.getChildren().addAll(LogOutButton, createButton); // adding buttons to footer
     this.setAlignment(Pos.CENTER); // aligning the buttons to center
   }
 
   public Button getCreateButton() {
     return createButton;
+  }
+
+  public Button getLogOutButton() {
+    return LogOutButton;
   }
 }

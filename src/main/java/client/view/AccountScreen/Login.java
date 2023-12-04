@@ -45,7 +45,11 @@ public class Login extends VBox {
   public String getPassword() {
     return password.getText();
   }
-
+  public void clearLogin() {
+    password.clear();
+    username.clear();
+  }
+  
   public boolean automaticLogin() {
     return automaticLogin.isSelected();
   }
