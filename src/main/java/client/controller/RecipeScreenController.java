@@ -1,9 +1,11 @@
 package client.controller;
 
 import client.View;
+import client.model.ATranscribe;
 import client.model.IRecipeDetails;
 import client.model.Model;
 import client.model.RecipeDetails;
+import client.model.Transcribe;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
@@ -29,6 +31,7 @@ public class RecipeScreenController {
   private Model model;
   private String recString;
   TextArea prompt = new TextArea();
+  private ATranscribe transcriber = new Transcribe();
 
   public RecipeScreenController(
     View view,
@@ -49,7 +52,33 @@ public class RecipeScreenController {
 
     this.recipeScreen.setEditButtonAction(this::handleEditButton);
 
+    this.recipeScreen.setRegenButtonAction(this::handleRegenerateButton);
+
     this.recipeScreen.setbackButtonAction(this::handlebackButton);
+  }
+
+  public void handleRegenerateButton(ActionEvent event) {
+    String ingredients = "error";
+    try {
+      ingredients = transcriber.transcribe();
+
+      DetailedRecipeView detailedRecipeView =
+        ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
+
+      ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails()
+        .newRecipe(view.getMealType(), ingredients);
+
+      detailedRecipeView.setText(
+        ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe()
+      );
+    } catch (Exception exception) {}
+    Recipe recipe = new Recipe(view);
+    recipe.setRecipe(
+      ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe()
+    );
+    view.recipeScreen.setRecipe(recipe);
+    view.recipeScreen.getFooter().switchToCreating();
+    view.setRoot("recipe");
   }
 
   private void handleSaveButton(ActionEvent event) {
