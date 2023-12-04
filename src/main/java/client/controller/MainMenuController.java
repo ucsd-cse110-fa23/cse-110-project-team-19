@@ -67,8 +67,6 @@ public class MainMenuController {
       fw.write("false");
       fw.close();
     } catch (Exception e) {}
-
-    view.setRoot("accountScreen");
   }
 
   private void handlesortButton(ActionEvent event) {
