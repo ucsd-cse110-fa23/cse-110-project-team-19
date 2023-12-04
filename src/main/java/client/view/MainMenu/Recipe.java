@@ -87,18 +87,4 @@ public class Recipe extends HBox {
   public void setMealTypeTag(String mealType) {
     this.mealTypeTag.setText(mealType);
   }
-
-  public void chronoTrue() {
-    this.chrono = true;
-  }
-
-  public void chronoFalse() {
-    this.chrono = false;
-  }
-  // @Override
-  // public int compareTo(Recipe recipe) {
-  //   return this.getTime().compareTo(recipe.getTime());
-  //   //return this.getRecipeName().getText().compareTo(recipe.getRecipeName().getText());
-  // }
-
 }
