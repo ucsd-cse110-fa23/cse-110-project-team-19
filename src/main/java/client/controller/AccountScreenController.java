@@ -118,6 +118,7 @@ public class AccountScreenController {
       }
     }
     view.setRoot("main");
+    
   }
 
   private void handleCreateAccount(ActionEvent event) {
@@ -148,6 +149,7 @@ public class AccountScreenController {
 
     view.setRoot("main");
   }
+
 
   private void handleLoginSwitch(ActionEvent event) {
     accountScreen.switchToLogin();
