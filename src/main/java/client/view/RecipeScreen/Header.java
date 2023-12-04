@@ -19,7 +19,7 @@ public class Header extends HBox {
     String defaultButtonStyle =
       "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
 
-    backButton = new Button("Back"); // text displayed on edit button
+    backButton = new Button("Back"); // text displayed on back button
     backButton.setStyle(defaultButtonStyle); // styling the button
 
     Text titleText;
