@@ -18,10 +18,15 @@ import java.util.Collections;
 import javafx.event.ActionEvent;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -45,6 +50,8 @@ public class MainMenuController {
     this.accountScreen = accountScreen;
 
     this.mainMenu.setCreateButtonAction(this::handleCreateButton);
+    this.mainMenu.setsortButtonAction(this::handlesortButton);
+    this.mainMenu.setfilterButtonAction(this::handlefilterButton);
     this.mainMenu.setLogOutButtonAction(this::handleLogOutButton);
     this.mainMenu.setsortButtonAction(this::handlesortButton);
     this.mainMenu.setfilterButtonAction(this::handlefilterButton);

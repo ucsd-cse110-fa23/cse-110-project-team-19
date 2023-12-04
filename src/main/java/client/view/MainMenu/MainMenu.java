@@ -15,6 +15,8 @@ public class MainMenu extends BorderPane {
   private RecipeList recipeList;
 
   private Button createButton;
+  private Button sortButton;
+  private Button filterButton;
   private Button logOutButton;
   private Button sortButton;
   private Button filterButton;
@@ -37,6 +39,8 @@ public class MainMenu extends BorderPane {
     this.setBottom(footer);
 
     createButton = footer.getCreateButton();
+    sortButton = header.getsortButton();
+    filterButton = header.getfilterButton();
     logOutButton = footer.getLogOutButton();
     sortButton = header.getsortButton();
     filterButton = header.getfilterButton();
@@ -60,6 +64,14 @@ public class MainMenu extends BorderPane {
 
   public void setCreateButtonAction(EventHandler<ActionEvent> e) {
     createButton.setOnAction(e);
+  }
+
+  public void setsortButtonAction(EventHandler<ActionEvent> e) {
+    sortButton.setOnAction(e);
+  }
+
+  public void setfilterButtonAction(EventHandler<ActionEvent> e) {
+    filterButton.setOnAction(e);
   }
 
   public void setLogOutButtonAction(EventHandler<ActionEvent> e) {
