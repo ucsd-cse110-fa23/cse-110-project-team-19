@@ -2,10 +2,10 @@ package client.view.MainMenu;
 
 import client.View;
 import client.model.RecipeImage;
+import client.model.RecipeImage;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import java.time.LocalTime;
-import client.model.RecipeImage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 //import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
+
 //hello!!!!!!!!!!!!!
 public class Recipe extends HBox {
 
@@ -81,11 +82,11 @@ public class Recipe extends HBox {
     return this.time;
   }
 
-  public String getMealType(){
+  public String getMealType() {
     return this.mealType;
   }
 
-  public void setMealTypeTag(String mealType){
+  public void setMealTypeTag(String mealType) {
     this.mealTypeTag.setText(mealType);
   }
 }

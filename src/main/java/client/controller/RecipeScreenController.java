@@ -49,7 +49,6 @@ public class RecipeScreenController {
     MainMenu mainMenu,
     Model model,
     Recipe recipe
-    //RecipeImage recipeImage
   ) {
     this.recipeScreen = recipeScreen;
     this.recipeDetails = recipeScreen.getRecipeDetails();
@@ -71,6 +70,8 @@ public class RecipeScreenController {
     this.recipeScreen.setShareButtonAction(this::handleShareButton);
 
     this.recipeScreen.setbackButtonAction(this::handlebackButton);
+
+    this.recipeScreen.setShareButtonAction(this::handleShareButton);
   }
 
   public void handleRegenerateButton(ActionEvent event) {

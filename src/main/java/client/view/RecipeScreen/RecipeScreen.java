@@ -98,6 +98,10 @@ public class RecipeScreen extends BorderPane {
     this.deleteButton.setOnAction(eventHandler);
   }
 
+  public void setShareButtonAction(EventHandler<ActionEvent> eventHandler) {
+    this.shareButton.setOnAction(eventHandler);
+  }
+
   public void setbackButtonAction(EventHandler<ActionEvent> eventHandler) {
     this.backButton.setOnAction(eventHandler);
   }

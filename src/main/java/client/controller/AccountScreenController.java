@@ -55,12 +55,11 @@ public class AccountScreenController {
       username + "," + password
     );
 
-    if (response.equals("Not Valid Username")){
+    if (response.equals("Not Valid Username")) {
       view.setRoot("invalidUsername");
       view.setInvalidUsernameScreen();
       return;
-    }
-    else if (response.equals("Incorrect Password")) {
+    } else if (response.equals("Incorrect Password")) {
       // error handling
       view.setRoot("incorrectPassword");
       view.setIncorrectPasswordScreen();
@@ -79,14 +78,16 @@ public class AccountScreenController {
     view.setUsername(username);
 
     String query = username;
-    response = model.performRequest("GET",null, null, query);
+    response = model.performRequest("GET", null, null, query);
     if (response != null) {
       String[] recipes = response.split("~");
       //System.out.println(recipes);
       for (String recipeContent : recipes) {
         System.out.println(recipeContent);
         recipe = new Recipe(view);
-        recipe.setRecipe(recipeContent.substring(0, recipeContent.indexOf("|")));
+        recipe.setRecipe(
+          recipeContent.substring(0, recipeContent.indexOf("|"))
+        );
         recipe.setTime();
 
         //String recipeName = recipeContent.replaceAll("(?m)^[ \t]*\r?\n", "");
@@ -95,15 +96,15 @@ public class AccountScreenController {
           recipeContent.indexOf('\n')
         );
         String mealType = recipeContent.substring(
-          recipeContent.indexOf("|") + 1);
+          recipeContent.indexOf("|") + 1
+        );
 
         recipe.getRecipeName().setText(recipeName);
         try {
           recipeImage = new RecipeImage();
           recipeImage.NewImage(recipeName);
-        } catch(Exception e1){}
+        } catch (Exception e1) {}
         recipe.setImageURL(recipeImage.getURL());
-        
 
         recipe.setMealTypeTag(mealType);
         mainMenu.getRecipeList().getChildren().add(recipe);
