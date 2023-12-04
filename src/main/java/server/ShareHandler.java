@@ -1,10 +1,24 @@
 package server;
 
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.eq;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
+import javafx.scene.control.Button;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 
 public class ShareHandler implements HttpHandler {
+
+  String mongoURI =
+    "mongodb+srv://user:RbrRuGgkHtbSgqai@pantrypal.mz6l5wo.mongodb.net/?retryWrites=true&w=majority";
 
   public void handle(HttpExchange httpExchange) throws IOException {
     String response = "Request Received";
@@ -36,20 +50,42 @@ public class ShareHandler implements HttpHandler {
     URI uri = httpExchange.getRequestURI();
     String query = uri.getRawQuery();
     if (query != null) {
-      String name = query.substring(query.indexOf("=") + 1);
+      String username = query.substring(
+        query.indexOf("=") + 1,
+        query.indexOf('~')
+      );
+      String name = query.substring(query.indexOf("~") + 1);
+      String recipe = "";
+      String imageURl = "";
+      try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
+        FileReader fr = new FileReader("images/" + name);
+        name = name.replaceAll("_", " ");
+        MongoDatabase accountDB = mongoClient.getDatabase("account_db");
+        MongoCollection<Document> recipesCollection = accountDB.getCollection(
+          "recipes"
+        );
+        Bson filter = and(eq("title", name), eq("account", username));
+        Document recipeDoc = recipesCollection.find(filter).first();
+        recipe = recipeDoc.get("recipe") + "";
+        BufferedReader br = new BufferedReader(fr);
+        imageURl = br.readLine();
+        br.close();
+      } catch (Exception e) {}
 
       StringBuilder htmlBuilder = new StringBuilder();
       htmlBuilder
         .append("<html>")
         .append("<body>")
         .append("<h1>")
-        .append("RECIPE NAME")
+        .append(name)
         .append("</h1>")
-        .append("RECIPE IMAGE")
-        .append("RECIPE DESCRIPTION")
+        .append("<img src=\"" + imageURl + "\">")
+        .append("</img>")
+        .append("<p>")
+        .append(recipe.substring(recipe.indexOf("\n") + 1))
+        .append("</p>")
         .append("</body>")
         .append("</html>");
-
       // encode HTML content
       response = htmlBuilder.toString();
     }

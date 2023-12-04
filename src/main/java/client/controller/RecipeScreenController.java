@@ -43,14 +43,12 @@ public class RecipeScreenController {
   private ATranscribe transcriber = new Transcribe();
 
   public RecipeScreenController(
-    View view, 
-    RecipeScreen recipeScreen, 
-    MainMenu mainMenu, 
+    View view,
+    RecipeScreen recipeScreen,
+    MainMenu mainMenu,
     Model model,
     Recipe recipe
-    
-    ) {
-
+  ) {
     this.recipeScreen = recipeScreen;
     this.recipeDetails = recipeScreen.getRecipeDetails();
     this.view = view;
@@ -58,7 +56,7 @@ public class RecipeScreenController {
     this.mainMenu = mainMenu;
     this.recipe = recipe;
     this.recipeImage = recipeScreen.getRecipeImage();
-    
+
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
 
     this.recipeScreen.setDeleteButtonAction(this::handleDeleteButton);
@@ -152,7 +150,7 @@ public class RecipeScreenController {
       String name = view.recipeScreen.recipe.getRecipeName().getText();
       name = name.replaceAll(" ", "_");
       String username = view.getUsername();
-      model.performRequest("DELETE",  null,null, username + "~" + name);
+      model.performRequest("DELETE", null, null, username + "~" + name);
     });
   }
 
@@ -207,21 +205,25 @@ public class RecipeScreenController {
     view.setRoot("main");
   }
 
-
   private void handleShareButton(ActionEvent event) {
-    String link = "localhost:8100/recipeName?=RECIPEID" ;
+    String name = view.recipeScreen.recipe.getRecipeName().getText();
+    name = name.replaceAll(" ", "_");
+    String link =
+      "localhost:8100/recipeName?=" + view.getUsername() + "~" + name;
     Stage addStage = new Stage();
     addStage.setTitle("Share Recipe");
     GridPane grid = new GridPane();
     grid.setHgap(10);
     grid.setVgap(10);
-    addStage.setScene(new Scene(grid, 400, 150));
+    addStage.setScene(new Scene(grid, 800, 150));
     addStage.setResizable(false);
     addStage.show();
 
-    Label prompt = new Label("Share your Recipe! \n" + link );
+    Label prompt = new Label("Share your Recipe! \n" + link);
 
-    prompt.setStyle("-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 15px");
+    prompt.setStyle(
+      "-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 15px"
+    );
     prompt.setTextAlignment(TextAlignment.CENTER);
     Button copyButton = new Button("Copy Link");
     copyButton.setFocusTraversable(false);
@@ -239,8 +241,6 @@ public class RecipeScreenController {
       clipboard.setContent(content);
       addStage.close();
       view.setRoot("recipe");
-
-      
     });
   }
 }
