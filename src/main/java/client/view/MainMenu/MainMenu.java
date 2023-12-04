@@ -67,6 +67,7 @@ public class MainMenu extends BorderPane {
     createButton.setOnAction(e);
   }
 
+
   public void setsortButtonAction(EventHandler<ActionEvent> e) {
     sortButton.setOnAction(e);
   }
