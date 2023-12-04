@@ -1,17 +1,16 @@
 package client.controller;
 
-import com.sun.tools.javac.Main;
-
 import client.View;
 import client.model.CreateAccountModel;
 import client.model.LoginModel;
 import client.model.Model;
+import client.view.AccountScreen.*;
 import client.view.MainMenu.MainMenu;
 import client.view.RecipeScreen.RecipeScreen;
-import javafx.scene.control.TextField;
-import client.view.AccountScreen.*;
-
+import com.sun.tools.javac.Main;
+import java.io.FileWriter;
 import javafx.event.ActionEvent;
+import javafx.scene.control.TextField;
 
 public class MainMenuController {
 
@@ -19,16 +18,14 @@ public class MainMenuController {
   private View view;
   private AccountScreen accountScreen;
 
-  
-
-  
-
-  public MainMenuController(View view, MainMenu mainMenu, AccountScreen accountScreen) {
+  public MainMenuController(
+    View view,
+    MainMenu mainMenu,
+    AccountScreen accountScreen
+  ) {
     this.mainMenu = mainMenu;
     this.view = view;
     this.accountScreen = accountScreen;
-    
-
 
     this.mainMenu.setCreateButtonAction(this::handleCreateButton);
     this.mainMenu.setLogOutButtonAction(this::handleLogOutButton);
@@ -39,15 +36,16 @@ public class MainMenuController {
   }
 
   private void handleLogOutButton(ActionEvent event) {
-
-    
     accountScreen.getLogin().clearLogin();
     accountScreen.getCreateAccount().clearCreateAccount();
     mainMenu.clearRecipeList();
-    
-    view.setRoot("accountScreen");
-    
 
-    
+    try {
+      FileWriter fw = new FileWriter("automaticLogin.txt");
+      fw.write("false");
+      fw.close();
+    } catch (Exception e) {}
+
+    view.setRoot("accountScreen");
   }
 }

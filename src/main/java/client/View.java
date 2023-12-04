@@ -1,13 +1,19 @@
 package client;
 
+import client.controller.RecipeScreenController;
+import client.model.Model;
 import client.view.AccountScreen.AccountScreen;
 import client.view.MainMenu.MainMenu;
+import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
 import client.view.RecordScreen.RecordMealScreen;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.HashMap;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
@@ -43,7 +49,43 @@ public class View {
 
     scenes.put("accountScreen", this.accountScreen);
 
-    scene = new Scene(scenes.get("accountScreen"), 500, 600);
+    try {
+      FileReader fr = new FileReader("automaticLogin.txt");
+      BufferedReader br = new BufferedReader(fr);
+      String line = br.readLine();
+      if (line.equals("false")) {
+        scene = new Scene(scenes.get("accountScreen"), 500, 600);
+      } else if (line.equals("true")) {
+        username = br.readLine();
+        String query = username;
+        Model model = new Model();
+        String response = model.performRequest("GET", null, null, query);
+        if (response != null) {
+          String[] recipes = response.split("~");
+          for (String recipeContent : recipes) {
+            Recipe recipe = new Recipe(this);
+            recipe.setRecipe(recipeContent);
+
+            String recipeName = recipeContent.substring(
+              0,
+              recipeContent.indexOf('\n')
+            );
+
+            recipe.getRecipeName().setText(recipeName);
+            mainMenu.getRecipeList().getChildren().add(recipe);
+            new RecipeScreenController(
+              this,
+              recipeScreen,
+              mainMenu,
+              model,
+              recipe
+            );
+          }
+        }
+        scene = new Scene(scenes.get("main"), 500, 600);
+      }
+      br.close();
+    } catch (Exception e) {}
   }
 
   public BorderPane getRoot(String key) {
