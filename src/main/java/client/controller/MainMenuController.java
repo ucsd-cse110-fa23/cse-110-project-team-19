@@ -1,5 +1,7 @@
 package client.controller;
 
+import com.sun.tools.javac.Main;
+
 import client.View;
 import client.model.CompareAlphabetical;
 import client.model.CompareChrono;
@@ -8,6 +10,14 @@ import client.view.MainMenu.*;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import client.model.CreateAccountModel;
+import client.model.LoginModel;
+import client.model.Model;
+import client.view.MainMenu.MainMenu;
+import client.view.RecipeScreen.RecipeScreen;
+import javafx.scene.control.TextField;
+import client.view.AccountScreen.*;
+
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

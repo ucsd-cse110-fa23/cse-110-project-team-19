@@ -76,7 +76,6 @@ public class AccountScreen extends BorderPane {
     footer.switchToLogin();
     createAccountButton.setOnAction(createSwitchAction);
     loginButton.setOnAction(loginAction);
-
   }
 
   public void switchToCreate() {
@@ -91,8 +90,6 @@ public class AccountScreen extends BorderPane {
   public Login getLogin() {
     return login;
   }
-
-  
 
   public CreateAccount getCreateAccount() {
     return createAccount;
