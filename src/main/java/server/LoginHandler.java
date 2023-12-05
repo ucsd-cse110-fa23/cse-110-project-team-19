@@ -1,19 +1,20 @@
 package server;
 
-import static com.mongodb.client.model.Filters.eq;
+// import static com.mongodb.client.model.Filters.eq;
 
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+// import com.mongodb.client.FindIterable;
+// import com.mongodb.client.MongoClient;
+// import com.mongodb.client.MongoClients;
+// import com.mongodb.client.MongoCollection;
+// import com.mongodb.client.MongoDatabase;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import org.bson.Document;
-import org.bson.conversions.Bson;
-import org.bson.types.ObjectId;
+
+// import org.bson.Document;
+// import org.bson.conversions.Bson;
+// import org.bson.types.ObjectId;
 
 public class LoginHandler implements HttpHandler {
 
@@ -62,11 +63,9 @@ public class LoginHandler implements HttpHandler {
       Document account = accountsCollection.find(filter).first();
       if (accountsCollection.countDocuments(filter) < 1) {
         return "Not Valid Username";
-      }
-      else if (!(password.equals(account.getString("password")))) {
+      } else if (!(password.equals(account.getString("password")))) {
         return "Incorrect Password";
-      }
-      else if (password.equals(account.getString("password"))) {
+      } else if (password.equals(account.getString("password"))) {
         return "Correct Login";
       }
     }

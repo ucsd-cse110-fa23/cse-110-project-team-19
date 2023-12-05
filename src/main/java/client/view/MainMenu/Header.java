@@ -7,6 +7,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
 public class Header extends HBox {
+
   private Button filterButton;
   private Button sortButton;
   public Label label;
@@ -14,12 +15,9 @@ public class Header extends HBox {
   Header() {
     this.setPrefSize(500, 60); // Size of the header
     this.setStyle("-fx-background-color: #F0F8FF;");
-    label = new Label("          ");
-    label.setStyle(
-      "-fx-border-width: 0; -fx-font-weight: bold; -fx-font: 11 arial"
-    );
 
-    String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
+    String defaultButtonStyle =
+      "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
 
     filterButton = new Button("Filter by: ");
     filterButton.setStyle(defaultButtonStyle);
@@ -43,7 +41,17 @@ public class Header extends HBox {
     spacer2.setMaxWidth(115);
     spacer3.setMaxWidth(50);
     spacer4.setMaxWidth(10);
-    this.getChildren().addAll(spacer1, label, spacer2, titleText, spacer3 , sortButton, spacer4, filterButton);
+    this.getChildren()
+      .addAll(
+        spacer1,
+        label,
+        spacer2,
+        titleText,
+        spacer3,
+        sortButton,
+        spacer4,
+        filterButton
+      );
     this.setAlignment(Pos.CENTER); // Align the text to the Center
   }
 
@@ -55,52 +63,51 @@ public class Header extends HBox {
     return sortButton;
   }
 
-  public void switchToAlphaAZ(){
+  public void switchToAlphaAZ() {
     this.getChildren().remove(label);
     label = new Label("Sorted A-Z");
     this.getChildren().add(1, label);
   }
 
-  public void switchToAlphaZA(){
+  public void switchToAlphaZA() {
     this.getChildren().remove(label);
     label = new Label("Sorted Z-A");
     this.getChildren().add(1, label);
   }
 
-  public void switchToChronoOldNew(){
+  public void switchToChronoOldNew() {
     this.getChildren().remove(label);
     label = new Label("From Old-New");
     this.getChildren().add(1, label);
   }
 
-  public void switchToChronoNewOld(){
+  public void switchToChronoNewOld() {
     this.getChildren().remove(label);
     label = new Label("From New-Old");
     this.getChildren().add(1, label);
   }
 
-  public void switchToClear(){
+  public void switchToClear() {
     this.getChildren().remove(label);
     label = new Label("          ");
     this.getChildren().add(1, label);
   }
 
-  public void switchToBreakfast(){
+  public void switchToBreakfast() {
     this.getChildren().remove(label);
     label = new Label("Breakfast");
     this.getChildren().add(1, label);
   }
-  public void switchToLunch(){
+
+  public void switchToLunch() {
     this.getChildren().remove(label);
     label = new Label("Lunch");
     this.getChildren().add(1, label);
   }
 
-  public void switchToDinner(){
+  public void switchToDinner() {
     this.getChildren().remove(label);
     label = new Label("Dinner");
     this.getChildren().add(1, label);
   }
-  
 }
-
