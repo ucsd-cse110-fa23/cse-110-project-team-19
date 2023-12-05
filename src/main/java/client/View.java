@@ -27,11 +27,11 @@ public class View {
   RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
   RecordMealScreen recordMealScreen = new RecordMealScreen(
     this,
-    "Record the Meal Type for the recipe:"
+    "Record the Meal Type for the recipe: \n (Breakfast, Lunch, or Dinner)"
   );
   RecordMealScreen recordMealScreenError = new RecordMealScreen(
     this,
-    "Please repeat Meal Type:"
+    "Please repeat Meal Type: \n (Say Breakfast, Lunch, or Dinner)"
   );
   String mealType;
   AccountScreen accountScreen = new AccountScreen();

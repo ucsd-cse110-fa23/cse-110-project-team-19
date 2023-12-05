@@ -1,6 +1,7 @@
 package client.view.MainMenu;
 
 import client.View;
+import client.model.RecipeImage;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ public class Recipe extends HBox {
 
   private Button recipeName;
   private String recipe;
+  private String imageURL;
 
   public Recipe(View view) {
     this.setPrefSize(500, 20); // sets size of task
@@ -35,6 +37,7 @@ public class Recipe extends HBox {
       DetailedRecipeView detailedRecipeView =
         ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
       detailedRecipeView.setText(recipe);
+      detailedRecipeView.SI(imageURL);
 
       view.recipeScreen.getFooter().switchToViewing();
       view.recipeScreen.setRecipe(this);
@@ -42,18 +45,20 @@ public class Recipe extends HBox {
     });
   }
 
-  // TODO
-  // public void setTaskIndex(int num) {
-  //   this.index.setText(num + ""); // num to String
-  //   this.recipeName.setText("Task " + num);
-  // }
-
   public Button getRecipeName() {
     return this.recipeName;
   }
 
   public void setRecipe(String recipe) {
     this.recipe = recipe;
+  }
+
+  public String getImageURL() {
+    return this.imageURL;
+  }
+
+  public void setImageURL(String imageURL) {
+    this.imageURL = imageURL;
   }
 
   public String getRecipe() {

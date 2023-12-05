@@ -5,6 +5,7 @@ import client.model.ATranscribe;
 import client.model.IRecipeDetails;
 import client.model.Model;
 import client.model.RecipeDetails;
+import client.model.RecipeImage;
 import client.model.Transcribe;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
@@ -15,10 +16,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class RecipeScreenController {
@@ -30,6 +36,9 @@ public class RecipeScreenController {
   private Recipe recipe;
   private Model model;
   private String recString;
+  private String recipeurl;
+  private RecipeImage recipeImage;
+
   TextArea prompt = new TextArea();
   private ATranscribe transcriber = new Transcribe();
 
@@ -46,6 +55,8 @@ public class RecipeScreenController {
     this.model = model;
     this.mainMenu = mainMenu;
     this.recipe = recipe;
+    this.recipeImage = recipeScreen.getRecipeImage();
+
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
 
     this.recipeScreen.setDeleteButtonAction(this::handleDeleteButton);
@@ -55,6 +66,7 @@ public class RecipeScreenController {
     this.recipeScreen.setRegenButtonAction(this::handleRegenerateButton);
 
     this.recipeScreen.setbackButtonAction(this::handlebackButton);
+
   }
 
   public void handleRegenerateButton(ActionEvent event) {
@@ -84,10 +96,12 @@ public class RecipeScreenController {
   private void handleSaveButton(ActionEvent event) {
     recipe = new Recipe(view);
     recipe.setRecipe(recipeDetails.getRecipe());
+    recipeurl = recipeImage.getURL();
+    recipe.setImageURL(recipeurl);
     // doesn't correctly store recipe name
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
     mainMenu.getRecipeList().getChildren().add(recipe);
-    String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
+
     if (recString == null) {
       recString = recipeDetails.getRecipe();
     }
@@ -187,4 +201,16 @@ public class RecipeScreenController {
   private void handlebackButton(ActionEvent event) {
     view.setRoot("main");
   }
+
+
+
+
+
+
+
+
+
+
+
+
 }
