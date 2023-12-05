@@ -9,8 +9,8 @@ public class Footer extends HBox {
   private Button editButton;
   private Button saveButton;
   private Button deleteButton;
-   private Button regenButton;
-   private Button shareButton;
+  private Button regenButton;
+  private Button shareButton;
 
   Footer() {
     this.setPrefSize(500, 60);
@@ -36,7 +36,8 @@ public class Footer extends HBox {
     shareButton = new Button("Share"); // text displayed on share button
     shareButton.setStyle(defaultButtonStyle); // styling the button
 
-    this.getChildren().addAll(editButton, deleteButton, saveButton, regenButton, shareButton); // adding buttons to footer
+    this.getChildren()
+      .addAll(editButton, deleteButton, saveButton, regenButton, shareButton); // adding buttons to footer
     this.setAlignment(Pos.CENTER); // aligning the buttons to center
   }
 
@@ -44,13 +45,14 @@ public class Footer extends HBox {
     return editButton;
   }
 
-   public Button getRegenButton() {
+  public Button getRegenButton() {
     return regenButton;
   }
 
   public Button getSaveButton() {
     return saveButton;
   }
+
   public Button getShareButton() {
     return shareButton;
   }
@@ -62,15 +64,15 @@ public class Footer extends HBox {
   public void switchToViewing() {
     this.getChildren().remove(saveButton);
     this.getChildren().remove(regenButton);
+    this.getChildren().remove(shareButton);
+    this.getChildren().add(shareButton);
   }
-
-
 
   public void switchToCreating() {
     this.getChildren().remove(saveButton);
     this.getChildren().add(saveButton);
     this.getChildren().remove(regenButton);
     this.getChildren().add(regenButton);
-
+    this.getChildren().remove(shareButton);
   }
 }

@@ -3,7 +3,6 @@ package server;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -11,7 +10,7 @@ import com.mongodb.client.MongoDatabase;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
-import javafx.scene.control.Button;
+import java.nio.charset.StandardCharsets;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -57,6 +56,7 @@ public class ShareHandler implements HttpHandler {
       String name = query.substring(query.indexOf("~") + 1);
       String recipe = "";
       String imageURl = "";
+      String recipeContent = "";
       try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
         FileReader fr = new FileReader("images/" + name);
         name = name.replaceAll("_", " ");
@@ -70,6 +70,8 @@ public class ShareHandler implements HttpHandler {
         BufferedReader br = new BufferedReader(fr);
         imageURl = br.readLine();
         br.close();
+        recipeContent = recipe.substring(recipe.indexOf("\n") + 1);
+        recipeContent = recipeContent.replaceAll("[^a-zA-Z0-9]", " ");
       } catch (Exception e) {}
 
       StringBuilder htmlBuilder = new StringBuilder();
@@ -82,7 +84,7 @@ public class ShareHandler implements HttpHandler {
         .append("<img src=\"" + imageURl + "\">")
         .append("</img>")
         .append("<p>")
-        .append(recipe.substring(recipe.indexOf("\n") + 1))
+        .append(recipeContent)
         .append("</p>")
         .append("</body>")
         .append("</html>");
