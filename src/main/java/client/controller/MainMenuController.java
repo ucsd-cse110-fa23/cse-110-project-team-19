@@ -1,17 +1,17 @@
 package client.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import client.View;
 import client.model.CompareAlphabetical;
 import client.model.CompareChrono;
 import client.model.Model;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
+import java.util.ArrayList;
+import java.util.Collections;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +19,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 
 public class MainMenuController {
 
@@ -58,16 +57,18 @@ public class MainMenuController {
     Button AZButton = new Button("Alphabetical A-Z");
     AZButton.setFocusTraversable(false);
     Button ZAButton = new Button("Alphabetical Z-A");
-    AZButton.setFocusTraversable(false);
+    ZAButton.setFocusTraversable(false);
     Button newcButton = new Button("Chronological new");
-    AZButton.setFocusTraversable(false);
+    newcButton.setFocusTraversable(false);
     Button oldcButton = new Button("Chronological old");
-    AZButton.setFocusTraversable(false);
+    oldcButton.setFocusTraversable(false);
     Button clearButton = new Button("Clear");
     clearButton.setFocusTraversable(false);
 
     VBox buttonBox = new VBox(10);
-    buttonBox.getChildren().addAll(prompt,AZButton, ZAButton, newcButton, oldcButton, clearButton);
+    buttonBox
+      .getChildren()
+      .addAll(prompt, AZButton, ZAButton, newcButton, oldcButton, clearButton);
     grid.add(buttonBox, 8, 2);
 
     prompt.setAlignment(Pos.CENTER);
@@ -99,7 +100,6 @@ public class MainMenuController {
     clearButton.setOnAction(e1 -> {
       addStage.close();
     });
-    
   }
 
   private void handlefilterButton(ActionEvent event) {
@@ -128,7 +128,9 @@ public class MainMenuController {
     clearButton.setFocusTraversable(false);
 
     VBox buttonBox = new VBox(10);
-    buttonBox.getChildren().addAll(prompt,breakfastButton, lunchButton, dinnerButton, clearButton);
+    buttonBox
+      .getChildren()
+      .addAll(prompt, breakfastButton, lunchButton, dinnerButton, clearButton);
     grid.add(buttonBox, 5, 2);
 
     buttonBox.setAlignment(Pos.CENTER);
@@ -148,38 +150,30 @@ public class MainMenuController {
     });
 
     clearButton.setOnAction(e1 -> {
-
       addStage.close();
     });
-    
   }
 
   public void sortContacts(String str) {
     ArrayList<Recipe> recipes = new ArrayList<>();
     for (int i = 0; i < mainMenu.getRecipeList().getChildren().size(); i++) {
-        if (mainMenu.getRecipeList().getChildren().get(i) instanceof Recipe) {
-          recipes.add(((Recipe) mainMenu.getRecipeList().getChildren().get(i)));
-        }
+      if (mainMenu.getRecipeList().getChildren().get(i) instanceof Recipe) {
+        recipes.add(((Recipe) mainMenu.getRecipeList().getChildren().get(i)));
       }
-    
-    if(str.equals("A-Z")){
+    }
+
+    if (str.equals("A-Z")) {
       Collections.sort(recipes, new CompareAlphabetical());
-    }
-    else if(str.equals("Z-A")){
+    } else if (str.equals("Z-A")) {
       Collections.sort(recipes, (new CompareAlphabetical()).reversed());
-    }
-    else if(str.equals("new")){
-      Collections.sort(recipes, (new CompareChrono()));
-    }
-    else if(str.equals("old")){
+    } else if (str.equals("new")) {
       Collections.sort(recipes, (new CompareChrono()).reversed());
+    } else if (str.equals("old")) {
+      Collections.sort(recipes, (new CompareChrono()));
     }
     mainMenu.getRecipeList().getChildren().clear();
     for (int i = 0; i < recipes.size(); i++) {
       this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
     }
   }
-
-
 }
-

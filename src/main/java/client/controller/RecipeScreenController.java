@@ -55,9 +55,10 @@ public class RecipeScreenController {
   private void handleSaveButton(ActionEvent event) {
     recipe = new Recipe(view);
     recipe.setRecipe(recipeDetails.getRecipe());
+    recipe.setTime();
     // doesn't correctly store recipe name
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
-    mainMenu.getRecipeList().getChildren().add(recipe);
+    mainMenu.getRecipeList().getChildren().add(0, recipe);
     String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
     if (recString == null) {
       recString = recipeDetails.getRecipe();

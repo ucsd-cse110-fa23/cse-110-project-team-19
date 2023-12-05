@@ -66,6 +66,7 @@ public class AccountScreenController {
       for (String recipeContent : recipes) {
         recipe = new Recipe(view);
         recipe.setRecipe(recipeContent);
+        recipe.setTime();
 
         //String recipeName = recipeContent.replaceAll("(?m)^[ \t]*\r?\n", "");
         String recipeName = recipeContent.substring(
@@ -74,7 +75,7 @@ public class AccountScreenController {
         );
 
         recipe.getRecipeName().setText(recipeName);
-        mainMenu.getRecipeList().getChildren().add(recipe);
+        mainMenu.getRecipeList().getChildren().add(0, recipe);
         new RecipeScreenController(
           view,
           view.recipeScreen,
