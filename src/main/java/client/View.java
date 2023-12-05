@@ -10,6 +10,7 @@ import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
 import client.view.RecordScreen.RecordMealScreen;
+import server.MyServer;
 
 import client.view.ServerScreen.ServerStatus;
 
@@ -58,13 +59,13 @@ public class View {
 
     ViewController viewController = new ViewController(this);
 
-    //if(Server is down){
+    if(MyServer.isServerRunning()){
+      scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
+    }else{
       
-    scene = new Scene(scenes.get("serverDown"), 500, 600);
-    //}else{
-      //scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
-      
-    //}
+      scene = new Scene(scenes.get("serverDown"), 500, 600); 
+
+    }
     
   }
 
