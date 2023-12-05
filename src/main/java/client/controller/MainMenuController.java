@@ -2,40 +2,20 @@ package client.controller;
 
 import client.View;
 import client.model.CompareAlphabetical;
-import client.model.CompareAlphabetical;
 import client.model.CompareChrono;
-import client.model.CompareChrono;
-import client.model.CreateAccountModel;
-import client.model.LoginModel;
-import client.model.Model;
-import client.view.AccountScreen.*;
 import client.view.AccountScreen.*;
 import client.view.MainMenu.*;
-import client.view.RecipeScreen.RecipeScreen;
-import com.sun.tools.javac.Main;
-import com.sun.tools.javac.Main;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Collections;
 import javafx.event.ActionEvent;
-import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -118,28 +98,33 @@ public class MainMenuController {
     AZButton.setOnAction(e1 -> {
       // hasn't assign anything yet
       sortContacts("A-Z");
+      mainMenu.getHeader().switchToAlphaAZ();
       addStage.close();
     });
 
     ZAButton.setOnAction(e1 -> {
       // hasn't assign anything yet
       sortContacts("Z-A");
+      mainMenu.getHeader().switchToAlphaZA();
       addStage.close();
     });
 
     newcButton.setOnAction(e1 -> {
       // hasn't assign anything yet
       sortContacts("new");
+      mainMenu.getHeader().switchToChronoNewOld();
       addStage.close();
     });
 
     oldcButton.setOnAction(e1 -> {
       // hasn't assign anything yet
       sortContacts("old");
+      mainMenu.getHeader().switchToChronoOldNew();
       addStage.close();
     });
 
     clearButton.setOnAction(e1 -> {
+      mainMenu.getHeader().switchToClear();
       addStage.close();
     });
   }
@@ -218,4 +203,6 @@ public class MainMenuController {
       this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
     }
   }
+
+
 }

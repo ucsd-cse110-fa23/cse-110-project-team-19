@@ -5,6 +5,7 @@ import client.view.RecipeScreen.RecipeScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 
@@ -83,4 +84,16 @@ public class MainMenu extends BorderPane {
   public void clearRecipeList() {
     this.recipeList.getChildren().clear();
   }
+
+  public Header getHeader() {
+    return this.header;
+  }
+  // public void setLabel(){
+  //   //if(str.equals("A-Z")){
+  //     header.label = new Label("Sorted A-Z");
+  //     this.setTop(header);
+  //     return;
+  //   //}
+  //   //header.label = new Label("         ");
+  // }
 }
