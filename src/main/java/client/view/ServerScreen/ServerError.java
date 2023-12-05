@@ -1,5 +1,7 @@
 package client.view.ServerScreen;
 
+import static com.mongodb.client.model.Filters.text;
+
 import client.View;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
@@ -16,13 +18,15 @@ import javafx.scene.text.TextAlignment;
 public class ServerError extends HBox {
 
   private Label error;
+    private String prompt;
 
   public ServerError() {
     this.setPrefSize(500, 20); // sets size of task
     this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
 
-    error = new Label("Recipe");
+    error = new Label("SERVER ERROR: " + prompt);
     error.setPrefSize(500, 400);
+    error.setAlignment(Pos.CENTER);
     //text.setPadding(new Insets(5, 0, 0, 10));
     error.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // set background color of label
     //text.setTextAlignment(TextAlignment.CENTER); // set alignment of label
@@ -36,5 +40,13 @@ public class ServerError extends HBox {
 
   public void setError(String str) {
     this.error.setText(str);
+  }
+
+  public String getPrompt() {
+    return this.prompt;
+  }
+
+  public void setPrompt(String str) {
+    this.prompt = str;
   }
 }
