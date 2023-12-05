@@ -181,7 +181,35 @@ public class AppTest {
       "PUT", mockAccountScreen.getUsername(), mockAccountScreen.getPasswword(), null);
     
     assertEquals("put username: " + mockAccountScreen.getUsername() + 
-      " and password:" + mockAccountScreen.getPasswword() + " into server", response);
+      " and password: " + mockAccountScreen.getPasswword() + " into server", response);
+  }
+
+  @Test
+  void testAutomaticLogin(){
+    // create account intially
+    MockAccountScreen mockAccountScreen = new MockAccountScreen();
+    mockAccountScreen.inputUsername("username");
+    mockAccountScreen.inputtedPassword("password");
+
+    MockLoginModel mockLoginModel = new MockLoginModel();
+    mockLoginModel.performRequest(
+      "PUT", mockAccountScreen.getUsername(), mockAccountScreen.getPasswword(), null);
+
+    // toggle automatic login
+    mockAccountScreen.toggleAutomaticLogin();
+
+    // produce automaticLogin.txt when logging out
+    String[] automaticLoginTxt = mockAccountScreen.automaticLoginTxt();
+
+    // automatic login
+    MockAccountScreen automaticLogin = new MockAccountScreen(automaticLoginTxt);
+
+    String response = mockLoginModel.performRequest(
+      "PUT", automaticLogin.getUsername(), automaticLogin.getPasswword(), null);
+    
+    //response indicates record of previous login
+    assertEquals("username: " + mockAccountScreen.getUsername() + 
+      " and password: " + mockAccountScreen.getPasswword() + " found in server. logging in", response);
   }
 
   @Test
