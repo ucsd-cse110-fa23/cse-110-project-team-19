@@ -28,8 +28,10 @@ public class MockLoginModel {
       
       String response = "";
       if (method.equals("POST") || method.equals("PUT")) {
+        if(userPass.containsKey(username))
+          return "username: " + username + " and password: " + password + " found in server. logging in";
         userPass.put(username, password);
-        response = "put username: " + username + " and password:" + password + " into server";
+        response = "put username: " + username + " and password: " + password + " into server";
       }
 
       return response;
