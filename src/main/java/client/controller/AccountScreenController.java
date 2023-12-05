@@ -86,7 +86,8 @@ public class AccountScreenController {
           0,
           recipeContent.indexOf('\n')
         );
-        String mealType = recipeContent.substring(recipeContent.indexOf("|") + 1);
+        String mealType = recipeContent.substring(
+          recipeContent.indexOf("|") + 1);
 
         recipe.getRecipeName().setText(recipeName);
         try {
