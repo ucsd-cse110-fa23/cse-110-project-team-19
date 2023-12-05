@@ -22,7 +22,7 @@ public class Recipe extends HBox {
 
   private Button recipeName;
   private String recipe;
-  private LocalDateTime time;
+  private LocalDate time;
   private boolean chrono = false; 
 
   public Recipe(View view) {
@@ -68,26 +68,11 @@ public class Recipe extends HBox {
   }
 
   public void setTime(){
-    this.time = LocalDateTime.now();
+    this.time = LocalDate.now();
   }
-  public LocalDateTime getTime(){
+  public LocalDate getTime(){
     return this.time;
   }
-
-  public void chronoTrue(){
-    this.chrono = true;
-  }
-
-   public void chronoFalse(){
-    this.chrono = false;
-  }
-  
-
-  // @Override
-  // public int compareTo(Recipe recipe) {
-  //   return this.getTime().compareTo(recipe.getTime());
-  //   //return this.getRecipeName().getText().compareTo(recipe.getRecipeName().getText());
-  // }
 
 }
 
