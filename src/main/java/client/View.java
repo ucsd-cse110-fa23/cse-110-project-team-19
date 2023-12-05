@@ -1,6 +1,7 @@
 package client;
 
 import client.controller.RecipeScreenController;
+import client.controller.ViewController;
 import client.model.Model;
 import client.view.AccountScreen.AccountScreen;
 import client.view.MainMenu.MainMenu;
@@ -21,7 +22,7 @@ public class View {
 
   HashMap<String, BorderPane> scenes;
   Scene scene;
-  MainMenu mainMenu = new MainMenu();
+  public MainMenu mainMenu = new MainMenu();
   public RecipeScreen recipeScreen = new RecipeScreen(true);
   RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
   RecordMealScreen recordMealScreen = new RecordMealScreen(
@@ -49,43 +50,9 @@ public class View {
 
     scenes.put("accountScreen", this.accountScreen);
 
-    try {
-      FileReader fr = new FileReader("automaticLogin.txt");
-      BufferedReader br = new BufferedReader(fr);
-      String line = br.readLine();
-      if (line.equals("false")) {
-        scene = new Scene(scenes.get("accountScreen"), 500, 600);
-      } else if (line.equals("true")) {
-        username = br.readLine();
-        String query = username;
-        Model model = new Model();
-        String response = model.performRequest("GET", null, null, query);
-        if (response != null) {
-          String[] recipes = response.split("~");
-          for (String recipeContent : recipes) {
-            Recipe recipe = new Recipe(this);
-            recipe.setRecipe(recipeContent);
+    ViewController viewController = new ViewController(this);
 
-            String recipeName = recipeContent.substring(
-              0,
-              recipeContent.indexOf('\n')
-            );
-
-            recipe.getRecipeName().setText(recipeName);
-            mainMenu.getRecipeList().getChildren().add(recipe);
-            new RecipeScreenController(
-              this,
-              recipeScreen,
-              mainMenu,
-              model,
-              recipe
-            );
-          }
-        }
-        scene = new Scene(scenes.get("main"), 500, 600);
-      }
-      br.close();
-    } catch (Exception e) {}
+    scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
   }
 
   public BorderPane getRoot(String key) {
