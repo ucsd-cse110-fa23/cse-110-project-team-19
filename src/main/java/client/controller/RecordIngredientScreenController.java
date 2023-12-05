@@ -62,6 +62,7 @@ public class RecordIngredientScreenController {
       ((RecipeScreen) view.getRoot("recipe")).getRecipeImage().getURL()
     );
 
+    recipe.setTime();
     view.recipeScreen.setRecipe(recipe);
     view.recipeScreen.getFooter().switchToCreating();
     view.setRoot("recipe");
