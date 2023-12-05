@@ -61,9 +61,10 @@ public class View {
     ViewController viewController = new ViewController(this);
 
     //if(Server){
-      
-    //}else{
-      scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
+      //serve
+      //scene = new Scene(scenes.get("serverDown"), 500, 600);
+    //}else{viewController.viewStart()
+      scene = new Scene(scenes.get("serverDown"), 500, 600);
     //}
     
   }

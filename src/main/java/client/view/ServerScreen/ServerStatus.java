@@ -18,7 +18,7 @@ public class ServerStatus extends BorderPane {
 
     public ServerStatus() {
         serverError = new ServerError();
-        
+        serverError.setPrompt("ERROR 404");
         // Add scroller to the centre of the BorderPane
         this.setCenter(serverError);
   }
