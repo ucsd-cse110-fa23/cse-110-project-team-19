@@ -107,7 +107,7 @@ public class RecipeScreenController {
     mainMenu.getRecipeList().getChildren().add(recipe);
 
     if (recString == null) {
-      recString = recipeDetails.getRecipe();
+      recString = recipeDetails.getRecipe() + "|" + recipe.getMealType() + "\n";
     }
     model.performRequest("POST", view.getUsername(), recString, null);
     view.setRoot("main");
