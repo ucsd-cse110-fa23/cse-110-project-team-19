@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import server.MyServer;
 
 public class View {
 
@@ -80,12 +81,11 @@ public class View {
 
     ViewController viewController = new ViewController(this);
 
-    //if(Server){
-    //serve
-    //scene = new Scene(scenes.get("serverDown"), 500, 600);
-    //}else{
-    scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
-    //}
+    if (MyServer.isServerRunning()) {
+      scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
+    } else {
+      scene = new Scene(scenes.get("serverDown"), 500, 600);
+    }
   }
 
   public BorderPane getRoot(String key) {
