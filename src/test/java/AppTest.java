@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import client.View;
+import client.controller.MockRegenerateBehavior;
 import client.model.MockLoginModel;
 import client.model.RecipeDetailsMock;
 import client.model.TranscribeMock;
@@ -12,6 +13,9 @@ import client.view.AccountScreen.MockAccountScreen;
 import client.view.MainMenu.*;
 import client.view.RecipeScreen.*;
 import client.view.RecordScreen.*;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.geometry.Insets;
@@ -178,5 +182,38 @@ public class AppTest {
     
     assertEquals("put username: " + mockAccountScreen.getUsername() + 
       " and password:" + mockAccountScreen.getPasswword() + " into server", response);
+  }
+
+  @Test
+  void testRegenerateRecipe() {
+    // create new recipe normally
+    String transcribedMealType = "";
+    String transcribedIngredients = "";
+
+    mockWhisper.recordingMealType = true;
+    try {
+      transcribedMealType = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    mockWhisper.recordingMealType = false;
+    try {
+      transcribedIngredients = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    try {
+      mockGPT.newRecipe(transcribedMealType, transcribedIngredients);
+    } catch (Exception e) {}
+
+    // comparing original recipe with regenerated recipe
+    MockRegenerateBehavior regenerator = new MockRegenerateBehavior();
+
+    RecipeDetailsMock separateMockGPT = new RecipeDetailsMock();
+    try {
+      separateMockGPT.newRecipe(mockGPT.getMealType(), regenerator.regenerate(mockWhisper));
+    } catch (IOException | InterruptedException | URISyntaxException e) {}
+
+    assertEquals(mockGPT.requestBody.toString(), separateMockGPT.requestBody.toString());
+    assertEquals(mockGPT.getRecipe(), separateMockGPT.getRecipe());
+    assertEquals(mockGPT.getRecipeName(), separateMockGPT.getRecipeName());
   }
 }

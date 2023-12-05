@@ -13,8 +13,21 @@ public class RecipeDetailsMock implements IRecipeDetails {
   public String recipe;
   private static final String MODEL = "text-davinci-003";
 
+  String mealType;
+
+  public RecipeDetailsMock(){
+    mealType = "";
+  }
+
+  public String getMealType(){
+    return mealType;
+  }
+
   public void newRecipe(String mealType, String ingredients)
     throws IOException, InterruptedException, URISyntaxException {
+    
+    this.mealType = mealType;
+
     String prompt =
       "Can you create me a recipe for " +
       mealType +
