@@ -88,12 +88,5 @@ public class MainMenu extends BorderPane {
   public Header getHeader() {
     return this.header;
   }
-  // public void setLabel(){
-  //   //if(str.equals("A-Z")){
-  //     header.label = new Label("Sorted A-Z");
-  //     this.setTop(header);
-  //     return;
-  //   //}
-  //   //header.label = new Label("         ");
-  // }
+  
 }

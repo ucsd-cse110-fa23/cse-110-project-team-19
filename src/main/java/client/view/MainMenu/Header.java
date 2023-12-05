@@ -44,10 +44,6 @@ public class Header extends HBox {
     spacer3.setMaxWidth(50);
     spacer4.setMaxWidth(10);
     this.getChildren().addAll(spacer1, label, spacer2, titleText, spacer3 , sortButton, spacer4, filterButton);
-    //this.getChildren().addAll( label, titleText, spacer3, sortButton, spacer4, filterButton);
-
-    //label.setAlignment();
-    //titleText.setTextAlignment(Pos.CENTER);
     this.setAlignment(Pos.CENTER); // Align the text to the Center
   }
 
