@@ -68,9 +68,6 @@ public class RequestHandler implements HttpHandler {
       for (Document recipe : recipes) {
         System.out.println(recipe);
         response += recipe.get("recipe") + "|" + recipe.get("meal_type") + "~";
-        // response += recipe.get("recipe") + "~";
-        // response += recipe.get("recipe").toString().substring(0, 
-        // (recipe.get("recipe")).toString().indexOf("|")) + "~";
       }
     }
     System.out.println(response);
@@ -112,7 +109,6 @@ public class RequestHandler implements HttpHandler {
     Scanner scanner = new Scanner(inStream);
     String postData = scanner.nextLine();
     String username = postData.substring(0, postData.indexOf(","));
-    //String mealType = postData.substring();
     String recipe = postData.substring(postData.indexOf(",") + 1) + '\n';
     while (scanner.hasNext()) {
       recipe += scanner.nextLine() + '\n';
@@ -148,14 +144,13 @@ public class RequestHandler implements HttpHandler {
         query.indexOf('~')
       );
       String name = query.substring(query.indexOf('~') + 1);
-      String mealType = query.substring(query.lastIndexOf("~") + 1); // adding to delete mealtype
       name = name.replaceAll("_", " ");
       try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
         MongoDatabase accountDB = mongoClient.getDatabase("account_db");
         MongoCollection<Document> recipesCollection = accountDB.getCollection(
           "recipes"
         );
-        Bson filter = and(eq("title", name), eq("account", username), eq("meal_type", mealType)); // adding to delete mealtype
+        Bson filter = and(eq("title", name), eq("account", username));
         recipesCollection.deleteOne(filter);
       }
     }

@@ -153,8 +153,7 @@ public class RecipeScreenController {
       String name = view.recipeScreen.recipe.getRecipeName().getText();
       name = name.replaceAll(" ", "_");
       String username = view.getUsername();
-      String mealType = view.getMealType(); 
-      model.performRequest("DELETE", null, null, username + "~" + name + "~" + mealType); // added additional "~" + mealtype to the string to try to delete mealtype 
+      model.performRequest("DELETE", null, null, username + "~" + name);
     });
   }
 
