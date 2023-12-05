@@ -1,7 +1,5 @@
 package client.controller;
 
-import java.time.LocalDateTime;
-
 import client.View;
 import client.model.ATranscribe;
 import client.model.Transcribe;
@@ -48,7 +46,6 @@ public class RecordIngredientScreenController {
     recipe.setRecipe(
       ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe()
     );
-    recipe.setTime();
     view.recipeScreen.setRecipe(recipe);
     view.recipeScreen.getFooter().switchToCreating();
     view.setRoot("recipe");
