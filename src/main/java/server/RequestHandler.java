@@ -79,11 +79,11 @@ public class RequestHandler implements HttpHandler {
     Scanner scanner = new Scanner(inStream);
     String postData = scanner.nextLine();
     String username = postData.substring(0, postData.indexOf(","));
-    //String mealType = postData.substring(postData.indexOf("["), postData.indexOf(postData));
     String recipe = postData.substring(postData.indexOf(",") + 1) + '\n';
     while (scanner.hasNext()) {
       recipe += scanner.nextLine() + '\n';
     }
+    System.out.println(recipe);
 
     try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
       MongoDatabase accountDB = mongoClient.getDatabase("account_db");
@@ -92,11 +92,12 @@ public class RequestHandler implements HttpHandler {
       );
       Document account = new Document("account", username);
       account.append("recipe", recipe);
-      account.append("title", recipe.substring(0, recipe.indexOf('\n')));
-      // account.append("meal_type", recipe.substring(,));
+      account.append("title", recipe.substring(0, recipe.indexOf("\n")));
+      account.append("meal_type", recipe.substring(recipe.indexOf("|") + 1, recipe.length() - 1));
       recipesCollection.insertOne(account);
     }
 
+    // String response = "Posted entry {" + username + ", " + recipe.substring(0, recipe.indexOf("|")) + "}";
     String response = "Posted entry {" + username + ", " + recipe + "}";
     System.out.println(response);
     scanner.close();

@@ -109,7 +109,7 @@ public class RecipeScreenController {
     String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
     //recipeImage.NewImage(name);
     if (recString == null) {
-      recString = recipeDetails.getRecipe();
+      recString = recipeDetails.getRecipe() + "|" + recipe.getMealType() + "\n";
     }
     model.performRequest("POST", view.getUsername(), recString, null);
     view.setRoot("main");
