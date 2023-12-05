@@ -10,6 +10,7 @@ public class Footer extends HBox {
   private Button saveButton;
   private Button deleteButton;
    private Button regenButton;
+   private Button shareButton;
 
   Footer() {
     this.setPrefSize(500, 60);
@@ -32,7 +33,10 @@ public class Footer extends HBox {
     regenButton = new Button("Regenerate"); // text displayed on regen button
     regenButton.setStyle(defaultButtonStyle); // styling the button
 
-    this.getChildren().addAll(editButton, deleteButton, saveButton, regenButton); // adding buttons to footer
+    shareButton = new Button("Share"); // text displayed on share button
+    shareButton.setStyle(defaultButtonStyle); // styling the button
+
+    this.getChildren().addAll(editButton, deleteButton, saveButton, regenButton, shareButton); // adding buttons to footer
     this.setAlignment(Pos.CENTER); // aligning the buttons to center
   }
 
@@ -47,7 +51,9 @@ public class Footer extends HBox {
   public Button getSaveButton() {
     return saveButton;
   }
-  
+  public Button getShareButton() {
+    return shareButton;
+  }
 
   public Button getDeleteButton() {
     return deleteButton;
