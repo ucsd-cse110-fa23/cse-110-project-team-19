@@ -4,28 +4,26 @@ import client.View;
 import client.model.CompareAlphabetical;
 import client.model.CompareChrono;
 import client.model.CreateAccountModel;
+import client.model.CreateAccountModel;
+import client.model.LoginModel;
 import client.model.LoginModel;
 import client.model.Model;
+import client.model.Model;
+import client.view.AccountScreen.*;
+import client.view.AccountScreen.*;
 import client.view.AccountScreen.*;
 import client.view.MainMenu.*;
 import client.view.MainMenu.MainMenu;
+import client.view.MainMenu.MainMenu;
+import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecipeScreen.RecipeScreen;
 import com.sun.tools.javac.Main;
+import com.sun.tools.javac.Main;
+import java.io.FileWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collections;
-import client.model.CreateAccountModel;
-import client.model.LoginModel;
-import client.model.Model;
-import client.view.AccountScreen.*;
-import client.view.MainMenu.MainMenu;
-import client.view.RecipeScreen.RecipeScreen;
-import com.sun.tools.javac.Main;
-import java.io.FileWriter;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TextField;
-import client.view.AccountScreen.*;
-
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,6 +31,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -226,4 +225,3 @@ public class MainMenuController {
     }
   }
 }
-
