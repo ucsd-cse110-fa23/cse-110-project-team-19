@@ -109,9 +109,9 @@ public class RecipeScreenController {
     String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
     //recipeImage.NewImage(name);
     if (recString == null) {
-      recString = recipeDetails.getRecipe() + "|" + recipe.getMealType() + "\n";
+      recString = recipeDetails.getRecipe(); // + "|" + recipe.getMealType() + "\n";
     }
-    model.performRequest("POST", view.getUsername(), recString, null);
+    model.performRequest("POST", view.getUsername(), recString + "|" + recipe.getMealType(), null);
     view.setRoot("main");
   }
 
@@ -153,7 +153,8 @@ public class RecipeScreenController {
       String name = view.recipeScreen.recipe.getRecipeName().getText();
       name = name.replaceAll(" ", "_");
       String username = view.getUsername();
-      model.performRequest("DELETE", null, null, username + "~" + name);
+      String mealType = view.getMealType(); 
+      model.performRequest("DELETE", null, null, username + "~" + name + "~" + mealType); // added additional "~" + mealtype to the string to try to delete mealtype 
     });
   }
 

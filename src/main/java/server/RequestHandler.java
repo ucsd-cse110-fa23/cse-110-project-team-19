@@ -68,6 +68,9 @@ public class RequestHandler implements HttpHandler {
       for (Document recipe : recipes) {
         System.out.println(recipe);
         response += recipe.get("recipe") + "|" + recipe.get("meal_type") + "~";
+        // response += recipe.get("recipe") + "~";
+        // response += recipe.get("recipe").toString().substring(0, 
+        // (recipe.get("recipe")).toString().indexOf("|")) + "~";
       }
     }
     System.out.println(response);
@@ -91,13 +94,12 @@ public class RequestHandler implements HttpHandler {
         "recipes"
       );
       Document account = new Document("account", username);
-      account.append("recipe", recipe);
+      account.append("recipe", recipe.substring(0, recipe.indexOf("|")));
       account.append("title", recipe.substring(0, recipe.indexOf("\n")));
       account.append("meal_type", recipe.substring(recipe.indexOf("|") + 1, recipe.length() - 1));
       recipesCollection.insertOne(account);
     }
 
-    // String response = "Posted entry {" + username + ", " + recipe.substring(0, recipe.indexOf("|")) + "}";
     String response = "Posted entry {" + username + ", " + recipe + "}";
     System.out.println(response);
     scanner.close();
@@ -146,13 +148,14 @@ public class RequestHandler implements HttpHandler {
         query.indexOf('~')
       );
       String name = query.substring(query.indexOf('~') + 1);
+      String mealType = query.substring(query.lastIndexOf("~") + 1); // adding to delete mealtype
       name = name.replaceAll("_", " ");
       try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
         MongoDatabase accountDB = mongoClient.getDatabase("account_db");
         MongoCollection<Document> recipesCollection = accountDB.getCollection(
           "recipes"
         );
-        Bson filter = and(eq("title", name), eq("account", username));
+        Bson filter = and(eq("title", name), eq("account", username), eq("meal_type", mealType)); // adding to delete mealtype
         recipesCollection.deleteOne(filter);
       }
     }
