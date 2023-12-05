@@ -60,11 +60,12 @@ public class View {
 
     ViewController viewController = new ViewController(this);
 
-    //if(Server){
-      //serve
-      //scene = new Scene(scenes.get("serverDown"), 500, 600);
+    //if(Server is down){
+      
+    scene = new Scene(scenes.get("serverDown"), 500, 600);
     //}else{
-      scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
+      //scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
+      
     //}
     
   }
