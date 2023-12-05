@@ -79,7 +79,6 @@ public class RequestHandler implements HttpHandler {
     Scanner scanner = new Scanner(inStream);
     String postData = scanner.nextLine();
     String username = postData.substring(0, postData.indexOf(","));
-    //String mealType = postData.substring(postData.indexOf("["), postData.indexOf(postData));
     String recipe = postData.substring(postData.indexOf(",") + 1) + '\n';
     while (scanner.hasNext()) {
       recipe += scanner.nextLine() + '\n';
@@ -101,6 +100,7 @@ public class RequestHandler implements HttpHandler {
       recipesCollection.insertOne(account);
     }
 
+    // String response = "Posted entry {" + username + ", " + recipe.substring(0, recipe.indexOf("|")) + "}";
     String response = "Posted entry {" + username + ", " + recipe + "}";
     System.out.println(response);
     scanner.close();

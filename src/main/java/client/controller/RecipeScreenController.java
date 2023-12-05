@@ -70,7 +70,6 @@ public class RecipeScreenController {
     this.recipeScreen.setShareButtonAction(this::handleShareButton);
 
     this.recipeScreen.setbackButtonAction(this::handlebackButton);
-
   }
 
   public void handleRegenerateButton(ActionEvent event) {
@@ -112,7 +111,7 @@ public class RecipeScreenController {
     String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
     //recipeImage.NewImage(name);
     if (recString == null) {
-      recString = recipeDetails.getRecipe(); // + "|" + recipe.getMealType() + "\n";
+      recString = recipeDetails.getRecipe() + "|" + recipe.getMealType() + "\n";
     }
     model.performRequest(
       "POST",
@@ -221,16 +220,4 @@ public class RecipeScreenController {
   private void handlebackButton(ActionEvent event) {
     view.setRoot("main");
   }
-
-
-
-
-
-
-
-
-
-
-
-
 }
