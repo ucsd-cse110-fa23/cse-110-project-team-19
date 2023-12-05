@@ -71,7 +71,6 @@ public class RecipeScreenController {
 
     this.recipeScreen.setbackButtonAction(this::handlebackButton);
 
-    this.recipeScreen.setShareButtonAction(this::handleShareButton);
   }
 
   public void handleRegenerateButton(ActionEvent event) {
@@ -214,42 +213,15 @@ public class RecipeScreenController {
     view.setRoot("main");
   }
 
-  private void handleShareButton(ActionEvent event) {
-    String name = view.recipeScreen.recipe.getRecipeName().getText();
-    name = name.replaceAll(" ", "_");
-    String link =
-      "localhost:8100/recipeName?=" + view.getUsername() + "~" + name;
-    Stage addStage = new Stage();
-    addStage.setTitle("Share Recipe");
-    GridPane grid = new GridPane();
-    grid.setHgap(10);
-    grid.setVgap(10);
-    addStage.setScene(new Scene(grid, 800, 150));
-    addStage.setResizable(false);
-    addStage.show();
 
-    Label prompt = new Label("Share your Recipe! \n" + link);
 
-    prompt.setStyle(
-      "-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 15px"
-    );
-    prompt.setTextAlignment(TextAlignment.CENTER);
-    Button copyButton = new Button("Copy Link");
-    copyButton.setFocusTraversable(false);
-    grid.add(prompt, 0, 2);
-    HBox buttonBox = new HBox(10);
-    buttonBox.getChildren().addAll(copyButton);
-    grid.add(buttonBox, 3, 6);
 
-    buttonBox.setAlignment(Pos.CENTER);
-    copyButton.setOnAction(e1 -> {
-      // Copy to clipboard
-      Clipboard clipboard = Clipboard.getSystemClipboard();
-      ClipboardContent content = new ClipboardContent();
-      content.putString(link);
-      clipboard.setContent(content);
-      addStage.close();
-      view.setRoot("recipe");
-    });
-  }
+
+
+
+
+
+
+
+
 }

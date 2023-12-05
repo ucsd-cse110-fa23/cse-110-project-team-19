@@ -31,7 +31,6 @@ public class MyServer {
     server.createContext("/", requestHandler);
     server.createContext("/create-account", new CreateAccountHandler());
     server.createContext("/login", new LoginHandler());
-    server.createContext("/recipeName", new ShareHandler());
     server.setExecutor(threadPoolExecutor);
     server.start();
 
