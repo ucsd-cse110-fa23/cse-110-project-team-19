@@ -1,5 +1,7 @@
 package client.view.MainMenu;
 
+import java.time.LocalDate;
+
 import client.View;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
@@ -12,11 +14,16 @@ import javafx.scene.control.Label;
 //import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
+import java.time.LocalDateTime;  
+import java.util.Date;
+
 
 public class Recipe extends HBox {
 
   private Button recipeName;
   private String recipe;
+  private LocalDateTime time;
+  private boolean chrono = false; 
 
   public Recipe(View view) {
     this.setPrefSize(500, 20); // sets size of task
@@ -59,4 +66,28 @@ public class Recipe extends HBox {
   public String getRecipe() {
     return this.recipe;
   }
+
+  public void setTime(){
+    this.time = LocalDateTime.now();
+  }
+  public LocalDateTime getTime(){
+    return this.time;
+  }
+
+  public void chronoTrue(){
+    this.chrono = true;
+  }
+
+   public void chronoFalse(){
+    this.chrono = false;
+  }
+  
+
+  // @Override
+  // public int compareTo(Recipe recipe) {
+  //   return this.getTime().compareTo(recipe.getTime());
+  //   //return this.getRecipeName().getText().compareTo(recipe.getRecipeName().getText());
+  // }
+
 }
+

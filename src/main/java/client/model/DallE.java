@@ -17,7 +17,7 @@ public class DallE {
     // TODO: Set the URL of the API Endpoint
     private static final String API_ENDPOINT = "https://api.openai.com/v1/images/generations";
     /** FILL IN HERE */
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
     private static final String MODEL = "dall-e-2";
 
     public static void main(String[] args)

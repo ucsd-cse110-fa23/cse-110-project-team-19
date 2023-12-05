@@ -1,6 +1,11 @@
 package client.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import client.View;
+import client.model.CompareAlphabetical;
+import client.model.CompareChrono;
 import client.model.Model;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
@@ -14,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 
 public class MainMenuController {
 
@@ -68,21 +74,25 @@ public class MainMenuController {
     buttonBox.setAlignment(Pos.CENTER);
     AZButton.setOnAction(e1 -> {
       // hasn't assign anything yet
+      sortContacts("A-Z");
       addStage.close();
     });
 
     ZAButton.setOnAction(e1 -> {
       // hasn't assign anything yet
+      sortContacts("Z-A");
       addStage.close();
     });
 
     newcButton.setOnAction(e1 -> {
       // hasn't assign anything yet
+      sortContacts("new");
       addStage.close();
     });
 
     oldcButton.setOnAction(e1 -> {
       // hasn't assign anything yet
+      sortContacts("old");
       addStage.close();
     });
 
@@ -142,7 +152,32 @@ public class MainMenuController {
       addStage.close();
     });
     
+  }
 
+  public void sortContacts(String str) {
+    ArrayList<Recipe> recipes = new ArrayList<>();
+    for (int i = 0; i < mainMenu.getRecipeList().getChildren().size(); i++) {
+        if (mainMenu.getRecipeList().getChildren().get(i) instanceof Recipe) {
+          recipes.add(((Recipe) mainMenu.getRecipeList().getChildren().get(i)));
+        }
+      }
+    
+    if(str.equals("A-Z")){
+      Collections.sort(recipes, new CompareAlphabetical());
+    }
+    else if(str.equals("Z-A")){
+      Collections.sort(recipes, (new CompareAlphabetical()).reversed());
+    }
+    else if(str.equals("new")){
+      Collections.sort(recipes, (new CompareChrono()));
+    }
+    else if(str.equals("old")){
+      Collections.sort(recipes, (new CompareChrono()).reversed());
+    }
+    mainMenu.getRecipeList().getChildren().clear();
+    for (int i = 0; i < recipes.size(); i++) {
+      this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
+    }
   }
 
 
