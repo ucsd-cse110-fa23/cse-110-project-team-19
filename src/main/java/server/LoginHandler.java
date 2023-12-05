@@ -1,19 +1,19 @@
 package server;
 
-// import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.eq;
 
-// import com.mongodb.client.FindIterable;
-// import com.mongodb.client.MongoClient;
-// import com.mongodb.client.MongoClients;
-// import com.mongodb.client.MongoCollection;
-// import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-// import org.bson.Document;
-// import org.bson.conversions.Bson;
-// import org.bson.types.ObjectId;
+import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 public class LoginHandler implements HttpHandler {
 
@@ -53,20 +53,20 @@ public class LoginHandler implements HttpHandler {
     );
     String password = query.substring(query.indexOf(",") + 1);
     response = "Incorrect Password";
-    // try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
-    //   MongoDatabase sampleTrainingDB = mongoClient.getDatabase("account_db");
-    //   MongoCollection<Document> accountsCollection = sampleTrainingDB.getCollection(
-    //     "accounts"
-    //   );
-    //   Bson filter = eq("username", username);
-    //   Document account = accountsCollection.find(filter).first();
-    //   if (accountsCollection.countDocuments(filter) < 1) {
-    //     return "Incorrect Password";
-    //   }
-    //   if (password.equals(account.getString("password"))) {
-    //     return "Correct Login";
-    //   }
-    // }
+    try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
+      MongoDatabase sampleTrainingDB = mongoClient.getDatabase("account_db");
+      MongoCollection<Document> accountsCollection = sampleTrainingDB.getCollection(
+        "accounts"
+      );
+      Bson filter = eq("username", username);
+      Document account = accountsCollection.find(filter).first();
+      if (accountsCollection.countDocuments(filter) < 1) {
+        return "Incorrect Password";
+      }
+      if (password.equals(account.getString("password"))) {
+        return "Correct Login";
+      }
+    }
     return response;
   }
 }
