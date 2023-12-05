@@ -18,8 +18,6 @@ public class MainMenu extends BorderPane {
   private Button sortButton;
   private Button filterButton;
   private Button logOutButton;
-  private Button sortButton;
-  private Button filterButton;
 
   public MainMenu() {
     header = new Header();
@@ -76,14 +74,6 @@ public class MainMenu extends BorderPane {
 
   public void setLogOutButtonAction(EventHandler<ActionEvent> e) {
     logOutButton.setOnAction(e);
-  }
-
-  public void setsortButtonAction(EventHandler<ActionEvent> e) {
-    sortButton.setOnAction(e);
-  }
-
-  public void setfilterButtonAction(EventHandler<ActionEvent> e) {
-    filterButton.setOnAction(e);
   }
 
   public RecipeList getRecipeList() {
