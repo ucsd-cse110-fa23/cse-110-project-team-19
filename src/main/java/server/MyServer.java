@@ -6,6 +6,7 @@ import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
+import java.net.Socket;
 
 public class MyServer {
 
@@ -36,4 +37,16 @@ public class MyServer {
 
     System.out.println("Server started on port " + SERVER_PORT);
   }
+
+  public static boolean isServerRunning() {
+    try (Socket socket = new Socket(SERVER_HOSTNAME, SERVER_PORT)) {
+        // If the connection is successful, the server is running
+        return true;
+    } catch (IOException e) {
+        // If an exception occurs, the server is not running
+        return false;
+    }
 }
+
+}
+
