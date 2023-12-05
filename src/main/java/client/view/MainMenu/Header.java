@@ -40,7 +40,7 @@ public class Header extends HBox {
     Header.setHgrow(spacer3, Priority.ALWAYS);
     Header.setHgrow(spacer4, Priority.ALWAYS);
     spacer1.setMaxWidth(10);
-    spacer2.setMaxWidth(125);
+    spacer2.setMaxWidth(115);
     spacer3.setMaxWidth(50);
     spacer4.setMaxWidth(10);
     this.getChildren().addAll(spacer1, label, spacer2, titleText, spacer3 , sortButton, spacer4, filterButton);
@@ -82,6 +82,23 @@ public class Header extends HBox {
   public void switchToClear(){
     this.getChildren().remove(label);
     label = new Label("          ");
+    this.getChildren().add(1, label);
+  }
+
+  public void switchToBreakfast(){
+    this.getChildren().remove(label);
+    label = new Label("Breakfast");
+    this.getChildren().add(1, label);
+  }
+  public void switchToLunch(){
+    this.getChildren().remove(label);
+    label = new Label("Lunch");
+    this.getChildren().add(1, label);
+  }
+
+  public void switchToDinner(){
+    this.getChildren().remove(label);
+    label = new Label("Dinner");
     this.getChildren().add(1, label);
   }
   

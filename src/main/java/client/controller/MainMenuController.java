@@ -163,20 +163,24 @@ public class MainMenuController {
     buttonBox.setAlignment(Pos.CENTER);
     breakfastButton.setOnAction(e1 -> {
       // hasn't assign anything yet
+      mainMenu.getHeader().switchToBreakfast();
       addStage.close();
     });
 
     lunchButton.setOnAction(e1 -> {
       // hasn't assign anything yet
+      mainMenu.getHeader().switchToLunch();
       addStage.close();
     });
 
     dinnerButton.setOnAction(e1 -> {
       // hasn't assign anything yet
+      mainMenu.getHeader().switchToDinner();
       addStage.close();
     });
 
     clearButton.setOnAction(e1 -> {
+      mainMenu.getHeader().switchToClear();
       addStage.close();
     });
   }
