@@ -100,9 +100,9 @@ public class MainMenuController {
     AZButton.setFocusTraversable(false);
     Button ZAButton = new Button("Alphabetical Z-A");
     ZAButton.setFocusTraversable(false);
-    Button newcButton = new Button("Chronological new");
+    Button newcButton = new Button("Newest to Oldest");
     newcButton.setFocusTraversable(false);
-    Button oldcButton = new Button("Chronological old");
+    Button oldcButton = new Button("Oldest to Newest");
     oldcButton.setFocusTraversable(false);
     Button clearButton = new Button("Clear");
     clearButton.setFocusTraversable(false);
