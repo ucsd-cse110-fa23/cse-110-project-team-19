@@ -18,7 +18,7 @@ import javafx.scene.text.TextAlignment;
 public class ServerError extends HBox {
 
   private Label error;
-    private String prompt;
+  private String prompt;
 
   public ServerError() {
     this.setPrefSize(500, 20); // sets size of task
