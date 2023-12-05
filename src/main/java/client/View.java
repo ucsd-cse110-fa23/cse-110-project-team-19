@@ -12,6 +12,9 @@ import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
 import client.view.RecordScreen.RecordMealScreen;
+
+import client.view.ServerScreen.ServerStatus;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -26,6 +29,7 @@ public class View {
   Scene scene;
   public MainMenu mainMenu = new MainMenu();
   public RecipeScreen recipeScreen = new RecipeScreen(true);
+  public ServerStatus serverStatus = new ServerStatus();
   RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
   RecordMealScreen recordMealScreen = new RecordMealScreen(
     this,
@@ -52,43 +56,16 @@ public class View {
 
     scenes.put("accountScreen", this.accountScreen);
 
-    try {
-      FileReader fr = new FileReader("automaticLogin.txt");
-      BufferedReader br = new BufferedReader(fr);
-      String line = br.readLine();
-      if (line.equals("false")) {
-        scene = new Scene(scenes.get("accountScreen"), 500, 600);
-      } else if (line.equals("true")) {
-        username = br.readLine();
-        String query = username;
-        Model model = new Model();
-        String response = model.performRequest("GET", null, null, query);
-        if (response != null) {
-          String[] recipes = response.split("~");
-          for (String recipeContent : recipes) {
-            Recipe recipe = new Recipe(this);
-            recipe.setRecipe(recipeContent);
+    scenes.put("serverDown", this.serverStatus);
 
-            String recipeName = recipeContent.substring(
-              0,
-              recipeContent.indexOf('\n')
-            );
+    ViewController viewController = new ViewController(this);
 
-            recipe.getRecipeName().setText(recipeName);
-            mainMenu.getRecipeList().getChildren().add(recipe);
-            new RecipeScreenController(
-              this,
-              recipeScreen,
-              mainMenu,
-              model,
-              recipe
-            );
-          }
-        }
-        scene = new Scene(scenes.get("main"), 500, 600);
-      }
-      br.close();
-    } catch (Exception e) {}
+    //if(Server){
+      
+    //}else{
+      scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
+    //}
+    
   }
 
   public BorderPane getRoot(String key) {
