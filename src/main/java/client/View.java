@@ -10,6 +10,9 @@ import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
 import client.view.RecordScreen.RecordMealScreen;
+
+import client.view.ServerScreen.ServerStatus;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -24,6 +27,7 @@ public class View {
   Scene scene;
   public MainMenu mainMenu = new MainMenu();
   public RecipeScreen recipeScreen = new RecipeScreen(true);
+  public ServerStatus serverStatus = new ServerStatus();
   RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
   RecordMealScreen recordMealScreen = new RecordMealScreen(
     this,
@@ -50,9 +54,16 @@ public class View {
 
     scenes.put("accountScreen", this.accountScreen);
 
+    scenes.put("serverDown", this.serverStatus);
+
     ViewController viewController = new ViewController(this);
 
-    scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
+    //if(Server){
+      
+    //}else{
+      scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
+    //}
+    
   }
 
   public BorderPane getRoot(String key) {
