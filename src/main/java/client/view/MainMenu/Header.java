@@ -15,6 +15,10 @@ public class Header extends HBox {
   Header() {
     this.setPrefSize(500, 60); // Size of the header
     this.setStyle("-fx-background-color: #F0F8FF;");
+    label = new Label("          ");
+    label.setStyle(
+      "-fx-border-width: 0; -fx-font-weight: bold; -fx-font: 11 arial"
+    );
 
     String defaultButtonStyle =
       "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
