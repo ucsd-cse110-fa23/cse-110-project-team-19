@@ -1,13 +1,20 @@
 package client;
 
+import client.controller.RecipeScreenController;
+import client.controller.ViewController;
+import client.model.Model;
 import client.view.AccountScreen.AccountScreen;
 import client.view.MainMenu.MainMenu;
+import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
 import client.view.RecordScreen.RecordMealScreen;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.HashMap;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
@@ -15,7 +22,7 @@ public class View {
 
   HashMap<String, BorderPane> scenes;
   Scene scene;
-  MainMenu mainMenu = new MainMenu();
+  public MainMenu mainMenu = new MainMenu();
   public RecipeScreen recipeScreen = new RecipeScreen(true);
   RecordIngredientScreen recordIngredientScreen = new RecordIngredientScreen();
   RecordMealScreen recordMealScreen = new RecordMealScreen(
@@ -43,7 +50,9 @@ public class View {
 
     scenes.put("accountScreen", this.accountScreen);
 
-    scene = new Scene(scenes.get("accountScreen"), 500, 600);
+    ViewController viewController = new ViewController(this);
+
+    scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
   }
 
   public BorderPane getRoot(String key) {

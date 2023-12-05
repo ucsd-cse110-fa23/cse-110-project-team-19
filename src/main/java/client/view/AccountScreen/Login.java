@@ -1,5 +1,6 @@
 package client.view.AccountScreen;
 
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -8,6 +9,7 @@ public class Login extends VBox {
 
   private TextField username;
   private TextField password;
+  private CheckBox automaticLogin;
 
   public Login() {
     this.setSpacing(5); // sets spacing between tasks
@@ -24,12 +26,15 @@ public class Login extends VBox {
     password.setPrefSize(380, 20);
     password.setStyle(textStyle);
 
+    automaticLogin = new CheckBox("Stay logged in?");
+
     this.getChildren()
       .addAll(
         new Label("Username:"),
         username,
         new Label("Password:"),
-        password
+        password,
+        automaticLogin
       );
   }
 
@@ -39,5 +44,13 @@ public class Login extends VBox {
 
   public String getPassword() {
     return password.getText();
+  }
+  public void clearLogin() {
+    password.clear();
+    username.clear();
+  }
+  
+  public boolean automaticLogin() {
+    return automaticLogin.isSelected();
   }
 }

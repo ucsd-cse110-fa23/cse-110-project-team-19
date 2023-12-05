@@ -7,6 +7,7 @@ import client.model.Model;
 import client.view.AccountScreen.AccountScreen;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
+import java.io.FileWriter;
 import javafx.event.ActionEvent;
 
 public class AccountScreenController {
@@ -55,6 +56,15 @@ public class AccountScreenController {
     if (response.equals("Incorrect Password")) {
       // error handling
       return;
+    }
+
+    if (accountScreen.getLogin().automaticLogin()) {
+      try {
+        FileWriter fw = new FileWriter("automaticLogin.txt");
+        fw.write("true\n");
+        fw.write(username);
+        fw.close();
+      } catch (Exception e) {}
     }
 
     view.setUsername(username);
@@ -110,6 +120,7 @@ public class AccountScreenController {
       return;
     }
     view.setUsername(username);
+
     view.setRoot("main");
   }
 
