@@ -42,7 +42,7 @@ public class View {
     "Username already in use, please choose another username.",
     ""
   );
-  AccountScreen passwordComfirmError = new AccountScreen(
+  AccountScreen passwordConfirmError = new AccountScreen(
     "Password confirmation failed, please try again.",
     ""
   );
@@ -73,17 +73,11 @@ public class View {
 
     scenes.put("createAccountError", this.createAccountError);
 
-    scenes.put("passwordConfirmError", this.passwordComfirmError);
-
-    scenes.put("incorrectPassword", this.incorrectPassword);
-
-    scenes.put("passwordConfirmError", this.passwordComfirmError);
+    scenes.put("passwordConfirmError", this.passwordConfirmError);
 
     scenes.put("incorrectPassword", this.incorrectPassword);
 
     scenes.put("invalidUsername", this.invalidUsername);
-
-    scenes.put("serverDown", this.serverStatus);
 
     ViewController viewController = new ViewController(this);
 
