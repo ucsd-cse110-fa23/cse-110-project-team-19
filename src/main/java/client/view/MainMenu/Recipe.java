@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
-//hello!!!!!!!!!!!!!
 public class Recipe extends HBox {
 
   private Button recipeName;
@@ -22,7 +21,6 @@ public class Recipe extends HBox {
   private String imageURL;
   private Label mealTypeTag;
   private String mealType;
-  private boolean chrono = false;
 
   public Recipe(View view) {
     this.setPrefSize(500, 20); // sets size of task
@@ -82,6 +80,10 @@ public class Recipe extends HBox {
 
   public String getMealType() {
     return this.mealType;
+  }
+
+  public Label getMealTypeTag() {
+    return this.mealTypeTag;
   }
 
   public void setMealTypeTag(String mealType) {

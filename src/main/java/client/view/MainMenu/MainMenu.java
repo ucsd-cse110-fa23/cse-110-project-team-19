@@ -73,6 +73,10 @@ public class MainMenu extends BorderPane {
     this.recipeList.getChildren().clear();
   }
 
+  public void setRecipeList(RecipeList recipeList) {
+    this.recipeList = recipeList;
+  }
+
   public Header getHeader() {
     return this.header;
   }

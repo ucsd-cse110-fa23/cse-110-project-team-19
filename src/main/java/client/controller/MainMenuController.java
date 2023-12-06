@@ -15,15 +15,14 @@ import client.view.AccountScreen.*;
 import client.view.MainMenu.*;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.MainMenu;
-import client.view.RecipeScreen.RecipeScreen;
+import client.view.MainMenu.Recipe;
+import client.view.MainMenu.RecipeList;
 import client.view.RecipeScreen.RecipeScreen;
 import com.sun.tools.javac.Main;
-import com.sun.tools.javac.Main;
-import java.io.FileWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collections;
-import javafx.event.ActionEvent;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -41,6 +40,10 @@ public class MainMenuController {
   private MainMenu mainMenu;
   private View view;
   private AccountScreen accountScreen;
+  public RecipeList originalrecipeList;
+  public ArrayList<Recipe> recipes = new ArrayList<>();
+
+  private String mealtype;
 
   public MainMenuController(
     View view,
@@ -73,6 +76,7 @@ public class MainMenuController {
       fw.write("false");
       fw.close();
     } catch (Exception e) {}
+    view.getRoot("accountScreen");
 
     view.setRoot("accountScreen");
   }
@@ -178,26 +182,60 @@ public class MainMenuController {
     grid.add(buttonBox, 5, 2);
 
     buttonBox.setAlignment(Pos.CENTER);
+
+    for (
+      int i = 0;
+      i < this.mainMenu.getRecipeList().getChildren().size();
+      i++
+    ) {
+      if (mainMenu.getRecipeList().getChildren().get(i) instanceof Recipe) {
+        recipes.add(
+          ((Recipe) this.mainMenu.getRecipeList().getChildren().get(i))
+        );
+      }
+    }
     breakfastButton.setOnAction(e1 -> {
-      // hasn't assign anything yet
-      mainMenu.getHeader().switchToBreakfast();
+      mainMenu.clearRecipeList();
+      for (int i = 0; i < recipes.size(); i++) {
+        mealtype = recipes.get(i).getMealTypeTag().getText();
+        if (mealtype.equals("breakfast")) {
+          this.mainMenu.getRecipeList()
+            .getChildren()
+            .add((Node) recipes.get(i));
+        }
+      }
       addStage.close();
     });
 
     lunchButton.setOnAction(e1 -> {
-      // hasn't assign anything yet
-      mainMenu.getHeader().switchToLunch();
+      mainMenu.clearRecipeList();
+      for (int i = 0; i < recipes.size(); i++) {
+        mealtype = recipes.get(i).getMealTypeTag().getText();
+        if (mealtype.equals("lunch")) {
+          this.mainMenu.getRecipeList()
+            .getChildren()
+            .add((Node) recipes.get(i));
+        }
+      }
       addStage.close();
     });
 
     dinnerButton.setOnAction(e1 -> {
-      // hasn't assign anything yet
-      mainMenu.getHeader().switchToDinner();
+      mainMenu.clearRecipeList();
+      for (int i = 0; i < recipes.size(); i++) {
+        mealtype = recipes.get(i).getMealTypeTag().getText();
+        if (mealtype.equals("dinner")) {
+          this.mainMenu.getRecipeList()
+            .getChildren()
+            .add((Node) recipes.get(i));
+        }
+      }
       addStage.close();
     });
-
     clearButton.setOnAction(e1 -> {
-      mainMenu.getHeader().switchToClear();
+      for (int i = 0; i < recipes.size(); i++) {
+        this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
+      }
       addStage.close();
     });
   }
