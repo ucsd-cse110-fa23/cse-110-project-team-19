@@ -26,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import server.MyServer;
 
 public class RecipeScreenController {
 
@@ -70,7 +71,6 @@ public class RecipeScreenController {
     this.recipeScreen.setShareButtonAction(this::handleShareButton);
 
     this.recipeScreen.setbackButtonAction(this::handlebackButton);
-
   }
 
   public void handleRegenerateButton(ActionEvent event) {
@@ -109,7 +109,17 @@ public class RecipeScreenController {
     if (recString == null) {
       recString = recipeDetails.getRecipe(); // + "|" + recipe.getMealType() + "\n";
     }
-    model.performRequest("POST", view.getUsername(), recString + "|" + recipe.getMealType(), null);
+    if (MyServer.isServerRunning()) {
+      model.performRequest(
+        "POST",
+        view.getUsername(),
+        recString + "|" + recipe.getMealType(),
+        null
+      );
+    } else {
+      view.setRoot("serverDown");
+      return;
+    }
     view.setRoot("main");
   }
 
@@ -151,7 +161,12 @@ public class RecipeScreenController {
       String name = view.recipeScreen.recipe.getRecipeName().getText();
       name = name.replaceAll(" ", "_");
       String username = view.getUsername();
-      model.performRequest("DELETE", null, null, username + "~" + name);
+      if (MyServer.isServerRunning()) {
+        model.performRequest("DELETE", null, null, username + "~" + name);
+      } else {
+        view.setRoot("serverDown");
+        return;
+      }
     });
   }
 
@@ -195,7 +210,12 @@ public class RecipeScreenController {
       recipe.setRecipe(recString);
       view.recipeScreen.setRecipe(recipe);
 
-      model.performRequest("PUT", view.getUsername(), recString, null);
+      if (MyServer.isServerRunning()) {
+        model.performRequest("PUT", view.getUsername(), recString, null);
+      } else {
+        view.setRoot("serverDown");
+        return;
+      }
 
       view.setRoot("recipe");
       addStage.close();
@@ -220,9 +240,11 @@ public class RecipeScreenController {
     addStage.setResizable(false);
     addStage.show();
 
-    Label prompt = new Label("Share your Recipe! \n" + link );
+    Label prompt = new Label("Share your Recipe! \n" + link);
 
-    prompt.setStyle("-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 15px");
+    prompt.setStyle(
+      "-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 15px"
+    );
     prompt.setTextAlignment(TextAlignment.CENTER);
     Button copyButton = new Button("Copy Link");
     copyButton.setFocusTraversable(false);
@@ -240,8 +262,6 @@ public class RecipeScreenController {
       clipboard.setContent(content);
       addStage.close();
       view.setRoot("recipe");
-
-
     });
   }
 }

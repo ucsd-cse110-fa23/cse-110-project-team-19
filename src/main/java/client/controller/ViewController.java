@@ -5,7 +5,7 @@ import client.model.Model;
 import client.view.MainMenu.Recipe;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import javafx.scene.Scene;
+import server.MyServer;
 
 public class ViewController {
 
@@ -27,7 +27,14 @@ public class ViewController {
         view.setUsername(br.readLine());
         String query = view.getUsername();
         Model model = new Model();
-        String response = model.performRequest("GET", null, null, query);
+        String response = "";
+        if (MyServer.isServerRunning()) {
+          response = model.performRequest("GET", null, null, query);
+        } else {
+          view.setRoot("serverDown");
+          br.close();
+          return "serverDown";
+        }
         if (response != null) {
           String[] recipes = response.split("~");
           for (String recipeContent : recipes) {

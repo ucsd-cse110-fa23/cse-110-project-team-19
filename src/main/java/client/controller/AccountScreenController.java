@@ -10,6 +10,8 @@ import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
 import java.io.FileWriter;
 import javafx.event.ActionEvent;
+import javafx.scene.Scene;
+import server.MyServer;
 
 public class AccountScreenController {
 
@@ -55,12 +57,11 @@ public class AccountScreenController {
       username + "," + password
     );
 
-    if (response.equals("Not Valid Username")){
+    if (response.equals("Not Valid Username")) {
       view.setRoot("invalidUsername");
       view.setInvalidUsernameScreen();
       return;
-    }
-    else if (response.equals("Incorrect Password")) {
+    } else if (response.equals("Incorrect Password")) {
       // error handling
       view.setRoot("incorrectPassword");
       view.setIncorrectPasswordScreen();
@@ -79,14 +80,21 @@ public class AccountScreenController {
     view.setUsername(username);
 
     String query = username;
-    response = model.performRequest("GET",null, null, query);
+    if (MyServer.isServerRunning()) {
+      response = model.performRequest("GET", null, null, query);
+    } else {
+      view.setRoot("serverDown");
+      return;
+    }
     if (response != null) {
       String[] recipes = response.split("~");
       //System.out.println(recipes);
       for (String recipeContent : recipes) {
         System.out.println(recipeContent);
         recipe = new Recipe(view);
-        recipe.setRecipe(recipeContent.substring(0, recipeContent.indexOf("|")));
+        recipe.setRecipe(
+          recipeContent.substring(0, recipeContent.indexOf("|"))
+        );
 
         //String recipeName = recipeContent.replaceAll("(?m)^[ \t]*\r?\n", "");
         String recipeName = recipeContent.substring(
@@ -94,15 +102,15 @@ public class AccountScreenController {
           recipeContent.indexOf('\n')
         );
         String mealType = recipeContent.substring(
-          recipeContent.indexOf("|") + 1);
+          recipeContent.indexOf("|") + 1
+        );
 
         recipe.getRecipeName().setText(recipeName);
         try {
           recipeImage = new RecipeImage();
           recipeImage.NewImage(recipeName);
-        } catch(Exception e1){}
+        } catch (Exception e1) {}
         recipe.setImageURL(recipeImage.getURL());
-        
 
         recipe.setMealTypeTag(mealType);
         mainMenu.getRecipeList().getChildren().add(recipe);
@@ -130,12 +138,14 @@ public class AccountScreenController {
       view.setRoot("passwordConfirmError");
       return;
     }
-    String response = createAccountModel.performRequest(
-      "POST",
-      username,
-      password,
-      null
-    );
+    String response = "";
+    if (MyServer.isServerRunning()) {
+      response =
+        createAccountModel.performRequest("POST", username, password, null);
+    } else {
+      view.setRoot("serverDown");
+      return;
+    }
 
     if (response.equals("Duplicate Username")) {
       // some error handling

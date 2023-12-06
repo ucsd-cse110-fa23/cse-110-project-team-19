@@ -1,23 +1,16 @@
 package client.controller;
 
 import client.View;
-import client.model.CreateAccountModel;
-import client.model.LoginModel;
-import client.model.Model;
 import client.view.AccountScreen.*;
 import client.view.MainMenu.MainMenu;
-import client.view.RecipeScreen.RecipeScreen;
-import com.sun.tools.javac.Main;
 import java.io.FileWriter;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TextField;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -47,7 +40,6 @@ public class MainMenuController {
   }
 
   private void handleLogOutButton(ActionEvent event) {
-
     accountScreen.getLogin().clearLogin();
     accountScreen.getCreateAccount().clearCreateAccount();
     mainMenu.clearRecipeList();
@@ -57,9 +49,8 @@ public class MainMenuController {
       fw.write("false");
       fw.close();
     } catch (Exception e) {}
-
-
   }
+
   private void handlesortButton(ActionEvent event) {
     Stage addStage = new Stage();
     addStage.setTitle("Sort");
@@ -88,7 +79,9 @@ public class MainMenuController {
     clearButton.setFocusTraversable(false);
 
     VBox buttonBox = new VBox(10);
-    buttonBox.getChildren().addAll(prompt,AZButton, ZAButton, newcButton, oldcButton, clearButton);
+    buttonBox
+      .getChildren()
+      .addAll(prompt, AZButton, ZAButton, newcButton, oldcButton, clearButton);
     grid.add(buttonBox, 8, 2);
 
     prompt.setAlignment(Pos.CENTER);
@@ -116,7 +109,6 @@ public class MainMenuController {
     clearButton.setOnAction(e1 -> {
       addStage.close();
     });
-    
   }
 
   private void handlefilterButton(ActionEvent event) {
@@ -145,7 +137,9 @@ public class MainMenuController {
     clearButton.setFocusTraversable(false);
 
     VBox buttonBox = new VBox(10);
-    buttonBox.getChildren().addAll(prompt,breakfastButton, lunchButton, dinnerButton, clearButton);
+    buttonBox
+      .getChildren()
+      .addAll(prompt, breakfastButton, lunchButton, dinnerButton, clearButton);
     grid.add(buttonBox, 5, 2);
 
     buttonBox.setAlignment(Pos.CENTER);
@@ -165,12 +159,7 @@ public class MainMenuController {
     });
 
     clearButton.setOnAction(e1 -> {
-
       addStage.close();
     });
-    
-
   }
-
-
 }
