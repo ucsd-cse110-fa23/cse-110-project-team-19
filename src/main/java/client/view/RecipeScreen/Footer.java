@@ -58,6 +58,10 @@ public class Footer extends HBox {
     return shareButton;
   }
 
+  public Button getShareButton() {
+    return shareButton;
+  }
+
   public Button getDeleteButton() {
     return deleteButton;
   }

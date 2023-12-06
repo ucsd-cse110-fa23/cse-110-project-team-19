@@ -1,9 +1,7 @@
 package client;
 
 import client.controller.RecipeScreenController;
-import client.controller.RecipeScreenController;
 import client.controller.ViewController;
-import client.model.Model;
 import client.model.Model;
 import client.view.AccountScreen.AccountScreen;
 import client.view.MainMenu.MainMenu;
@@ -20,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import server.MyServer;
 import server.MyServer;
 
 public class View {

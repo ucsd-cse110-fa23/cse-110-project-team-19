@@ -1,7 +1,5 @@
 package client.view.MainMenu;
 
-
-
 import client.View;
 import client.view.RecipeScreen.RecipeScreen;
 import javafx.event.ActionEvent;
@@ -49,18 +47,6 @@ public class MainMenu extends BorderPane {
 
   public Button getCreateButton() {
     return createButton;
-  }
-
-  public Button getLogOutButton() {
-    return logOutButton;
-  }
-
-  public Button getsortButton() {
-    return sortButton;
-  }
-
-  public Button getfilterButton() {
-    return filterButton;
   }
 
   public void setCreateButtonAction(EventHandler<ActionEvent> e) {
