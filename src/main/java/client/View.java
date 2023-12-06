@@ -10,9 +10,7 @@ import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
 import client.view.RecordScreen.RecordMealScreen;
-
 import client.view.ServerScreen.ServerStatus;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -40,13 +38,21 @@ public class View {
   String mealType;
   AccountScreen accountScreen = new AccountScreen("", "");
   AccountScreen createAccountError = new AccountScreen(
-    "Username already in use, please choose another username.", "");
+    "Username already in use, please choose another username.",
+    ""
+  );
   AccountScreen passwordComfirmError = new AccountScreen(
-    "Password confirmation failed, please try again.", "");
+    "Password confirmation failed, please try again.",
+    ""
+  );
   AccountScreen incorrectPassword = new AccountScreen(
-    "", "Incorrect password, please try again.");
+    "",
+    "Incorrect password, please try again."
+  );
   AccountScreen invalidUsername = new AccountScreen(
-    "", "Username does not exist for any account, please try again.");
+    "",
+    "Username does not exist for any account, please try again."
+  );
   String username;
 
   public View() {
@@ -61,7 +67,7 @@ public class View {
     scenes.put("recordMealError", this.recordMealScreenError);
 
     scenes.put("accountScreen", this.accountScreen);
-    
+
     scenes.put("createAccountError", this.createAccountError);
 
     scenes.put("passwordConfirmError", this.passwordComfirmError);
@@ -75,12 +81,11 @@ public class View {
     ViewController viewController = new ViewController(this);
 
     //if(Server){
-      //serve
-      //scene = new Scene(scenes.get("serverDown"), 500, 600);
+    //serve
+    //scene = new Scene(scenes.get("serverDown"), 500, 600);
     //}else{
-      scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
+    scene = new Scene(scenes.get(viewController.viewStart()), 500, 600);
     //}
-    
   }
 
   public BorderPane getRoot(String key) {
