@@ -36,7 +36,6 @@ public class MainMenuController {
   }
 
   private void handleLogOutButton(ActionEvent event) {
-
     accountScreen.getLogin().clearLogin();
     accountScreen.getCreateAccount().clearCreateAccount();
     mainMenu.clearRecipeList();
@@ -47,6 +46,6 @@ public class MainMenuController {
       fw.close();
     } catch (Exception e) {}
 
-
+    view.setRoot("accountScreen");
   }
 }
