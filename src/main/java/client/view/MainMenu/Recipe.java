@@ -74,6 +74,10 @@ public class Recipe extends HBox {
     return this.mealType;
   }
 
+  public Label getMealTypeTag(){
+    return this.mealTypeTag;
+  }
+
   public void setMealTypeTag(String mealType){
     this.mealTypeTag.setText(mealType);
   }
