@@ -1,5 +1,7 @@
 # Team 19
 
+https://github.com/ucsd-cse110-fa23/cse-110-project-team-19
+
 ## Getting Started
 Make sure you have Java, JavaFX, Gradle, and VSCode installed on your local machine.
 
