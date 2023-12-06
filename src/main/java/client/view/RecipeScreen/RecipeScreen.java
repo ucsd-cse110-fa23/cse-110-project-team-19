@@ -2,6 +2,7 @@ package client.view.RecipeScreen;
 
 import client.model.IRecipeDetails;
 import client.model.RecipeDetails;
+import client.model.RecipeImage;
 import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
 import java.io.IOException;
@@ -31,23 +32,29 @@ public class RecipeScreen extends BorderPane {
   private IRecipeDetails recipeDetails;
   public Button deleteButton;
   private DetailedRecipeView detailedRecipeView;
+  private RecipeImage recipeImage;
   public Button backButton;
   public Recipe recipe;
+  
 
   public Button editButton;
+  public Button regenButton;
   private Button saveButton;
+  public Button shareButton;
+  
 
   private ScrollPane scrollPane;
 
   public RecipeScreen(boolean newRecipe) {
     header = new Header();
     recipeDetails = new RecipeDetails();
+    recipeImage = new RecipeImage();
     detailedRecipeView = new DetailedRecipeView();
     footer = new Footer();
 
     scrollPane = new ScrollPane();
     scrollPane.setContent(detailedRecipeView);
-    scrollPane.setFitToHeight(true);
+    
     scrollPane.setFitToWidth(true);
 
     // Add header to the top of the BorderPane
@@ -61,8 +68,12 @@ public class RecipeScreen extends BorderPane {
     deleteButton = footer.getDeleteButton();
     backButton = header.getbackButton();
     editButton = footer.getEditButton();
+    regenButton = footer.getRegenButton();
+    shareButton = footer.getShareButton();
+
   }
 
+ 
   public Button getSaveButton() {
     return this.saveButton;
   }
@@ -75,6 +86,16 @@ public class RecipeScreen extends BorderPane {
     return this.detailedRecipeView;
   }
 
+  public RecipeImage getRecipeImage() {
+    return this.recipeImage;
+  }
+  
+  
+  public void setShareButtonAction(EventHandler<ActionEvent> eventHandler) {
+    this.shareButton.setOnAction(eventHandler);
+  }
+
+
   public void setSaveButtonAction(EventHandler<ActionEvent> eventHandler) {
     this.saveButton.setOnAction(eventHandler);
   }
@@ -83,12 +104,17 @@ public class RecipeScreen extends BorderPane {
     this.deleteButton.setOnAction(eventHandler);
   }
 
+
   public void setbackButtonAction(EventHandler<ActionEvent> eventHandler) {
     this.backButton.setOnAction(eventHandler);
   }
 
   public void setEditButtonAction(EventHandler<ActionEvent> eventHandler) {
     this.editButton.setOnAction(eventHandler);
+  }
+
+   public void setRegenButtonAction(EventHandler<ActionEvent> eventHandler) {
+    this.regenButton.setOnAction(eventHandler);
   }
 
   public void generateRecipe(String mealType, String ingredients)

@@ -58,4 +58,11 @@ public class CreateAccount extends VBox {
   public String getPasswordConfirmation() {
     return confirmPassword.getText();
   }
+  public void clearCreateAccount() {
+    username.clear();
+    password.clear();
+    confirmPassword.clear();
+    
+  }
+
 }

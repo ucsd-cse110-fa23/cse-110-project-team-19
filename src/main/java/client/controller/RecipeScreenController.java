@@ -1,9 +1,12 @@
 package client.controller;
 
 import client.View;
+import client.model.ATranscribe;
 import client.model.IRecipeDetails;
 import client.model.Model;
 import client.model.RecipeDetails;
+import client.model.RecipeImage;
+import client.model.Transcribe;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
@@ -13,10 +16,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class RecipeScreenController {
@@ -28,7 +36,11 @@ public class RecipeScreenController {
   private Recipe recipe;
   private Model model;
   private String recString;
+  private String recipeurl;
+  private RecipeImage recipeImage;
+
   TextArea prompt = new TextArea();
+  private ATranscribe transcriber = new Transcribe();
 
   public RecipeScreenController(
     View view,
@@ -43,22 +55,55 @@ public class RecipeScreenController {
     this.model = model;
     this.mainMenu = mainMenu;
     this.recipe = recipe;
+    this.recipeImage = recipeScreen.getRecipeImage();
+
     this.recipeScreen.setSaveButtonAction(this::handleSaveButton);
 
     this.recipeScreen.setDeleteButtonAction(this::handleDeleteButton);
 
     this.recipeScreen.setEditButtonAction(this::handleEditButton);
 
+    this.recipeScreen.setRegenButtonAction(this::handleRegenerateButton);
+
+    this.recipeScreen.setShareButtonAction(this::handleShareButton);
+
     this.recipeScreen.setbackButtonAction(this::handlebackButton);
+
+  }
+
+  public void handleRegenerateButton(ActionEvent event) {
+    String ingredients = "error";
+    try {
+      ingredients = transcriber.transcribe();
+
+      DetailedRecipeView detailedRecipeView =
+        ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
+
+      ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails()
+        .newRecipe(view.getMealType(), ingredients);
+
+      detailedRecipeView.setText(
+        ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe()
+      );
+    } catch (Exception exception) {}
+    Recipe recipe = new Recipe(view);
+    recipe.setRecipe(
+      ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe()
+    );
+    view.recipeScreen.setRecipe(recipe);
+    view.recipeScreen.getFooter().switchToCreating();
+    view.setRoot("recipe");
   }
 
   private void handleSaveButton(ActionEvent event) {
     recipe = new Recipe(view);
     recipe.setRecipe(recipeDetails.getRecipe());
+    recipeurl = recipeImage.getURL();
+    recipe.setImageURL(recipeurl);
     // doesn't correctly store recipe name
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
     mainMenu.getRecipeList().getChildren().add(recipe);
-    String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
+
     if (recString == null) {
       recString = recipeDetails.getRecipe();
     }
@@ -157,5 +202,44 @@ public class RecipeScreenController {
 
   private void handlebackButton(ActionEvent event) {
     view.setRoot("main");
+  }
+
+  private void handleShareButton(ActionEvent event) {
+    String name = view.recipeScreen.recipe.getRecipeName().getText();
+    name = name.replaceAll(" ", "_");
+    String link =
+      "localhost:8100/recipeName?=" + view.getUsername() + "~" + name;
+    Stage addStage = new Stage();
+    addStage.setTitle("Share Recipe");
+    GridPane grid = new GridPane();
+    grid.setHgap(10);
+    grid.setVgap(10);
+    addStage.setScene(new Scene(grid, 800, 150));
+    addStage.setResizable(false);
+    addStage.show();
+
+    Label prompt = new Label("Share your Recipe! \n" + link );
+
+    prompt.setStyle("-fx-border-width: 0; -fx-font-weight: bold; -fx-font-size: 15px");
+    prompt.setTextAlignment(TextAlignment.CENTER);
+    Button copyButton = new Button("Copy Link");
+    copyButton.setFocusTraversable(false);
+    grid.add(prompt, 0, 2);
+    HBox buttonBox = new HBox(10);
+    buttonBox.getChildren().addAll(copyButton);
+    grid.add(buttonBox, 3, 6);
+
+    buttonBox.setAlignment(Pos.CENTER);
+    copyButton.setOnAction(e1 -> {
+      // Copy to clipboard
+      Clipboard clipboard = Clipboard.getSystemClipboard();
+      ClipboardContent content = new ClipboardContent();
+      content.putString(link);
+      clipboard.setContent(content);
+      addStage.close();
+      view.setRoot("recipe");
+
+
+    });
   }
 }

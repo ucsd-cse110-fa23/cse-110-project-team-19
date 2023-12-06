@@ -18,6 +18,14 @@ repositories {
 }
 
 dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:31.1-jre'
+}
+
+dependencies {
     def junitVersion = '5.8.1'
     implementation 'org.mongodb:mongodb-driver-sync:4.11.0'
 

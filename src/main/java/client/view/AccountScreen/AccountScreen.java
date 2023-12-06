@@ -70,14 +70,17 @@ public class AccountScreen extends BorderPane {
   }
 
   public void switchToLogin() {
+    login.clearLogin();
     this.setCenter(login);
     this.setTop(loginHeader);
     footer.switchToLogin();
     createAccountButton.setOnAction(createSwitchAction);
     loginButton.setOnAction(loginAction);
+
   }
 
   public void switchToCreate() {
+    createAccount.clearCreateAccount();
     this.setCenter(createAccount);
     this.setTop(createHeader);
     footer.switchToCreate();
@@ -88,6 +91,8 @@ public class AccountScreen extends BorderPane {
   public Login getLogin() {
     return login;
   }
+
+  
 
   public CreateAccount getCreateAccount() {
     return createAccount;

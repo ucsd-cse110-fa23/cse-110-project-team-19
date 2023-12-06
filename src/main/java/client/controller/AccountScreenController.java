@@ -4,9 +4,11 @@ import client.View;
 import client.model.CreateAccountModel;
 import client.model.LoginModel;
 import client.model.Model;
+import client.model.RecipeImage;
 import client.view.AccountScreen.AccountScreen;
 import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
+import java.io.FileWriter;
 import javafx.event.ActionEvent;
 
 public class AccountScreenController {
@@ -18,6 +20,7 @@ public class AccountScreenController {
   private CreateAccountModel createAccountModel;
   private Model model;
   private LoginModel loginModel;
+  private RecipeImage recipeImage;
 
   public AccountScreenController(
     View view,
@@ -64,15 +67,25 @@ public class AccountScreenController {
       return;
     }
 
+    if (accountScreen.getLogin().automaticLogin()) {
+      try {
+        FileWriter fw = new FileWriter("automaticLogin.txt");
+        fw.write("true\n");
+        fw.write(username);
+        fw.close();
+      } catch (Exception e) {}
+    }
+
     view.setUsername(username);
 
     String query = username;
-    response = model.performRequest("GET", null, null, query);
+    response = model.performRequest("GET",null, null, query);
     if (response != null) {
       String[] recipes = response.split("~");
       for (String recipeContent : recipes) {
         recipe = new Recipe(view);
         recipe.setRecipe(recipeContent);
+
 
         //String recipeName = recipeContent.replaceAll("(?m)^[ \t]*\r?\n", "");
         String recipeName = recipeContent.substring(
@@ -81,6 +94,13 @@ public class AccountScreenController {
         );
 
         recipe.getRecipeName().setText(recipeName);
+        try {
+          recipeImage = new RecipeImage();
+          recipeImage.NewImage(recipeName);
+        } catch(Exception e1){}
+        recipe.setImageURL(recipeImage.getURL());
+        
+
         mainMenu.getRecipeList().getChildren().add(recipe);
         new RecipeScreenController(
           view,
@@ -119,6 +139,7 @@ public class AccountScreenController {
       return;
     }
     view.setUsername(username);
+
     view.setRoot("main");
   }
 
