@@ -35,13 +35,11 @@ public class RecipeScreen extends BorderPane {
   private RecipeImage recipeImage;
   public Button backButton;
   public Recipe recipe;
-  
 
   public Button editButton;
   public Button regenButton;
   private Button saveButton;
   public Button shareButton;
-  
 
   private ScrollPane scrollPane;
 
@@ -54,7 +52,7 @@ public class RecipeScreen extends BorderPane {
 
     scrollPane = new ScrollPane();
     scrollPane.setContent(detailedRecipeView);
-    
+
     scrollPane.setFitToWidth(true);
 
     // Add header to the top of the BorderPane
@@ -70,10 +68,8 @@ public class RecipeScreen extends BorderPane {
     editButton = footer.getEditButton();
     regenButton = footer.getRegenButton();
     shareButton = footer.getShareButton();
-
   }
 
- 
   public Button getSaveButton() {
     return this.saveButton;
   }
@@ -89,12 +85,10 @@ public class RecipeScreen extends BorderPane {
   public RecipeImage getRecipeImage() {
     return this.recipeImage;
   }
-  
-  
+
   public void setShareButtonAction(EventHandler<ActionEvent> eventHandler) {
     this.shareButton.setOnAction(eventHandler);
   }
-
 
   public void setSaveButtonAction(EventHandler<ActionEvent> eventHandler) {
     this.saveButton.setOnAction(eventHandler);
@@ -104,7 +98,6 @@ public class RecipeScreen extends BorderPane {
     this.deleteButton.setOnAction(eventHandler);
   }
 
-
   public void setbackButtonAction(EventHandler<ActionEvent> eventHandler) {
     this.backButton.setOnAction(eventHandler);
   }
@@ -113,7 +106,7 @@ public class RecipeScreen extends BorderPane {
     this.editButton.setOnAction(eventHandler);
   }
 
-   public void setRegenButtonAction(EventHandler<ActionEvent> eventHandler) {
+  public void setRegenButtonAction(EventHandler<ActionEvent> eventHandler) {
     this.regenButton.setOnAction(eventHandler);
   }
 
