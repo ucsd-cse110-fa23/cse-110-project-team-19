@@ -19,6 +19,8 @@ public class Recipe extends HBox {
   private Button recipeName;
   private String recipe;
   private String imageURL;
+  private Label mealTypeTag;
+  private String mealType;
 
   public Recipe(View view) {
     this.setPrefSize(500, 20); // sets size of task
@@ -30,7 +32,10 @@ public class Recipe extends HBox {
       "-fx-background-color: #DAE5EA; -fx-border-width: 0; -fx-font-weight: bold; -fx-underline: true;"
     ); // set background color of textfield
     recipeName.setPadding(new Insets(10, 0, 0, 0)); // adds some padding to the text field
-    this.getChildren().add(recipeName); // add textlabel to task
+    mealTypeTag = new Label();
+    mealType = view.getMealType();
+    mealTypeTag.setText(mealType);
+    this.getChildren().addAll(recipeName, mealTypeTag); // add textlabel to task
     //recipeName.setTextAlignment(TextAlignment.LEFT);
     this.setAlignment(Pos.BOTTOM_LEFT);
     recipeName.setOnAction(e -> {
@@ -63,5 +68,13 @@ public class Recipe extends HBox {
 
   public String getRecipe() {
     return this.recipe;
+  }
+
+  public String getMealType(){
+    return this.mealType;
+  }
+
+  public void setMealTypeTag(String mealType){
+    this.mealTypeTag.setText(mealType);
   }
 }

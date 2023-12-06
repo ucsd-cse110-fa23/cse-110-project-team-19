@@ -75,16 +75,19 @@ public class AccountScreenController {
     response = model.performRequest("GET",null, null, query);
     if (response != null) {
       String[] recipes = response.split("~");
+      //System.out.println(recipes);
       for (String recipeContent : recipes) {
+        System.out.println(recipeContent);
         recipe = new Recipe(view);
-        recipe.setRecipe(recipeContent);
-
+        recipe.setRecipe(recipeContent.substring(0, recipeContent.indexOf("|")));
 
         //String recipeName = recipeContent.replaceAll("(?m)^[ \t]*\r?\n", "");
         String recipeName = recipeContent.substring(
           0,
           recipeContent.indexOf('\n')
         );
+        String mealType = recipeContent.substring(
+          recipeContent.indexOf("|") + 1);
 
         recipe.getRecipeName().setText(recipeName);
         try {
@@ -94,6 +97,7 @@ public class AccountScreenController {
         recipe.setImageURL(recipeImage.getURL());
         
 
+        recipe.setMealTypeTag(mealType);
         mainMenu.getRecipeList().getChildren().add(recipe);
         new RecipeScreenController(
           view,

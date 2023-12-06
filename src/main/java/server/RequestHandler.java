@@ -67,7 +67,7 @@ public class RequestHandler implements HttpHandler {
 
       for (Document recipe : recipes) {
         System.out.println(recipe);
-        response += recipe.get("recipe") + "~";
+        response += recipe.get("recipe") + "|" + recipe.get("meal_type") + "~";
       }
     }
     System.out.println(response);
@@ -83,6 +83,7 @@ public class RequestHandler implements HttpHandler {
     while (scanner.hasNext()) {
       recipe += scanner.nextLine() + '\n';
     }
+    System.out.println(recipe);
 
     try (MongoClient mongoClient = MongoClients.create(mongoURI)) {
       MongoDatabase accountDB = mongoClient.getDatabase("account_db");
@@ -90,8 +91,9 @@ public class RequestHandler implements HttpHandler {
         "recipes"
       );
       Document account = new Document("account", username);
-      account.append("recipe", recipe);
-      account.append("title", recipe.substring(0, recipe.indexOf('\n')));
+      account.append("recipe", recipe.substring(0, recipe.indexOf("|")));
+      account.append("title", recipe.substring(0, recipe.indexOf("\n")));
+      account.append("meal_type", recipe.substring(recipe.indexOf("|") + 1, recipe.length() - 1));
       recipesCollection.insertOne(account);
     }
 
