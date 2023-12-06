@@ -24,7 +24,7 @@ public class ServerError extends HBox {
     this.setPrefSize(500, 20); // sets size of task
     this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
 
-    error = new Label("SERVER ERROR: " + prompt);
+    error = new Label("SERVER ERROR: Server is Down");
     error.setPrefSize(500, 400);
     error.setAlignment(Pos.CENTER);
     //text.setPadding(new Insets(5, 0, 0, 10));
