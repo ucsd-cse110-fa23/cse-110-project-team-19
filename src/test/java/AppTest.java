@@ -17,6 +17,7 @@ import client.view.RecordScreen.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -496,5 +497,53 @@ public class AppTest {
     // when no filter is set, get recipe and recipe2
     assertEquals(recipe2.getRecipe() + " " + recipe.getRecipe(), 
       mockRequestHandler.retreiveAllRecipesOfMealTypeTag());
+  }
+
+  /*
+   * STORY TEST - sort alphabetically
+   *
+   * 1 - recipes are sorted
+   * 
+   * This tests the option to sort recipe names alphabetically
+   * 
+   */
+  @Test
+  void testSortAlphabetically() {
+    // generate new recipe normally
+    String transcribedMealType = "";
+    String transcribedIngredients = "";
+
+    mockWhisper.recordingMealType = true;
+    try {
+      transcribedMealType = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    mockWhisper.recordingMealType = false;
+    try {
+      transcribedIngredients = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    try {
+      mockGPT.newRecipe(transcribedMealType, transcribedIngredients);
+    } catch (Exception e) {}
+
+    // creating and storing in database 2 recipes
+    MockRecipe recipe = new MockRecipe(transcribedMealType);
+    recipe.setRecipe("b" + mockGPT.getRecipe());
+    MockRecipe recipe2 = new MockRecipe(transcribedMealType);
+    recipe2.setRecipe("a" + mockGPT.getRecipe());
+
+    MockRequestHandler mockRequestHandler = new MockRequestHandler();
+    mockRequestHandler.handlePost(recipe.toString());
+    mockRequestHandler.handlePost(recipe2.toString());
+
+    List<String> recipes = new ArrayList();
+    recipes.add(recipe.getRecipe());
+    recipes.add(recipe2.getRecipe());
+    // 1 recipes are sorted
+    mockRequestHandler.sort("A->Z");
+    // coompare with expect sorted list of recipes
+    Collections.sort(recipes);
+    assertEquals(recipes, mockRequestHandler.retreiveAllRecipesOfMealTypeTag(recipe.getMealType()));
   }
 }

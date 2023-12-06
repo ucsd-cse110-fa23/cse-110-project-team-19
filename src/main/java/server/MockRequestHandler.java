@@ -1,6 +1,7 @@
 package server;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,5 +56,11 @@ public class MockRequestHandler extends RequestHandler{
         if(recipes == null)
             return null;
         return recipes.get(0);
+    }
+
+    public void sort(String style){
+        for(String key : mealTypeToRecipe.keySet()){
+            Collections.sort(mealTypeToRecipe.get(key));
+        }
     }
 }
