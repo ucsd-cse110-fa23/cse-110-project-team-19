@@ -86,6 +86,7 @@ public class View {
     } else {
       scene = new Scene(scenes.get("serverDown"), 500, 600);
     }
+  }
 
   public BorderPane getRoot(String key) {
     return scenes.get(key);
