@@ -76,7 +76,6 @@ public class MainMenuController {
       fw.write("false");
       fw.close();
     } catch (Exception e) {}
-    view.getRoot("accountScreen");
 
     view.setRoot("accountScreen");
   }

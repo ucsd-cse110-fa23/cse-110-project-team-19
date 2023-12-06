@@ -3,10 +3,10 @@ package server;
 import com.sun.net.httpserver.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
-import java.net.Socket;
 
 public class MyServer {
 
@@ -40,13 +40,11 @@ public class MyServer {
 
   public static boolean isServerRunning() {
     try (Socket socket = new Socket(SERVER_HOSTNAME, SERVER_PORT)) {
-        // If the connection is successful, the server is running
-        return true;
+      // If the connection is successful, the server is running
+      return true;
     } catch (IOException e) {
-        // If an exception occurs, the server is not running
-        return false;
+      // If an exception occurs, the server is not running
+      return false;
     }
+  }
 }
-
-}
-

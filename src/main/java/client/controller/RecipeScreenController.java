@@ -26,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import server.MyServer;
 
 public class RecipeScreenController {
 
@@ -113,12 +114,17 @@ public class RecipeScreenController {
     if (recString == null) {
       recString = recipeDetails.getRecipe(); // + "|" + recipe.getMealType() + "\n";
     }
-    model.performRequest(
-      "POST",
-      view.getUsername(),
-      recString + "|" + recipe.getMealType(),
-      null
-    );
+    if (MyServer.isServerRunning()) {
+      model.performRequest(
+        "POST",
+        view.getUsername(),
+        recString + "|" + recipe.getMealType(),
+        null
+      );
+    } else {
+      view.setRoot("serverDown");
+      return;
+    }
     view.setRoot("main");
   }
 
@@ -160,13 +166,12 @@ public class RecipeScreenController {
       String name = view.recipeScreen.recipe.getRecipeName().getText();
       name = name.replaceAll(" ", "_");
       String username = view.getUsername();
-      String mealType = view.getMealType();
-      model.performRequest(
-        "DELETE",
-        null,
-        null,
-        username + "~" + name + "~" + mealType
-      ); // added additional "~" + mealtype to the string to try to delete mealtype
+      if (MyServer.isServerRunning()) {
+        model.performRequest("DELETE", null, null, username + "~" + name);
+      } else {
+        view.setRoot("serverDown");
+        return;
+      }
     });
   }
 
@@ -210,7 +215,12 @@ public class RecipeScreenController {
       recipe.setRecipe(recString);
       view.recipeScreen.setRecipe(recipe);
 
-      model.performRequest("PUT", view.getUsername(), recString, null);
+      if (MyServer.isServerRunning()) {
+        model.performRequest("PUT", view.getUsername(), recString, null);
+      } else {
+        view.setRoot("serverDown");
+        return;
+      }
 
       view.setRoot("recipe");
       addStage.close();
