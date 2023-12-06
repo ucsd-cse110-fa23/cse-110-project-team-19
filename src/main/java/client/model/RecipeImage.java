@@ -20,9 +20,9 @@ public class RecipeImage {
   // TODO: Set the URL of the API Endpoint
   private static final String API_ENDPOINT =
     "https://api.openai.com/v1/images/generations";
-  private static final String API_KEY =
-    "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";
-  //private static final String API_KEY = "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";
+  //private static final String API_KEY =
+    //"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";
+  private static final String API_KEY = "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";
   private static final String MODEL = "dall-e-2";
 
   private String generatedImageURL;
