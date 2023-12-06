@@ -31,6 +31,7 @@ public class MainMenuController {
   private View view;
   private AccountScreen accountScreen;
   public RecipeList originalrecipeList;
+  public ArrayList<Recipe> recipes = new ArrayList<>();
 
   private String mealtype;
 
@@ -42,7 +43,6 @@ public class MainMenuController {
     this.mainMenu = mainMenu;
     this.view = view;
     this.accountScreen = accountScreen;
-    originalrecipeList = this.mainMenu.getRecipeList();
 
     this.mainMenu.setCreateButtonAction(this::handleCreateButton);
     this.mainMenu.setLogOutButtonAction(this::handleLogOutButton);
@@ -158,43 +158,24 @@ public class MainMenuController {
     grid.add(buttonBox, 5, 2);
 
     buttonBox.setAlignment(Pos.CENTER);
-    breakfastButton.setOnAction(e1 -> {
-      // hasn't assign anything yet
-      mainMenu.setRecipeList(originalrecipeList);
-        ArrayList<Recipe> recipes = new ArrayList<>();
-      
-      for (int i = 0; i < mainMenu.getRecipeList().getChildren().size(); i++) {
+
+    for (int i = 0; i < this.mainMenu.getRecipeList().getChildren().size(); i++) {
         if (mainMenu.getRecipeList().getChildren().get(i) instanceof Recipe) {
-            recipes.add(((Recipe) mainMenu.getRecipeList().getChildren().get(i)));
+            recipes.add(((Recipe) this.mainMenu.getRecipeList().getChildren().get(i)));
         }
       }
-
+    breakfastButton.setOnAction(e1 -> {
       mainMenu.clearRecipeList();
       for (int i = 0; i < recipes.size(); i++) {
-  
         mealtype = recipes.get(i).getMealTypeTag().getText();
         if(mealtype.equals("breakfast")){
           this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
         }
-
-        
       }
       addStage.close();
     });
 
     lunchButton.setOnAction(e1 -> {
-      // hasn't assign anything yet
-      mainMenu.setRecipeList(originalrecipeList);
-      ArrayList<Recipe> recipes = new ArrayList<>();
-      
-
-      for (int i = 0; i < mainMenu.getRecipeList().getChildren().size(); i++) {
-        if (mainMenu.getRecipeList().getChildren().get(i) instanceof Recipe) {
-        
-            recipes.add(((Recipe) mainMenu.getRecipeList().getChildren().get(i)));
-          
-        }
-      }
       mainMenu.clearRecipeList();
       for (int i = 0; i < recipes.size(); i++) {
         mealtype = recipes.get(i).getMealTypeTag().getText();
@@ -202,24 +183,12 @@ public class MainMenuController {
           this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
         }
       }
-
       addStage.close();
     });
 
     dinnerButton.setOnAction(e1 -> {
-      // hasn't assign anything yet
-      ArrayList<Recipe> recipes = new ArrayList<>();
-      mainMenu.setRecipeList(originalrecipeList);
-      for (int i = 0; i < mainMenu.getRecipeList().getChildren().size(); i++) {
-        if (mainMenu.getRecipeList().getChildren().get(i) instanceof Recipe) {
-
-            recipes.add(((Recipe) mainMenu.getRecipeList().getChildren().get(i)));
-        }
-      }
-
       
       mainMenu.clearRecipeList();
-
       for (int i = 0; i < recipes.size(); i++) {
         mealtype = recipes.get(i).getMealTypeTag().getText();
         if(mealtype.equals("dinner")){
@@ -228,10 +197,10 @@ public class MainMenuController {
       }
       addStage.close();
     });
-
     clearButton.setOnAction(e1 -> {
-      mainMenu.setRecipeList(originalrecipeList);
-      
+      for (int i = 0; i < recipes.size(); i++) {
+        this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
+      }
       addStage.close();
     });
     
