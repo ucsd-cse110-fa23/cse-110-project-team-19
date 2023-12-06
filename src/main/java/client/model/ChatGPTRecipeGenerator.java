@@ -17,7 +17,7 @@ class ChatGPTRecipeGenerator extends VBox {
   private static final String API_ENDPOINT =
     "https://api.openai.com/v1/completions";
   private static final String API_KEY =
-    "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";
+    "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";
   private static final String MODEL = "text-davinci-003";
 
   ChatGPTRecipeGenerator() {}

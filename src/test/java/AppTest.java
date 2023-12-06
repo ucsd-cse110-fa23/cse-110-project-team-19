@@ -16,7 +16,9 @@ import client.view.RecordScreen.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -25,6 +27,9 @@ import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import server.MockRequestHandler;
+import server.MyServer;
 import server.RequestHandler;
 
 public class AppTest {
@@ -170,22 +175,46 @@ public class AppTest {
     assertEquals("ChatGPT", mockGPT.getRecipeName());
   }
 
+  /*
+   * STORY TEST - account creation
+   *
+   * 1 - create screen to input user data
+   * 2 - take user data and put into database
+   * 3 - recognize user/database properly populated
+   * 
+   * This tests proper account creation and populating of the database
+   * 
+   */
   @Test
   void testAccountCreation(){
+    // 1 create screen to input user data
     MockAccountScreen mockAccountScreen = new MockAccountScreen();
     mockAccountScreen.inputUsername("username");
     mockAccountScreen.inputtedPassword("password");
 
+    // 2 take user data and put into database
     MockLoginModel mockLoginModel = new MockLoginModel();
     String response = mockLoginModel.performRequest(
       "PUT", mockAccountScreen.getUsername(), mockAccountScreen.getPasswword(), null);
     
+    // 3 recognize user/database properly populated
     assertEquals("put username: " + mockAccountScreen.getUsername() + 
       " and password: " + mockAccountScreen.getPasswword() + " into server", response);
   }
 
+  /*
+   * STORY TEST - automatic login
+   *
+   * 1 - recognize user
+   * 2 - logs in for them on recognition
+   * 3 - reacts appropriately to user not found
+   * 
+   * This tests the recognition of a previous user and
+   * creates a new account normally when not
+   * 
+   */
   @Test
-  void testAutomaticLogin(){
+  void testAutomaticLoginStory(){
     // create account intially
     MockAccountScreen mockAccountScreen = new MockAccountScreen();
     mockAccountScreen.inputUsername("username");
@@ -201,17 +230,35 @@ public class AppTest {
     // produce automaticLogin.txt when logging out
     String[] automaticLoginTxt = mockAccountScreen.automaticLoginTxt();
 
-    // automatic login
+    // 1 recognize previous user
     MockAccountScreen automaticLogin = new MockAccountScreen(automaticLoginTxt);
 
     String response = mockLoginModel.performRequest(
       "PUT", automaticLogin.getUsername(), automaticLogin.getPasswword(), null);
     
-    //response indicates record of previous login
+    // 2 response reflects logging in automatically
     assertEquals("username: " + mockAccountScreen.getUsername() + 
       " and password: " + mockAccountScreen.getPasswword() + " found in server. logging in", response);
+
+    // credentials that aren't present previously
+    String[] notValidLoginTxt = new String[]{"true", "not", "valid"};
+    MockAccountScreen automaticLogin2 = new MockAccountScreen(notValidLoginTxt);
+    response = mockLoginModel.performRequest(
+      "PUT", automaticLogin2.getUsername(), automaticLogin2.getPasswword(), null);
+    
+    // 3 reacts appropriate to not recognized credentials
+    assertEquals("put username: not and password: valid into server", response);
   }
 
+  /*
+   * STORY TEST - regenerate recipe
+   *
+   * 1 - reprompt ChatGPT
+   * 2 - recipe with same meal type and ingredients expected
+   * 
+   * This tests regenerating a recipe with previous data
+   * 
+   */
   @Test
   void testRegenerateRecipe() {
     // create new recipe normally
@@ -232,16 +279,222 @@ public class AppTest {
       mockGPT.newRecipe(transcribedMealType, transcribedIngredients);
     } catch (Exception e) {}
 
-    // comparing original recipe with regenerated recipe
+    // 1 reprompt ChatGPT
     MockRegenerateBehavior regenerator = new MockRegenerateBehavior();
-
     RecipeDetailsMock separateMockGPT = new RecipeDetailsMock();
     try {
       separateMockGPT.newRecipe(mockGPT.getMealType(), regenerator.regenerate(mockWhisper));
     } catch (IOException | InterruptedException | URISyntaxException e) {}
-
+    
+    // 2 recipe with same parameters generated
+    // comparing original recipe with regenerated recipe
     assertEquals(mockGPT.requestBody.toString(), separateMockGPT.requestBody.toString());
     assertEquals(mockGPT.getRecipe(), separateMockGPT.getRecipe());
     assertEquals(mockGPT.getRecipeName(), separateMockGPT.getRecipeName());
+  }
+
+  /*
+   * STORY TEST - meal type tags
+   *
+   * 1 - recipe's meal type is perserved during generation
+   * 2 - recipe is stored in database based on meal type
+   * 
+   * This tests repices perseving their meal type data as a tag
+   * that also facilites sorting within the database
+   * 
+   */
+  @Test
+  void testMealTypeTags() {
+    // generate new recipe normally
+    String transcribedMealType = "";
+    String transcribedIngredients = "";
+
+    mockWhisper.recordingMealType = true;
+    try {
+      transcribedMealType = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    mockWhisper.recordingMealType = false;
+    try {
+      transcribedIngredients = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    try {
+      mockGPT.newRecipe(transcribedMealType, transcribedIngredients);
+    } catch (Exception e) {}
+
+    // create 2 new recipe objects
+    // 1 using meal type from generation
+    MockRecipe recipe = new MockRecipe(transcribedMealType);
+    recipe.setRecipe(mockGPT.getRecipe());
+    MockRecipe recipe2 = new MockRecipe(transcribedMealType);
+    recipe2.setRecipe(mockGPT.getRecipe() + "2");
+
+    // 2 storing and retrieving recipes of meal type from database
+    MockRequestHandler mockRequestHandler = new MockRequestHandler();
+    mockRequestHandler.handlePost(recipe.toString());
+    mockRequestHandler.handlePost(recipe2.toString());
+
+    List<String> recipes = new ArrayList();
+    recipes.add(recipe.getRecipe());
+    recipes.add(recipe2.getRecipe());
+    assertEquals(recipes, mockRequestHandler.retreiveAllRecipesOfMealTypeTag(recipe.getMealType()));
+  }
+
+  /*
+   * STORY TEST - generate recipe with picture
+   *
+   * 1 - update recipe creation to include image generation
+   * 2 - assign generated image to recipe
+   * 
+   * This tests recipe generation with images
+   * 
+   */
+  @Test
+  void testGenerateRecipeWithPicture() {
+    // generate new recipe normally
+    String transcribedMealType = "";
+    String transcribedIngredients = "";
+
+    mockWhisper.recordingMealType = true;
+    try {
+      transcribedMealType = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    mockWhisper.recordingMealType = false;
+    try {
+      transcribedIngredients = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    try {
+      mockGPT.newRecipe(transcribedMealType, transcribedIngredients);
+    } catch (Exception e) {}
+
+    // 1 update recipe creation to include image generation
+    mockGPT.generateImage();
+
+    MockRecipe recipe = new MockRecipe(transcribedMealType);
+    recipe.setRecipe(mockGPT.getRecipe());
+    // 2 assign generated image to recipe
+    recipe.setImageURL(mockGPT.getImageURL());
+
+    assertEquals(mockGPT.getImageURL(), recipe.getImageURL());
+  }
+
+  /*
+   * UNIT TEST
+   *
+   * isServerRunning() should:  1) check if server is running
+   *                            2) return conclusion
+   */
+  @Test
+  void testServerDown(){
+    assertEquals(false, new MyServer().isServerRunning());
+  }
+
+  /*
+   * STORY TEST - share recipe
+   *
+   * 1 - recipe data is used to generate a key that is part of a sharable link
+   * 2 - using link, the database is accessed to retrieve the recipe
+   * 
+   * This tests sharing recipes by letting others access the same
+   * recipe data stored in the database via a link
+   * 
+   */
+  @Test
+  void testShareRecipe() {
+    // generate new recipe normally
+    String transcribedMealType = "";
+    String transcribedIngredients = "";
+
+    mockWhisper.recordingMealType = true;
+    try {
+      transcribedMealType = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    mockWhisper.recordingMealType = false;
+    try {
+      transcribedIngredients = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    try {
+      mockGPT.newRecipe(transcribedMealType, transcribedIngredients);
+    } catch (Exception e) {}
+
+    // putting recipe into database
+    MockRecipe recipe = new MockRecipe(transcribedMealType);
+    recipe.setRecipe(mockGPT.getRecipe());
+    MockRequestHandler mockRequestHandler = new MockRequestHandler();
+    mockRequestHandler.handlePost(recipe.toString());
+    recipe.setIndex(mockRequestHandler.getIndex(transcribedMealType));
+
+    // 1 convert recipe to sharable link
+    String sharableLink = recipe.toLink();
+
+    // 2 retrieve data with link
+    String recipeData = mockRequestHandler.handle(sharableLink);
+
+    assertEquals(recipe.getRecipe(), recipeData);
+  }
+
+  /*
+   * STORY TEST - filter by meal type
+   *
+   * 1 - filter to show only breakfasts
+   * 2 - filter to show only lunches
+   * 3 - filter to show only dinners
+   * 4 - clear filter to show all recipes
+   * 
+   * This tests the functionality of the filter to show only
+   * recipes corresponding to the appropriate meal type tag(s)
+   * 
+   */
+  @Test
+  void testFilterByMealType() {
+    // generate new recipe normally
+    String transcribedMealType = "";
+    String transcribedIngredients = "";
+
+    mockWhisper.recordingMealType = true;
+    try {
+      transcribedMealType = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    mockWhisper.recordingMealType = false;
+    try {
+      transcribedIngredients = mockWhisper.transcribe();
+    } catch (Exception e) {}
+
+    try {
+      mockGPT.newRecipe(transcribedMealType, transcribedIngredients);
+    } catch (Exception e) {}
+
+    // create a breakfast and a lunch recipe
+    MockRecipe recipe = new MockRecipe("breakfast");
+    recipe.setRecipe(mockGPT.getRecipe());
+    MockRecipe recipe2 = new MockRecipe("lunch");
+    recipe2.setRecipe(mockGPT.getRecipe() + "2");
+
+    // storing recipes
+    MockRequestHandler mockRequestHandler = new MockRequestHandler();
+    mockRequestHandler.handlePost(recipe.toString());
+    mockRequestHandler.handlePost(recipe2.toString());
+
+    // when filtered to breakfast, get recipe, the breakfast
+    assertEquals(recipe.getRecipe(), mockRequestHandler.toString(
+      mockRequestHandler.retreiveAllRecipesOfMealTypeTag("breakfast")));
+
+    // when filtered to lunch, get recipe2, the lunch
+    assertEquals(recipe2.getRecipe(), mockRequestHandler.toString(
+      mockRequestHandler.retreiveAllRecipesOfMealTypeTag("lunch")));
+
+    // when filtered to dinner, get nothing, since no dinner was put into the database
+    assertEquals(null, mockRequestHandler.toString(
+      mockRequestHandler.retreiveAllRecipesOfMealTypeTag("dinner")));
+
+    // when no filter is set, get recipe and recipe2
+    assertEquals(recipe2.getRecipe() + " " + recipe.getRecipe(), 
+      mockRequestHandler.retreiveAllRecipesOfMealTypeTag());
   }
 }

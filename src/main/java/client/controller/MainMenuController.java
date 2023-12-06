@@ -1,15 +1,36 @@
 package client.controller;
 
 import client.View;
+import client.model.CompareAlphabetical;
+import client.model.CompareChrono;
+import client.model.CreateAccountModel;
+import client.model.CreateAccountModel;
+import client.model.LoginModel;
+import client.model.LoginModel;
+import client.model.Model;
+import client.model.Model;
 import client.view.AccountScreen.*;
+import client.view.AccountScreen.*;
+import client.view.AccountScreen.*;
+import client.view.MainMenu.*;
 import client.view.MainMenu.MainMenu;
+import client.view.MainMenu.MainMenu;
+import client.view.MainMenu.Recipe;
+import client.view.MainMenu.RecipeList;
+import client.view.RecipeScreen.RecipeScreen;
+import com.sun.tools.javac.Main;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.Collections;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,6 +40,10 @@ public class MainMenuController {
   private MainMenu mainMenu;
   private View view;
   private AccountScreen accountScreen;
+  public RecipeList originalrecipeList;
+  public ArrayList<Recipe> recipes = new ArrayList<>();
+
+  private String mealtype;
 
   public MainMenuController(
     View view,
@@ -30,6 +55,8 @@ public class MainMenuController {
     this.accountScreen = accountScreen;
 
     this.mainMenu.setCreateButtonAction(this::handleCreateButton);
+    this.mainMenu.setsortButtonAction(this::handlesortButton);
+    this.mainMenu.setfilterButtonAction(this::handlefilterButton);
     this.mainMenu.setLogOutButtonAction(this::handleLogOutButton);
     this.mainMenu.setsortButtonAction(this::handlesortButton);
     this.mainMenu.setfilterButtonAction(this::handlefilterButton);
@@ -49,6 +76,8 @@ public class MainMenuController {
       fw.write("false");
       fw.close();
     } catch (Exception e) {}
+
+    view.setRoot("accountScreen");
   }
 
   private void handlesortButton(ActionEvent event) {
@@ -70,11 +99,11 @@ public class MainMenuController {
     Button AZButton = new Button("Alphabetical A-Z");
     AZButton.setFocusTraversable(false);
     Button ZAButton = new Button("Alphabetical Z-A");
-    AZButton.setFocusTraversable(false);
-    Button newcButton = new Button("Chronological new");
-    AZButton.setFocusTraversable(false);
-    Button oldcButton = new Button("Chronological old");
-    AZButton.setFocusTraversable(false);
+    ZAButton.setFocusTraversable(false);
+    Button newcButton = new Button("Newest to Oldest");
+    newcButton.setFocusTraversable(false);
+    Button oldcButton = new Button("Oldest to Newest");
+    oldcButton.setFocusTraversable(false);
     Button clearButton = new Button("Clear");
     clearButton.setFocusTraversable(false);
 
@@ -88,25 +117,34 @@ public class MainMenuController {
     buttonBox.setAlignment(Pos.CENTER);
     AZButton.setOnAction(e1 -> {
       // hasn't assign anything yet
+      sortContacts("A-Z");
+      mainMenu.getHeader().switchToAlphaAZ();
       addStage.close();
     });
 
     ZAButton.setOnAction(e1 -> {
       // hasn't assign anything yet
+      sortContacts("Z-A");
+      mainMenu.getHeader().switchToAlphaZA();
       addStage.close();
     });
 
     newcButton.setOnAction(e1 -> {
       // hasn't assign anything yet
+      sortContacts("new");
+      mainMenu.getHeader().switchToChronoNewOld();
       addStage.close();
     });
 
     oldcButton.setOnAction(e1 -> {
       // hasn't assign anything yet
+      sortContacts("old");
+      mainMenu.getHeader().switchToChronoOldNew();
       addStage.close();
     });
 
     clearButton.setOnAction(e1 -> {
+      mainMenu.getHeader().switchToClear();
       addStage.close();
     });
   }
@@ -143,23 +181,84 @@ public class MainMenuController {
     grid.add(buttonBox, 5, 2);
 
     buttonBox.setAlignment(Pos.CENTER);
+
+    for (
+      int i = 0;
+      i < this.mainMenu.getRecipeList().getChildren().size();
+      i++
+    ) {
+      if (mainMenu.getRecipeList().getChildren().get(i) instanceof Recipe) {
+        recipes.add(
+          ((Recipe) this.mainMenu.getRecipeList().getChildren().get(i))
+        );
+      }
+    }
     breakfastButton.setOnAction(e1 -> {
-      // hasn't assign anything yet
+      mainMenu.clearRecipeList();
+      for (int i = 0; i < recipes.size(); i++) {
+        mealtype = recipes.get(i).getMealTypeTag().getText();
+        if (mealtype.equals("breakfast")) {
+          this.mainMenu.getRecipeList()
+            .getChildren()
+            .add((Node) recipes.get(i));
+        }
+      }
       addStage.close();
     });
 
     lunchButton.setOnAction(e1 -> {
-      // hasn't assign anything yet
+      mainMenu.clearRecipeList();
+      for (int i = 0; i < recipes.size(); i++) {
+        mealtype = recipes.get(i).getMealTypeTag().getText();
+        if (mealtype.equals("lunch")) {
+          this.mainMenu.getRecipeList()
+            .getChildren()
+            .add((Node) recipes.get(i));
+        }
+      }
       addStage.close();
     });
 
     dinnerButton.setOnAction(e1 -> {
-      // hasn't assign anything yet
+      mainMenu.clearRecipeList();
+      for (int i = 0; i < recipes.size(); i++) {
+        mealtype = recipes.get(i).getMealTypeTag().getText();
+        if (mealtype.equals("dinner")) {
+          this.mainMenu.getRecipeList()
+            .getChildren()
+            .add((Node) recipes.get(i));
+        }
+      }
       addStage.close();
     });
-
     clearButton.setOnAction(e1 -> {
+      for (int i = 0; i < recipes.size(); i++) {
+        this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
+      }
       addStage.close();
     });
+  }
+
+  public void sortContacts(String str) {
+    ArrayList<Recipe> recipes = new ArrayList<>();
+    for (int i = 0; i < mainMenu.getRecipeList().getChildren().size(); i++) {
+      if (mainMenu.getRecipeList().getChildren().get(i) instanceof Recipe) {
+        recipes.add(((Recipe) mainMenu.getRecipeList().getChildren().get(i)));
+      }
+    }
+
+    if (str.equals("A-Z")) {
+      Collections.sort(recipes, new CompareAlphabetical());
+    } else if (str.equals("Z-A")) {
+      Collections.sort(recipes, (new CompareAlphabetical()).reversed());
+    } else if (str.equals("new")) {
+      Collections.sort(recipes, (new CompareChrono()).reversed());
+    } else if (str.equals("old")) {
+      Collections.sort(recipes, (new CompareChrono()));
+    }
+    mainMenu.getRecipeList().getChildren().clear();
+    for (int i = 0; i < recipes.size(); i++) {
+      this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
+    }
   }
 }

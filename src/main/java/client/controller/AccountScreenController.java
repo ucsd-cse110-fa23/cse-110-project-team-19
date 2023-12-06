@@ -95,6 +95,7 @@ public class AccountScreenController {
         recipe.setRecipe(
           recipeContent.substring(0, recipeContent.indexOf("|"))
         );
+        recipe.setTime();
 
         //String recipeName = recipeContent.replaceAll("(?m)^[ \t]*\r?\n", "");
         String recipeName = recipeContent.substring(

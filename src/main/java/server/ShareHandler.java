@@ -3,6 +3,7 @@ package server;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -10,7 +11,7 @@ import com.mongodb.client.MongoDatabase;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
+import javafx.scene.control.Button;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 

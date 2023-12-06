@@ -69,7 +69,13 @@ public class View {
 
     scenes.put("accountScreen", this.accountScreen);
 
+    scenes.put("serverDown", this.serverStatus);
+
     scenes.put("createAccountError", this.createAccountError);
+
+    scenes.put("passwordConfirmError", this.passwordComfirmError);
+
+    scenes.put("incorrectPassword", this.incorrectPassword);
 
     scenes.put("passwordConfirmError", this.passwordComfirmError);
 

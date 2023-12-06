@@ -100,12 +100,17 @@ public class RecipeScreenController {
   private void handleSaveButton(ActionEvent event) {
     recipe = new Recipe(view);
     recipe.setRecipe(recipeDetails.getRecipe());
+    recipe.setTime();
+    recipeurl = recipeImage.getURL();
+    recipe.setImageURL(recipeurl);
+    recipe.setTime();
     recipeurl = recipeImage.getURL();
     recipe.setImageURL(recipeurl);
     // doesn't correctly store recipe name
     recipe.getRecipeName().setText(recipeDetails.getRecipeName());
-    mainMenu.getRecipeList().getChildren().add(recipe);
-
+    mainMenu.getRecipeList().getChildren().add(0, recipe);
+    String name = recipeDetails.getRecipeName().replaceAll(" ", "_");
+    //recipeImage.NewImage(name);
     if (recString == null) {
       recString = recipeDetails.getRecipe(); // + "|" + recipe.getMealType() + "\n";
     }

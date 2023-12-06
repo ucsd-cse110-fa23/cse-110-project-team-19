@@ -40,6 +40,7 @@ public class ViewController {
           for (String recipeContent : recipes) {
             Recipe recipe = new Recipe(view);
             recipe.setRecipe(recipeContent);
+            recipe.setTime();
 
             String recipeName = recipeContent.substring(
               0,
@@ -47,7 +48,7 @@ public class ViewController {
             );
 
             recipe.getRecipeName().setText(recipeName);
-            view.mainMenu.getRecipeList().getChildren().add(recipe);
+            view.mainMenu.getRecipeList().getChildren().add(0, recipe);
             new RecipeScreenController(
               view,
               view.recipeScreen,

@@ -62,11 +62,9 @@ public class LoginHandler implements HttpHandler {
       Document account = accountsCollection.find(filter).first();
       if (accountsCollection.countDocuments(filter) < 1) {
         return "Not Valid Username";
-      }
-      else if (!(password.equals(account.getString("password")))) {
+      } else if (!(password.equals(account.getString("password")))) {
         return "Incorrect Password";
-      }
-      else if (password.equals(account.getString("password"))) {
+      } else if (password.equals(account.getString("password"))) {
         return "Correct Login";
       }
     }
