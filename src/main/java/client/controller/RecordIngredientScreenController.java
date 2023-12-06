@@ -2,14 +2,20 @@ package client.controller;
 
 import client.View;
 import client.model.ATranscribe;
-import client.model.Transcribe;
 import client.model.RecipeImage;
-import javafx.scene.image.*;
+import client.model.RecipeImage;
+import client.model.RecipeImage;
+import client.model.Transcribe;
 import client.view.MainMenu.Recipe;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
 import client.view.RecordScreen.RecordIngredientScreen;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 import javafx.event.ActionEvent;
+import javafx.scene.image.*;
+import javafx.scene.image.*;
+import javafx.scene.image.*;
 
 public class RecordIngredientScreenController {
 
@@ -18,7 +24,6 @@ public class RecordIngredientScreenController {
   private RecipeImage recipeImage;
   private ATranscribe transcriber = new Transcribe();
   private DetailedRecipeView detailedRecipeView;
-   
 
   public RecordIngredientScreenController(
     View view,
@@ -36,28 +41,35 @@ public class RecordIngredientScreenController {
     try {
       ingredients = transcriber.transcribe();
 
-    detailedRecipeView =
+      detailedRecipeView =
         ((RecipeScreen) view.getRoot("recipe")).getDetailedRecipeView();
 
       ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails()
         .newRecipe(view.getMealType(), ingredients);
 
-      detailedRecipeView.setText(((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe());
+      detailedRecipeView.setText(
+        ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe()
+      );
 
       recipeImage = ((RecipeScreen) view.getRoot("recipe")).getRecipeImage();
-      recipeImage.NewImage(((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipeName());
+      recipeImage.NewImage(
+        ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails()
+          .getRecipeName()
+      );
 
       detailedRecipeView.SI(recipeImage.getURL());
-
-      
     } catch (Exception exception) {}
     Recipe recipe = new Recipe(view);
-    recipe.setRecipe(((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe());
-    recipe.setImageURL(((RecipeScreen) view.getRoot("recipe")).getRecipeImage().getURL());
-    
+    recipe.setRecipe(
+      ((RecipeScreen) view.getRoot("recipe")).getRecipeDetails().getRecipe()
+    );
+    recipe.setImageURL(
+      ((RecipeScreen) view.getRoot("recipe")).getRecipeImage().getURL()
+    );
+
+    recipe.setTime();
     view.recipeScreen.setRecipe(recipe);
     view.recipeScreen.getFooter().switchToCreating();
     view.setRoot("recipe");
   }
-
 }

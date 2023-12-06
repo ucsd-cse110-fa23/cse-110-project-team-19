@@ -4,20 +4,20 @@ import client.View;
 import client.model.RecipeImage;
 import client.view.RecipeScreen.DetailedRecipeView;
 import client.view.RecipeScreen.RecipeScreen;
+import java.time.LocalTime;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-//import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.scene.text.TextAlignment;
 
 public class Recipe extends HBox {
 
   private Button recipeName;
   private String recipe;
+  private LocalTime time;
   private String imageURL;
   private Label mealTypeTag;
   private String mealType;
@@ -70,11 +70,23 @@ public class Recipe extends HBox {
     return this.recipe;
   }
 
-  public String getMealType(){
+  public void setTime() {
+    this.time = LocalTime.now();
+  }
+
+  public LocalTime getTime() {
+    return this.time;
+  }
+
+  public String getMealType() {
     return this.mealType;
   }
 
-  public void setMealTypeTag(String mealType){
+  public Label getMealTypeTag() {
+    return this.mealTypeTag;
+  }
+
+  public void setMealTypeTag(String mealType) {
     this.mealTypeTag.setText(mealType);
   }
 }

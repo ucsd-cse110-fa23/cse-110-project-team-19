@@ -93,7 +93,10 @@ public class RequestHandler implements HttpHandler {
       Document account = new Document("account", username);
       account.append("recipe", recipe.substring(0, recipe.indexOf("|")));
       account.append("title", recipe.substring(0, recipe.indexOf("\n")));
-      account.append("meal_type", recipe.substring(recipe.indexOf("|") + 1, recipe.length() - 1));
+      account.append(
+        "meal_type",
+        recipe.substring(recipe.indexOf("|") + 1, recipe.length() - 1)
+      );
       recipesCollection.insertOne(account);
     }
 

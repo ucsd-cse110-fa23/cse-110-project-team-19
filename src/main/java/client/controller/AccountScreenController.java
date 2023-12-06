@@ -10,6 +10,8 @@ import client.view.MainMenu.MainMenu;
 import client.view.MainMenu.Recipe;
 import java.io.FileWriter;
 import javafx.event.ActionEvent;
+import javafx.scene.Scene;
+import server.MyServer;
 
 public class AccountScreenController {
 
@@ -78,7 +80,12 @@ public class AccountScreenController {
     view.setUsername(username);
 
     String query = username;
-    response = model.performRequest("GET", null, null, query);
+    if (MyServer.isServerRunning()) {
+      response = model.performRequest("GET", null, null, query);
+    } else {
+      view.setRoot("serverDown");
+      return;
+    }
     if (response != null) {
       String[] recipes = response.split("~");
       //System.out.println(recipes);
@@ -88,6 +95,7 @@ public class AccountScreenController {
         recipe.setRecipe(
           recipeContent.substring(0, recipeContent.indexOf("|"))
         );
+        recipe.setTime();
 
         //String recipeName = recipeContent.replaceAll("(?m)^[ \t]*\r?\n", "");
         String recipeName = recipeContent.substring(
@@ -131,12 +139,14 @@ public class AccountScreenController {
       view.setRoot("passwordConfirmError");
       return;
     }
-    String response = createAccountModel.performRequest(
-      "POST",
-      username,
-      password,
-      null
-    );
+    String response = "";
+    if (MyServer.isServerRunning()) {
+      response =
+        createAccountModel.performRequest("POST", username, password, null);
+    } else {
+      view.setRoot("serverDown");
+      return;
+    }
 
     if (response.equals("Duplicate Username")) {
       // some error handling
