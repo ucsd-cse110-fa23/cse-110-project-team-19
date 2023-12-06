@@ -55,8 +55,15 @@ public class AccountScreenController {
       username + "," + password
     );
 
-    if (response.equals("Incorrect Password")) {
+    if (response.equals("Not Valid Username")){
+      view.setRoot("invalidUsername");
+      view.setInvalidUsernameScreen();
+      return;
+    }
+    else if (response.equals("Incorrect Password")) {
       // error handling
+      view.setRoot("incorrectPassword");
+      view.setIncorrectPasswordScreen();
       return;
     }
 
@@ -120,6 +127,7 @@ public class AccountScreenController {
 
     if (!password.equals(confirmPassword)) {
       // some error handling
+      view.setRoot("passwordConfirmError");
       return;
     }
     String response = createAccountModel.performRequest(
@@ -131,6 +139,7 @@ public class AccountScreenController {
 
     if (response.equals("Duplicate Username")) {
       // some error handling
+      view.setRoot("createAccountError");
       return;
     }
     view.setUsername(username);

@@ -39,7 +39,15 @@ public class View {
     "Please repeat Meal Type: \n (Say Breakfast, Lunch, or Dinner)"
   );
   String mealType;
-  AccountScreen accountScreen = new AccountScreen();
+  AccountScreen accountScreen = new AccountScreen("", "");
+  AccountScreen createAccountError = new AccountScreen(
+    "Username already in use, please choose another username.", "");
+  AccountScreen passwordComfirmError = new AccountScreen(
+    "Password confirmation failed, please try again.", "");
+  AccountScreen incorrectPassword = new AccountScreen(
+    "", "Incorrect password, please try again.");
+  AccountScreen invalidUsername = new AccountScreen(
+    "", "Username does not exist for any account, please try again.");
   String username;
 
   public View() {
@@ -54,6 +62,14 @@ public class View {
     scenes.put("recordMealError", this.recordMealScreenError);
 
     scenes.put("accountScreen", this.accountScreen);
+    
+    scenes.put("createAccountError", this.createAccountError);
+
+    scenes.put("passwordConfirmError", this.passwordComfirmError);
+
+    scenes.put("incorrectPassword", this.incorrectPassword);
+
+    scenes.put("invalidUsername", this.invalidUsername);
 
     scenes.put("serverDown", this.serverStatus);
 
@@ -96,5 +112,13 @@ public class View {
 
   public String getUsername() {
     return this.username;
+  }
+
+  public void setInvalidUsernameScreen() {
+    this.invalidUsername.switchToLogin();
+  }
+
+  public void setIncorrectPasswordScreen() {
+    this.incorrectPassword.switchToLogin();
   }
 }
