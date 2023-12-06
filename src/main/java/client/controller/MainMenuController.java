@@ -70,6 +70,7 @@ public class MainMenuController {
     accountScreen.getLogin().clearLogin();
     accountScreen.getCreateAccount().clearCreateAccount();
     mainMenu.clearRecipeList();
+    mainMenu.getHeader().switchToClear();
 
     try {
       FileWriter fw = new FileWriter("automaticLogin.txt");
@@ -232,6 +233,7 @@ public class MainMenuController {
       addStage.close();
     });
     clearButton.setOnAction(e1 -> {
+      this.mainMenu.clearRecipeList();
       for (int i = 0; i < recipes.size(); i++) {
         this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
       }

@@ -2,6 +2,7 @@ package client.controller;
 
 import client.View;
 import client.model.Model;
+import client.model.RecipeImage;
 import client.view.MainMenu.Recipe;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -39,15 +40,28 @@ public class ViewController {
           String[] recipes = response.split("~");
           for (String recipeContent : recipes) {
             Recipe recipe = new Recipe(view);
-            recipe.setRecipe(recipeContent);
+            recipe.setRecipe(
+              recipeContent.substring(0, recipeContent.indexOf("|"))
+            );
             recipe.setTime();
 
+            //String recipeName = recipeContent.replaceAll("(?m)^[ \t]*\r?\n", "");
             String recipeName = recipeContent.substring(
               0,
               recipeContent.indexOf('\n')
             );
+            String mealType = recipeContent.substring(
+              recipeContent.indexOf("|") + 1
+            );
 
             recipe.getRecipeName().setText(recipeName);
+            RecipeImage recipeImage = new RecipeImage();
+            try {
+              recipeImage.NewImage(recipeName);
+            } catch (Exception e1) {}
+            recipe.setImageURL(recipeImage.getURL());
+
+            recipe.setMealTypeTag(mealType);
             view.mainMenu.getRecipeList().getChildren().add(0, recipe);
             new RecipeScreenController(
               view,

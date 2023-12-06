@@ -90,7 +90,6 @@ public class AccountScreenController {
       String[] recipes = response.split("~");
       //System.out.println(recipes);
       for (String recipeContent : recipes) {
-        System.out.println(recipeContent);
         recipe = new Recipe(view);
         recipe.setRecipe(
           recipeContent.substring(0, recipeContent.indexOf("|"))
@@ -114,7 +113,7 @@ public class AccountScreenController {
         recipe.setImageURL(recipeImage.getURL());
 
         recipe.setMealTypeTag(mealType);
-        mainMenu.getRecipeList().getChildren().add(recipe);
+        mainMenu.getRecipeList().getChildren().add(0, recipe);
         new RecipeScreenController(
           view,
           view.recipeScreen,

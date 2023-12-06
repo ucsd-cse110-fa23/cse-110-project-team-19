@@ -125,6 +125,7 @@ public class RecipeScreenController {
       view.setRoot("serverDown");
       return;
     }
+    mainMenu.getHeader().switchToClear();
     view.setRoot("main");
   }
 
