@@ -9,7 +9,6 @@ public class Login extends VBox {
 
   private TextField username;
   private TextField password;
-  private Label errorPrompt;
   private CheckBox automaticLogin;
   private Label errorPrompt;
 
