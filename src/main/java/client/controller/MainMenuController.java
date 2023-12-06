@@ -204,6 +204,7 @@ public class MainMenuController {
             .add((Node) recipes.get(i));
         }
       }
+      mainMenu.getHeader().switchToBreakfast();
       addStage.close();
     });
 
@@ -217,6 +218,7 @@ public class MainMenuController {
             .add((Node) recipes.get(i));
         }
       }
+      mainMenu.getHeader().switchToLunch();
       addStage.close();
     });
 
@@ -230,6 +232,7 @@ public class MainMenuController {
             .add((Node) recipes.get(i));
         }
       }
+      mainMenu.getHeader().switchToDinner();
       addStage.close();
     });
     clearButton.setOnAction(e1 -> {
@@ -237,6 +240,7 @@ public class MainMenuController {
       for (int i = 0; i < recipes.size(); i++) {
         this.mainMenu.getRecipeList().getChildren().add((Node) recipes.get(i));
       }
+      mainMenu.getHeader().switchToClear();
       addStage.close();
     });
   }
